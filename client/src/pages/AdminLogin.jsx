@@ -187,7 +187,7 @@ export const AdminLogin = () => {
                   value={password}
                   onChange={(e) => handlePasswordChange(e.target.value)}
                   onBlur={() => handleBlur('password')}
-                  placeholder="••••••••••"
+
                   className={`w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-900 border text-white text-xs focus:outline-none transition ${touched.password && fieldErrors.password
                     ? 'border-rose-500 focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30'
                     : 'border-slate-700 focus:border-cyan-500'
