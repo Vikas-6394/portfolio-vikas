@@ -21,8 +21,8 @@ export const AdminLogin = () => {
     // Pre-warm backend immediately when admin login page loads
     try {
       const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
-      fetch(`${baseUrl}/health`, { cache: 'no-cache' }).catch(() => {});
-    } catch {}
+      fetch(`${baseUrl}/health`, { cache: 'no-cache' }).catch(() => { });
+    } catch { }
 
     if (isAuthenticated) {
       navigate('/admin/dashboard', { replace: true });
@@ -159,12 +159,11 @@ export const AdminLogin = () => {
                   value={email}
                   onChange={(e) => handleEmailChange(e.target.value)}
                   onBlur={() => handleBlur('email')}
-                  placeholder="admin@vikasmaurya.dev"
-                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900 border text-white text-xs focus:outline-none transition ${
-                    touched.email && fieldErrors.email
-                      ? 'border-rose-500 focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30'
-                      : 'border-slate-700 focus:border-cyan-500'
-                  }`}
+
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900 border text-white text-xs focus:outline-none transition ${touched.email && fieldErrors.email
+                    ? 'border-rose-500 focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30'
+                    : 'border-slate-700 focus:border-cyan-500'
+                    }`}
                 />
               </div>
             </div>
@@ -188,12 +187,11 @@ export const AdminLogin = () => {
                   value={password}
                   onChange={(e) => handlePasswordChange(e.target.value)}
                   onBlur={() => handleBlur('password')}
-                  placeholder="••••••••••••"
-                  className={`w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-900 border text-white text-xs focus:outline-none transition ${
-                    touched.password && fieldErrors.password
-                      ? 'border-rose-500 focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30'
-                      : 'border-slate-700 focus:border-cyan-500'
-                  }`}
+                  placeholder="••••••••••"
+                  className={`w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-900 border text-white text-xs focus:outline-none transition ${touched.password && fieldErrors.password
+                    ? 'border-rose-500 focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30'
+                    : 'border-slate-700 focus:border-cyan-500'
+                    }`}
                 />
                 <button
                   type="button"
