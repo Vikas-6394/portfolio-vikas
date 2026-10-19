@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    
+    <!-- Primary Meta Tags -->
+    <title>Mr. Vikas Maurya | Web Developer & MERN Stack Specialist</title>
+    <meta name="title" content="Mr. Vikas Maurya | Web Developer & MERN Stack Specialist" />
+    <meta name="description" content="I build modern, responsive, and user-friendly websites for businesses, creators and individuals. Explore portfolio projects, preview website templates, or hire me for your next project." />
+    <meta name="keywords" content="Mr. Vikas Maurya, Vikas Maurya, Web Developer, MERN Stack Developer, Website Designer, Freelance Developer India, React Developer, Tailwind CSS" />
+    <meta name="author" content="Mr. Vikas Maurya" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vikasmaurya.dev/" />
+    <meta property="og:title" content="Mr. Vikas Maurya | Web Developer & MERN Stack Specialist" />
+    <meta property="og:description" content="I build modern, responsive, and user-friendly websites for businesses, creators and individuals." />
+    <meta property="og:image" content="/og-image.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Mr. Vikas Maurya | Web Developer" />
+    <meta property="twitter:description" content="I build modern, responsive, and user-friendly websites for businesses, creators and individuals." />
+
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Anti-FOUC Theme Script -->
+    <script>
+      (function() {
+        try {
+          const theme = localStorage.getItem('vm_theme') || 'dark';
+          if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 dark:bg-[#070b14] dark:text-slate-100 transition-colors duration-300 font-sans antialiased selection:bg-cyan-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
