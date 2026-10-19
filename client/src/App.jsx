@@ -45,6 +45,14 @@ function AppContent() {
   const isAdminRoute = location.pathname.startsWith('/admin');
   const isPreviewRoute = location.pathname.startsWith('/templates/preview');
 
+  // Pre-warm backend API silently in background so cold starts are eliminated
+  useEffect(() => {
+    try {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+      fetch(`${baseUrl}/health`, { cache: 'no-cache' }).catch(() => {});
+    } catch {}
+  }, []);
+
   // Modal State
   const [isHireModalOpen, setIsHireModalOpen] = useState(false);
   const [modalService, setModalService] = useState('');

@@ -10,9 +10,9 @@ export const api = axios.create({
   },
 });
 
-// Attach Authorization header if token exists in localStorage
+// Attach Authorization header if token exists in sessionStorage (cleared on browser/tab close)
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('vm_admin_token');
+  const token = sessionStorage.getItem('vm_admin_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -25,6 +25,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       if (window.location.pathname.startsWith('/admin') && window.location.pathname !== '/admin/login') {
+        sessionStorage.removeItem('vm_admin_token');
         localStorage.removeItem('vm_admin_token');
         window.location.href = '/admin/login';
       }

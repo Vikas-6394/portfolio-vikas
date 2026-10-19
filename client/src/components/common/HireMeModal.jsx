@@ -207,21 +207,23 @@ export const HireMeModal = ({ isOpen, onClose, initialService = '', initialTempl
           </div>
 
           {status.type === 'success' ? (
-            <div className="p-6 rounded-2xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-500/30 text-center my-4 space-y-4">
-              <CheckCircle2 className="w-12 h-12 text-cyan-600 dark:text-cyan-400 mx-auto" />
-              <div>
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Enquiry Sent Successfully!</h4>
-                <p className="text-slate-600 dark:text-slate-300 text-sm">{status.message}</p>
-              </div>
-              <div className="bg-white dark:bg-slate-900/80 px-4 py-2.5 rounded-xl inline-block border border-cyan-500/20">
-                <span className="text-xs text-slate-500 dark:text-slate-400 block">Enquiry Reference:</span>
-                <span className="text-base font-mono font-bold text-cyan-600 dark:text-cyan-400">{status.ref}</span>
+            <div className="p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/30 text-center my-4 space-y-5 animate-in fade-in zoom-in-95 duration-200">
+              <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500 mx-auto shadow-md shadow-emerald-500/10">
+                <CheckCircle2 className="w-9 h-9" />
               </div>
               <div>
+                <h4 className="text-xl font-extrabold text-slate-900 dark:text-white mb-1.5">
+                  Proposal Request Sent!
+                </h4>
+                <p className="text-slate-600 dark:text-slate-300 text-sm max-w-sm mx-auto">
+                  Thank you! Mr. Vikas Maurya has received your requirements and will review your proposal details shortly.
+                </p>
+              </div>
+              <div className="pt-2 flex items-center justify-center gap-3">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:opacity-95 shadow-md shadow-cyan-500/20 transition"
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold hover:opacity-95 shadow-md shadow-emerald-500/20 transition text-sm"
                 >
                   Done
                 </button>

@@ -18,6 +18,12 @@ export const AdminLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Pre-warm backend immediately when admin login page loads
+    try {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+      fetch(`${baseUrl}/health`, { cache: 'no-cache' }).catch(() => {});
+    } catch {}
+
     if (isAuthenticated) {
       navigate('/admin/dashboard', { replace: true });
     }

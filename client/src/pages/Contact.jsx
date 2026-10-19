@@ -312,28 +312,50 @@ export const Contact = () => {
           <div className="lg:col-span-2">
             <div className="p-8 sm:p-10 rounded-3xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-2xl">
               {result.type === 'success' ? (
-                <div className="py-12 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mx-auto">
-                    <CheckCircle2 className="w-8 h-8" />
+                <div className="py-12 text-center space-y-5 animate-in fade-in zoom-in-95 duration-300">
+                  <div className="w-20 h-20 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500 mx-auto shadow-lg shadow-emerald-500/10">
+                    <CheckCircle2 className="w-10 h-10" />
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Enquiry Received!</h3>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm max-w-md mx-auto">{result.message}</p>
-                  <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-900/90 border border-cyan-500/30 inline-block font-mono text-cyan-600 dark:text-cyan-400 text-sm">
-                    Reference Code: <strong>{result.ref}</strong>
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white">
+                      Enquiry Sent Successfully!
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-300 text-sm max-w-md mx-auto">
+                      Thank you for reaching out! Mr. Vikas Maurya has received your request and will get back to you shortly.
+                    </p>
                   </div>
-                  <p className="text-xs text-slate-500">
-                    A confirmation has been recorded and an email notification has been dispatched.
-                  </p>
-                  <div className="pt-4">
+                  <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
                     <button
                       type="button"
-                      onClick={() =>
-                        setResult({ type: '', message: '', ref: '' })
-                      }
+                      onClick={() => {
+                        setResult({ type: '', message: '', ref: '' });
+                        setFormData({
+                          fullName: '',
+                          email: '',
+                          phone: '',
+                          serviceRequired: prefillService,
+                          budgetRange: '$150 - $500',
+                          expectedCompletionDate: 'Within 2-3 weeks',
+                          projectDescription: '',
+                          selectedTemplate: prefillTemplate,
+                          privacyConsent: true,
+                        });
+                        setTouched({});
+                        setErrors({});
+                      }}
                       className="px-6 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-white text-xs font-semibold transition"
                     >
                       Send Another Message
                     </button>
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-semibold hover:opacity-95 shadow-md shadow-emerald-500/20 transition"
+                    >
+                      <MessageCircle className="w-4 h-4 fill-current" />
+                      Chat on WhatsApp
+                    </a>
                   </div>
                 </div>
               ) : (

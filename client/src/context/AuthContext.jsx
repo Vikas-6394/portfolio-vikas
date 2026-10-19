@@ -5,12 +5,19 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(() => localStorage.getItem('vm_admin_token') || null);
+  const [token, setToken] = useState(() => sessionStorage.getItem('vm_admin_token') || null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Purge any legacy persistent token so session strictly adheres to current browser tab/window
+    try {
+      localStorage.removeItem('vm_admin_token');
+    } catch {
+      // Ignore if unavailable
+    }
+
     const verifyUser = async () => {
-      const storedToken = localStorage.getItem('vm_admin_token');
+      const storedToken = sessionStorage.getItem('vm_admin_token');
       if (storedToken) {
         try {
           const res = await portfolioAPI.getMe();
@@ -18,12 +25,12 @@ export const AuthProvider = ({ children }) => {
             setUser(res.data.user);
           } else {
             setUser(null);
-            localStorage.removeItem('vm_admin_token');
+            sessionStorage.removeItem('vm_admin_token');
           }
         } catch (err) {
           console.warn('Session verification error:', err.response?.data?.message || err.message);
           setUser(null);
-          localStorage.removeItem('vm_admin_token');
+          sessionStorage.removeItem('vm_admin_token');
         }
       }
       setLoading(false);
@@ -37,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     if (res.data.success) {
       setUser(res.data.user);
       setToken(res.data.token);
-      localStorage.setItem('vm_admin_token', res.data.token);
+      sessionStorage.setItem('vm_admin_token', res.data.token);
       return { success: true };
     }
     return { success: false, message: res.data.message };
@@ -51,7 +58,10 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setUser(null);
       setToken(null);
-      localStorage.removeItem('vm_admin_token');
+      sessionStorage.removeItem('vm_admin_token');
+      try {
+        localStorage.removeItem('vm_admin_token');
+      } catch {}
     }
   };
 

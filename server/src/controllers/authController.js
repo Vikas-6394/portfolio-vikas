@@ -81,10 +81,10 @@ export const login = async (req, res, next) => {
 
     user.lastLogin = new Date();
     user.failedLoginAttempts = 0;
-    await user.save({ validateBeforeSave: false });
 
-    // Safe Audit Log
-    await AuditLog.create({
+    // Fire lastLogin save and Audit Log in background without delaying user response
+    user.save({ validateBeforeSave: false }).catch(() => {});
+    AuditLog.create({
       adminEmail: user.email,
       action: 'LOGIN',
       resource: 'Auth',
