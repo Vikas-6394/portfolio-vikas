@@ -4,12 +4,21 @@ import fs from 'fs';
 import dns from 'dns';
 import { ENV } from './env.js';
 
-// Configure reliable DNS servers to resolve MongoDB Atlas SRV records
-try {
-  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
-} catch {
-  // Ignore if custom dns servers cannot be configured
+// Configure reliable DNS servers on Windows to resolve MongoDB Atlas SRV records
+if (process.platform === 'win32') {
+  try {
+    dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+  } catch {
+    // Ignore if custom dns servers cannot be configured
+  }
 }
+
+export const dbConnectionDetails = {
+  attemptedHost: '',
+  atlasError: null,
+  activeHost: '',
+  isAtlas: false,
+};
 
 let memoryServerInstance = null;
 
@@ -58,9 +67,12 @@ export const connectDB = async () => {
       conn = await mongoose.connect(uri, {
         serverSelectionTimeoutMS: 8000,
       });
+      dbConnectionDetails.activeHost = conn.connection.host;
+      dbConnectionDetails.isAtlas = (conn.connection.host || '').includes('mongodb.net');
       console.log(`🚀 MongoDB Connected Successfully: ${conn.connection.host} / ${conn.connection.name}`);
       return conn;
     } catch (connectErr) {
+      dbConnectionDetails.atlasError = connectErr.message;
       if (ENV.MONGODB_URI) {
         console.warn(`⚠️ Remote MongoDB Atlas connection failed (${connectErr.message}).`);
         console.warn('⚡ Activating local persistent MongoDB storage so your site continues to work without disruption...');

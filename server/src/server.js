@@ -9,7 +9,7 @@ import path from 'path';
 import fs from 'fs';
 
 import { ENV } from './config/env.js';
-import { connectDB } from './config/db.js';
+import { connectDB, dbConnectionDetails } from './config/db.js';
 import { initMailer } from './config/mailer.js';
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 import { apiRateLimiter } from './middleware/rateLimiter.js';
@@ -121,6 +121,7 @@ app.get('/api/health', (req, res) => {
       isAtlas: (mongoose.connection.host || '').includes('mongodb.net'),
       hasMongoUriEnv: Boolean(ENV.MONGODB_URI),
       uriPreview: ENV.MONGODB_URI ? ENV.MONGODB_URI.replace(/:([^@]+)@/, ':****@') : 'EMPTY',
+      atlasError: dbConnectionDetails.atlasError,
     },
   });
 });
