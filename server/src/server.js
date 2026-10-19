@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -112,6 +113,15 @@ app.get('/api/health', (req, res) => {
     uptime: process.uptime(),
     environment: ENV.NODE_ENV,
     developer: 'Mr. Vikas Maurya',
+    database: {
+      connected: mongoose.connection.readyState === 1,
+      readyState: mongoose.connection.readyState,
+      host: mongoose.connection.host || 'none',
+      name: mongoose.connection.name || 'none',
+      isAtlas: (mongoose.connection.host || '').includes('mongodb.net'),
+      hasMongoUriEnv: Boolean(ENV.MONGODB_URI),
+      uriPreview: ENV.MONGODB_URI ? ENV.MONGODB_URI.replace(/:([^@]+)@/, ':****@') : 'EMPTY',
+    },
   });
 });
 
