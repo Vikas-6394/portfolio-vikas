@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: vikas-portfolio-backend
+    runtime: node
+    plan: free
+    region: singapore
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        value: mongodb+srv://vikasmaurya195771_db_user:VikasMaurya%402026@portfoliodb.x0ddeac.mongodb.net/portfolio?retryWrites=true&w=majority
+      - key: JWT_SECRET
+        value: super_secret_jwt_key_vikas_maurya_portfolio_2026_dev_mode
+      - key: COOKIE_SECRET
+        value: super_secret_cookie_parser_secret_vikas_2026
+      - key: CLIENT_URL
+        value: http://localhost:5173
