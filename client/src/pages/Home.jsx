@@ -17,11 +17,12 @@ export const Home = ({ onOpenHireModal, onSelectService, onRequestTemplate }) =>
   return (
     <>
       <Helmet>
-        <title>{profile?.fullName || 'Mr. Vikas Maurya'} | Web Developer & MERN Stack Specialist</title>
+        <title>{profile?.fullName || 'Mr. Vikas Maurya'} | Official Portfolio & Web Developer</title>
         <meta
           name="description"
-          content="I build modern, responsive, and user-friendly websites for businesses, creators and individuals. Explore portfolio projects, website templates, and get in touch."
+          content="Official Portfolio of Mr. Vikas Maurya. Explore full stack web development projects, creative website templates, client testimonials, and hire me for custom web development."
         />
+        <link rel="canonical" href="https://portfolio-mr-vikas.vercel.app/" />
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

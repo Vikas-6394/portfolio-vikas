@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vikasmaurya.dev/</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://portfolio-mr-vikas.vercel.app/</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://vikasmaurya.dev/about</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://portfolio-mr-vikas.vercel.app/about</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vikasmaurya.dev/skills</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://portfolio-mr-vikas.vercel.app/skills</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vikasmaurya.dev/services</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://portfolio-mr-vikas.vercel.app/services</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vikasmaurya.dev/projects</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://portfolio-mr-vikas.vercel.app/projects</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vikasmaurya.dev/templates</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://portfolio-mr-vikas.vercel.app/templates</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vikasmaurya.dev/testimonials</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://portfolio-mr-vikas.vercel.app/testimonials</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://vikasmaurya.dev/contact</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://portfolio-mr-vikas.vercel.app/contact</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vikasmaurya.dev/privacy-policy</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://portfolio-mr-vikas.vercel.app/privacy-policy</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://vikasmaurya.dev/terms</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://portfolio-mr-vikas.vercel.app/terms</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
