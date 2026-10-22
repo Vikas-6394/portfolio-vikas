@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Layout, Search, Eye, Sparkles, Check, ArrowRight } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
 import { ContactCtaSection } from '../components/home/ContactCtaSection';
+import { getSafeImageUrl } from '../utils/imageHelper';
 
 export const Templates = ({ onRequestTemplate, onOpenHireModal }) => {
   const { templates } = usePortfolio();
@@ -105,7 +106,10 @@ export const Templates = ({ onRequestTemplate, onOpenHireModal }) => {
               >
                 <div className="relative aspect-video overflow-hidden bg-slate-900">
                   <img
-                    src={template.thumbnail || 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80'}
+                    src={getSafeImageUrl(
+                      template.thumbnail,
+                      'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80'
+                    )}
                     alt={template.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                   />

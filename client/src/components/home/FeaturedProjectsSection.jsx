@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Layers, ExternalLink, ArrowRight } from 'lucide-react';
 import { GithubIcon } from '../common/SocialIcons';
 import { usePortfolio } from '../../context/PortfolioContext';
+import { getSafeImageUrl } from '../../utils/imageHelper';
 
 export const FeaturedProjectsSection = () => {
   const { projects } = usePortfolio();
@@ -47,7 +48,7 @@ export const FeaturedProjectsSection = () => {
             {/* Project Image */}
             <div className="relative aspect-video overflow-hidden bg-slate-900">
               <img
-                src={project.coverImage || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80'}
+                src={getSafeImageUrl(project.coverImage)}
                 alt={project.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />

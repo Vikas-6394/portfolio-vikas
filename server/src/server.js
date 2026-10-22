@@ -32,6 +32,7 @@ import { runSeed } from './scripts/seed.js';
 import { defaultProfileData } from './utils/seedData.js';
 
 const app = express();
+app.set('trust proxy', 1);
 
 // 1. Security Headers via Helmet
 app.use(
@@ -103,7 +104,15 @@ const uploadsDir = path.resolve('uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
-app.use('/uploads', express.static(uploadsDir));
+app.use(
+  '/uploads',
+  (req, res, next) => {
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  },
+  express.static(uploadsDir)
+);
 
 // 6. Health Check
 app.get('/api/health', (req, res) => {

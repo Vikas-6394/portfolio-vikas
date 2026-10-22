@@ -5,6 +5,7 @@ import { Layers, Search, ExternalLink, ArrowRight } from 'lucide-react';
 import { GithubIcon } from '../components/common/SocialIcons';
 import { usePortfolio } from '../context/PortfolioContext';
 import { ContactCtaSection } from '../components/home/ContactCtaSection';
+import { getSafeImageUrl } from '../utils/imageHelper';
 
 export const Projects = ({ onOpenHireModal }) => {
   const { projects } = usePortfolio();
@@ -102,7 +103,7 @@ export const Projects = ({ onOpenHireModal }) => {
               >
                 <div className="relative aspect-video overflow-hidden bg-slate-900">
                   <img
-                    src={project.coverImage || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80'}
+                    src={getSafeImageUrl(project.coverImage)}
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                   />

@@ -5,6 +5,7 @@ import { ArrowLeft, ExternalLink, CheckCircle, Sparkles, Loader2 } from 'lucide-
 import { GithubIcon } from '../components/common/SocialIcons';
 import { usePortfolio } from '../context/PortfolioContext';
 import { portfolioAPI } from '../services/api';
+import { getSafeImageUrl } from '../utils/imageHelper';
 
 export const ProjectDetail = ({ onOpenHireModal }) => {
   const { slug } = useParams();
@@ -103,9 +104,10 @@ export const ProjectDetail = ({ onOpenHireModal }) => {
     ? project.features.split(/[\n,]/).map((s) => s.trim()).filter(Boolean)
     : [];
 
-  const coverImage =
-    project.coverImage ||
-    'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80';
+  const coverImage = getSafeImageUrl(
+    project.coverImage,
+    'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80'
+  );
 
   return (
     <>
