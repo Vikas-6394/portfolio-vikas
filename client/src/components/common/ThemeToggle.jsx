@@ -9,18 +9,18 @@ export const ThemeToggle = ({ className = '' }) => {
     <button
       onClick={toggleTheme}
       type="button"
-      className={`relative p-2.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#ea580c]/40 ${
+      className={`relative p-2.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0df2a3]/40 ${
         theme === 'dark'
-          ? 'bg-[#162f23] text-amber-400 hover:bg-[#1c3a2c] hover:text-amber-300 border border-emerald-500/20 shadow-inner'
-          : 'bg-[#efe9da] text-[#152a1f] hover:bg-[#e5dec9] hover:text-[#ea580c] border border-[#e5dec9] shadow-sm'
+          ? 'bg-[#0c0d12] text-[#0df2a3] hover:text-[#00ff88] border border-white/10 hover:border-[#0df2a3]/40 shadow-inner'
+          : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-emerald-700 border border-slate-200 shadow-sm'
       } ${className}`}
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >
       {theme === 'dark' ? (
-        <Sun className="w-5 h-5 transition-transform duration-300 rotate-0 hover:rotate-45" />
+        <Sun className="w-4 h-4 transition-transform duration-300 rotate-0 hover:rotate-45" />
       ) : (
-        <Moon className="w-5 h-5 transition-transform duration-300 rotate-0 hover:-rotate-12" />
+        <Moon className="w-4 h-4 transition-transform duration-300 rotate-0 hover:-rotate-12" />
       )}
     </button>
   );

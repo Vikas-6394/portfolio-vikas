@@ -52,20 +52,22 @@ export const SkillsSection = () => {
   });
 
   return (
-    <section className="py-16 border-t border-slate-200 dark:border-white/[0.06]">
+    <section className="py-12 border-t border-slate-200 dark:border-white/[0.08]">
       <div className="flex items-center gap-2 mb-3">
-        <span className="p-1 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400">
+        <span className="p-1.5 rounded-lg bg-[#0df2a3]/10 text-emerald-600 dark:text-[#0df2a3] border border-[#0df2a3]/20">
           <Code className="w-4 h-4" />
         </span>
-        <span className="text-xs font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400">Technical Arsenal</span>
+        <span className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-600 dark:text-[#0df2a3]">
+          Technical Arsenal
+        </span>
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-display">
             Skills & <span className="text-gradient">Technologies</span>
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1 max-w-xl">
+          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1 max-w-xl font-sans">
             Technologies and frameworks I genuinely use to build production-grade web solutions.
           </p>
         </div>
@@ -76,10 +78,10 @@ export const SkillsSection = () => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition ${
+              className={`px-3 py-1.5 rounded-full text-xs font-mono transition ${
                 selectedCategory === cat
-                  ? 'bg-purple-500 text-white font-semibold shadow-md shadow-purple-500/25'
-                  : 'bg-slate-100 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/[0.06]'
+                  ? 'bg-[#0df2a3] text-black font-bold shadow-md shadow-[#0df2a3]/25'
+                  : 'bg-slate-100 dark:bg-[#0c0d12] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/[0.08]'
               }`}
             >
               {cat}
@@ -95,10 +97,10 @@ export const SkillsSection = () => {
           return (
             <div
               key={skill._id || skill.name}
-              className="p-5 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] hover:border-purple-500/40 hover:bg-slate-50 dark:hover:bg-[#11192e] shadow-sm dark:shadow-none transition duration-300 group flex flex-col justify-between"
+              className="p-5 rounded-2xl bg-white dark:bg-[#0c0d12] border border-slate-200 dark:border-white/[0.08] hover:border-[#0df2a3]/40 hover:bg-slate-50 dark:hover:bg-[#10121a] shadow-sm dark:shadow-none transition duration-300 group flex flex-col justify-between"
             >
               <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-110 transition">
+                <div className="w-10 h-10 rounded-xl bg-[#0df2a3]/10 border border-[#0df2a3]/20 flex items-center justify-center text-emerald-600 dark:text-[#0df2a3] group-hover:scale-110 transition">
                   <IconComponent className="w-5 h-5" />
                 </div>
                 <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-mono">
@@ -107,15 +109,15 @@ export const SkillsSection = () => {
               </div>
 
               <div>
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-300 transition mb-1">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-[#0df2a3] transition mb-1 font-display">
                   {skill.name}
                 </h3>
-                <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-3">{skill.category}</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 block mb-3 font-mono">{skill.category}</span>
 
                 {/* Progress Bar */}
-                <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-slate-900 overflow-hidden border border-slate-300/40 dark:border-white/5">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 transition-all duration-500"
+                    className="h-full rounded-full bg-gradient-to-r from-[#0df2a3] to-cyan-400 transition-all duration-500 shadow-[0_0_8px_#0df2a3]"
                     style={{ width: `${skill.proficiencyPercentage}%` }}
                   ></div>
                 </div>

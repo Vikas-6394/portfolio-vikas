@@ -26,25 +26,25 @@ export const Navbar = ({ onOpenHireModal }) => {
   const closeMenu = () => setMobileMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/90 dark:bg-[#070b14]/80 border-b border-slate-200/80 dark:border-white/[0.08] transition-colors">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/90 dark:bg-[#050507]/90 border-b border-slate-200/80 dark:border-white/[0.08] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#ea580c] via-[#f05a28] to-[#f59e0b] flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-[#ea580c]/25 group-hover:scale-105 transition duration-300">
+          <div className="w-10 h-10 rounded-xl bg-[#0df2a3] text-black flex items-center justify-center font-black text-lg shadow-lg shadow-[#0df2a3]/25 group-hover:scale-105 transition duration-300 font-mono">
             VM
           </div>
           <div className="flex flex-col">
-            <span className="font-serif font-bold text-lg tracking-tight text-[#152a1f] dark:text-[#f7f4ed] group-hover:text-[#ea580c] dark:group-hover:text-[#ea580c] transition">
+            <span className="font-display font-bold text-lg tracking-tight text-slate-900 dark:text-white group-hover:text-[#0df2a3] dark:group-hover:text-[#0df2a3] transition">
               {profile?.fullName || 'Mr. Vikas Maurya'}
             </span>
-            <span className="text-[10px] text-[#596f60] dark:text-[#a1b5a8] tracking-wider uppercase font-semibold">
+            <span className="text-[10px] text-slate-500 dark:text-slate-400 tracking-wider uppercase font-mono font-semibold">
               MERN Stack Developer
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1.5 p-1.5 rounded-full bg-slate-100/90 dark:bg-slate-900/60 border border-slate-200/80 dark:border-white/[0.08]">
+        <nav className="hidden lg:flex items-center gap-1.5 p-1.5 rounded-full bg-slate-100/90 dark:bg-[#0c0d12] border border-slate-200/80 dark:border-white/[0.08]">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
             return (
@@ -53,8 +53,8 @@ export const Navbar = ({ onOpenHireModal }) => {
                 to={link.path}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
                   isActive
-                    ? 'bg-[#ea580c] text-white font-semibold shadow-md shadow-[#ea580c]/30'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.06]'
+                    ? 'bg-[#0df2a3] text-black font-bold shadow-md shadow-[#0df2a3]/30 font-mono'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-300 dark:hover:text-[#0df2a3] dark:hover:bg-white/[0.06]'
                 }`}
               >
                 {link.label}
@@ -70,7 +70,7 @@ export const Navbar = ({ onOpenHireModal }) => {
           {isAuthenticated && (
             <Link
               to="/admin/dashboard"
-              className="p-2 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 hover:text-white hover:bg-purple-500/30 transition text-xs flex items-center gap-1"
+              className="p-2 rounded-full bg-[#0df2a3]/10 border border-[#0df2a3]/30 text-[#0df2a3] hover:text-white hover:bg-[#0df2a3]/20 transition text-xs flex items-center gap-1"
               title="Admin Dashboard"
             >
               <Shield className="w-4 h-4" />
@@ -80,7 +80,7 @@ export const Navbar = ({ onOpenHireModal }) => {
           <button
             onClick={onOpenHireModal}
             type="button"
-            className="px-4 py-2 rounded-full bg-gradient-to-r from-[#ea580c] via-[#f05a28] to-[#f59e0b] text-white text-xs font-bold tracking-wide shadow-lg shadow-[#ea580c]/25 hover:shadow-[#ea580c]/40 hover:opacity-95 transition hover:scale-105 flex items-center gap-1.5"
+            className="btn-cyber-pill px-4 py-2 rounded-full text-xs flex items-center gap-1.5 font-bold"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Hire Me</span>
@@ -103,19 +103,19 @@ export const Navbar = ({ onOpenHireModal }) => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white/95 dark:bg-[#0a0f1d]/95 backdrop-blur-2xl border-b border-slate-200 dark:border-white/[0.08] px-4 pt-4 pb-6 animate-in slide-in-from-top-4 duration-200">
+        <div className="lg:hidden bg-white/95 dark:bg-[#0c0d12]/95 backdrop-blur-2xl border-b border-slate-200 dark:border-white/[0.08] px-4 pt-4 pb-6 animate-in slide-in-from-top-4 duration-200">
           {/* Profile header inside mobile drawer */}
           <div className="flex items-center gap-3 pb-4 mb-3 border-b border-slate-200/80 dark:border-white/[0.06]">
             <img
               src={profile?.avatarUrl || '/vikas-maurya.png'}
               alt={profile?.fullName || 'Mr. Vikas Maurya'}
-              className="w-11 h-11 rounded-full object-cover border border-cyan-500/30"
+              className="w-11 h-11 rounded-full object-cover border border-[#0df2a3]/40"
             />
             <div className="flex-1 min-w-0">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white truncate">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white truncate font-display">
                 {profile?.fullName || 'Mr. Vikas Maurya'}
               </h3>
-              <p className="text-[11px] text-cyan-600 dark:text-cyan-400 font-medium">
+              <p className="text-[11px] text-emerald-600 dark:text-[#0df2a3] font-mono font-medium">
                 {profile?.availabilityStatus || 'Available for Freelance'}
               </p>
             </div>
@@ -134,7 +134,7 @@ export const Navbar = ({ onOpenHireModal }) => {
                 href={profile?.socialLinks?.linkedin || 'https://linkedin.com'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-cyan-500"
+                className="p-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-[#0df2a3]"
                 aria-label="LinkedIn Profile"
               >
                 <LinkedinIcon className="w-3.5 h-3.5" />
@@ -159,7 +159,7 @@ export const Navbar = ({ onOpenHireModal }) => {
                   onClick={closeMenu}
                   className={`px-4 py-2.5 rounded-xl text-sm font-medium transition ${
                     isActive
-                      ? 'bg-cyan-500/10 text-cyan-600 dark:bg-cyan-500/20 dark:text-cyan-400 border border-cyan-500/30 font-semibold'
+                      ? 'bg-[#0df2a3]/10 text-emerald-600 dark:text-[#0df2a3] border border-[#0df2a3]/30 font-semibold font-mono'
                       : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/[0.05]'
                   }`}
                 >
@@ -174,7 +174,7 @@ export const Navbar = ({ onOpenHireModal }) => {
                   closeMenu();
                   onOpenHireModal();
                 }}
-                className="py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-500/20"
+                className="py-2.5 rounded-xl btn-cyber-pill text-xs flex items-center justify-center gap-1.5 font-bold"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Hire Me</span>
@@ -182,7 +182,7 @@ export const Navbar = ({ onOpenHireModal }) => {
               <Link
                 to="/contact"
                 onClick={closeMenu}
-                className="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-semibold text-xs flex items-center justify-center"
+                className="py-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.05] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 font-semibold text-xs flex items-center justify-center"
               >
                 Contact
               </Link>

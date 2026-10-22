@@ -10,40 +10,41 @@ export const ContactCtaSection = ({ onOpenHireModal }) => {
   )}`;
 
   return (
-    <section className="dark-banner my-16 relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#0e1e16] via-[#152d21] to-[#25150e] border border-[#ea580c]/30 p-8 sm:p-12 text-center shadow-2xl">
-      <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#ea580c]/20 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <section className="dark-banner my-16 relative overflow-hidden rounded-[2.5rem] bg-[#0c0d12] border border-white/[0.08] p-8 sm:p-14 text-center shadow-2xl">
+      {/* Ambient Cyber Neon Glows */}
+      <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 bg-[#0df2a3]/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div className="relative z-10 max-w-2xl mx-auto space-y-4">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#ea580c]/20 text-[#fed7aa] border border-[#ea580c]/30">
+      <div className="relative z-10 max-w-2xl mx-auto space-y-5">
+        <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-[#0df2a3]/10 text-[#0df2a3] border border-[#0df2a3]/30">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Available for New Projects</span>
         </span>
 
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal !text-white tracking-tight">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold !text-white tracking-tight font-display leading-[1.15]">
           Have a project in mind? <br />
-          <span className="text-gradient italic font-serif">Let's build something great.</span>
+          <span className="text-gradient">Let's build something great.</span>
         </h2>
 
-        <p className="!text-[#d6e2da] text-sm sm:text-base leading-relaxed">
-          Whether you need a personal portfolio, business website, coaching portal, or custom MERN stack development, I'm ready to turn your concept into reality.
+        <p className="!text-slate-300 text-sm sm:text-base leading-relaxed font-sans max-w-xl mx-auto">
+          Whether you need a personal portfolio, business website, coaching portal, or custom MERN stack SaaS, I'm ready to turn your concept into reality with cutting-edge performance.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
           <Link
             to="/contact"
             onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' })}
-            className="px-6 py-3.5 rounded-full bg-gradient-to-r from-[#ea580c] via-[#f05a28] to-[#f59e0b] !text-white font-bold text-sm tracking-wide shadow-xl shadow-[#ea580c]/30 hover:shadow-[#ea580c]/50 hover:scale-105 transition flex items-center gap-2"
+            className="btn-cyber-pill px-7 py-3.5 rounded-full text-sm font-bold tracking-wide flex items-center gap-2 group"
           >
             <span>Start a Project</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
 
           <Link
             to="/contact"
-            className="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 !text-white font-semibold text-sm border border-white/20 hover:border-white/40 backdrop-blur-sm transition flex items-center gap-2 shadow-sm"
+            className="px-6 py-3.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] !text-white font-mono font-semibold text-xs border border-white/10 hover:border-white/20 backdrop-blur-sm transition flex items-center gap-2 shadow-sm"
           >
-            <Mail className="w-4 h-4 text-[#fed7aa]" />
+            <Mail className="w-4 h-4 text-[#0df2a3]" />
             <span className="!text-white">Send Enquiry</span>
           </Link>
 
@@ -51,10 +52,10 @@ export const ContactCtaSection = ({ onOpenHireModal }) => {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 !text-white border border-emerald-400 font-semibold text-sm transition flex items-center gap-2 shadow-md hover:scale-105"
+            className="px-6 py-3.5 rounded-full bg-emerald-600/90 hover:bg-emerald-500 !text-white border border-emerald-400/40 font-mono font-semibold text-xs transition flex items-center gap-2 shadow-md hover:scale-105"
           >
             <MessageCircle className="w-4 h-4 fill-current" />
-            <span className="!text-white">Chat on WhatsApp</span>
+            <span className="!text-white">WhatsApp Chat</span>
           </a>
         </div>
       </div>

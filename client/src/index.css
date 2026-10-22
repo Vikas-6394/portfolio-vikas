@@ -5,8 +5,9 @@
 @layer base {
   :root {
     color-scheme: light dark;
-    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-heading: 'Syne', 'Space Grotesk', system-ui, sans-serif;
     --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'Space Grotesk', monospace;
   }
   
   html {
@@ -18,123 +19,156 @@
     font-family: var(--font-sans);
   }
 
-  /* Editorial typography for headings */
-  h1, h2, h3, .font-display, .font-serif {
+  /* Cyber & Futuristic Display Typography for Headings */
+  h1, h2, h3, .font-display, .font-syne {
     font-family: var(--font-heading);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
   }
 }
 
 /* ==========================================================================
-   GLASSMORPHISM & SURFACE ELEVATIONS
+   CYBERPUNK GLASSMORPHISM & SURFACE ELEVATIONS (MATCHING USER REFERENCE)
    ========================================================================== */
 
-/* Dark Mode Panels & Cards (Forest Pine + Crisp Translucent Edges) */
+/* Dark Mode Panels & Cards (Obsidian Black + Micro Etched Glow) */
 .glass-panel {
-  background: rgba(21, 45, 33, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(12, 13, 18, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-card {
-  background: #152d21;
+  background: #0c0d12;
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(234, 88, 12, 0.5);
-  box-shadow: 0 14px 35px -10px rgba(234, 88, 12, 0.22);
+  border-color: rgba(13, 242, 163, 0.45);
+  box-shadow: 0 14px 35px -10px rgba(13, 242, 163, 0.22);
   transform: translateY(-3px);
 }
 
-/* Light Mode Panels & Cards (Warm Ivory Cream + Sand Borders) */
+/* Light Mode Panels & Cards (Clean Platinum Minimalist) */
 .light .glass-panel {
-  background: rgba(247, 244, 236, 0.92);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid #e5dec9;
+  border: 1px solid #e2e8f0;
 }
 
 .light .glass-card {
   background: #ffffff;
-  border: 1px solid #e5dec9;
-  box-shadow: 0 6px 20px -2px rgba(21, 42, 31, 0.05);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .light .glass-card:hover {
-  border-color: #ea580c;
-  box-shadow: 0 14px 28px -5px rgba(234, 88, 12, 0.16);
+  border-color: #10b981;
+  box-shadow: 0 14px 28px -5px rgba(16, 185, 129, 0.16);
   transform: translateY(-3px);
 }
 
 /* ==========================================================================
-   WARM EDITORIAL GRADIENTS & GLOWS
+   CYBER NEON MINT & HOLOGRAPHIC GRADIENTS
    ========================================================================== */
 
-/* Terracotta to Warm Sun Amber */
+/* Electric Neon Mint to Cyber Emerald */
 .text-gradient {
-  background: linear-gradient(135deg, #f97316 0%, #ea580c 45%, #f59e0b 100%);
+  background: linear-gradient(135deg, #0df2a3 0%, #00ff88 45%, #38bdf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Vibrant Golden Terracotta */
-.text-gradient-purple {
-  background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
+/* Cyber Mint to Ice Cyan */
+.text-gradient-purple,
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #0df2a3 0%, #38bdf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Botanical Moss / Emerald */
+/* Deep Cyber Green Glow */
 .text-gradient-forest {
-  background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #f59e0b 100%);
+  background: linear-gradient(135deg, #00ff88 0%, #10b981 50%, #06b6d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Giant Ghost Chrome / Outline Watermark */
+.cyber-watermark {
+  font-family: 'Syne', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.09);
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+}
+
+html.light .cyber-watermark {
+  -webkit-text-stroke: 1.5px rgba(15, 23, 42, 0.08);
+}
+
+/* Glowing Neon Mint Pill Button */
+.btn-cyber-pill {
+  background-color: #0df2a3;
+  color: #000000;
+  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+  box-shadow: 0 0 25px rgba(13, 242, 163, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-cyber-pill:hover {
+  background-color: #00ff88;
+  box-shadow: 0 0 35px rgba(13, 242, 163, 0.65);
+  transform: translateY(-2px);
 }
 
 /* ==========================================================================
-   CUSTOM EDITORIAL SCROLLBAR
+   CUSTOM CYBER SCROLLBAR
    ========================================================================== */
 ::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
 }
 
 /* Dark mode track */
 ::-webkit-scrollbar-track {
-  background: #08120d;
+  background: #030305;
 }
 
 /* Light mode track */
 .light ::-webkit-scrollbar-track,
 html:not(.dark) ::-webkit-scrollbar-track {
-  background: #efe9da;
+  background: #f1f5f9;
 }
 
 /* Dark mode thumb */
 ::-webkit-scrollbar-thumb {
-  background: #1c3a2c;
+  background: #12141c;
   border-radius: 9999px;
-  border: 2px solid #08120d;
+  border: 2px solid #030305;
 }
 
 /* Light mode thumb */
 .light ::-webkit-scrollbar-thumb,
 html:not(.dark) ::-webkit-scrollbar-thumb {
-  background: #cfc2a7;
+  background: #cbd5e1;
   border-radius: 9999px;
-  border: 2px solid #efe9da;
+  border: 2px solid #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ea580c;
+  background: #0df2a3;
 }
 
 /* ==========================================================================
-   DARK THEME: FOREST PINE & BOTANICAL MOSS (CHARLOTTE STYLE)
+   DARK THEME: PURE OBSIDIAN BLACK & CYBER NEON MINT (REFERENCE STYLE)
    ========================================================================== */
 
 html.dark {
@@ -142,26 +176,28 @@ html.dark {
 }
 
 html.dark body {
-  background-color: #0e1e16 !important;
-  color: #f7f4ed !important;
+  background-color: #050507 !important;
+  color: #f8fafc !important;
 }
 
-/* Deep Pine Canvas Surfaces */
+/* Deep Obsidian Canvas Surfaces */
 html.dark .bg-\[\#070b14\],
 html.dark .bg-\[\#050811\],
 html.dark .bg-\[\#0a0f1d\] {
-  background-color: #0e1e16 !important;
+  background-color: #050507 !important;
 }
 
 /* Header & Sticky Nav in Dark Mode */
 html.dark .bg-\[\#070b14\]\/80,
 html.dark header.bg-\[\#070b14\]\/80,
-html.dark .dark\:bg-\[\#070b14\]\/80 {
-  background-color: rgba(14, 30, 22, 0.92) !important;
+html.dark .dark\:bg-\[\#070b14\]\/80,
+html.dark header {
+  background-color: rgba(5, 5, 7, 0.88) !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(20px);
 }
 
-/* Card Surfaces in Dark Mode: Deep Moss Pine */
+/* Card Surfaces in Dark Mode: Obsidian Matte Glass */
 html.dark .bg-\[\#0c1322\],
 html.dark .bg-\[\#0c1222\],
 html.dark .bg-\[\#0b101d\],
@@ -169,31 +205,32 @@ html.dark .bg-\[\#0f172a\],
 html.dark .bg-\[\#11192e\],
 html.dark .dark\:bg-\[\#0c1322\],
 html.dark .dark\:bg-\[\#0f172a\] {
-  background-color: #152d21 !important;
+  background-color: #0c0d12 !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.85);
 }
 
-/* Slate helpers remapped to harmonious dark pine tones */
+/* Slate helpers remapped to deep obsidian cyber tones */
 html.dark .bg-slate-900,
 html.dark .dark\:bg-slate-900 {
-  background-color: #11251b !important;
+  background-color: #08090d !important;
 }
 
 html.dark .bg-slate-950,
 html.dark .dark\:bg-slate-950 {
-  background-color: #08120d !important;
+  background-color: #030305 !important;
 }
 
 html.dark .bg-slate-800,
 html.dark .dark\:bg-slate-800 {
-  background-color: #1c3a2c !important;
+  background-color: #12141c !important;
 }
 
 html.dark .border-slate-800,
 html.dark .dark\:border-slate-800,
 html.dark .border-slate-700,
 html.dark .dark\:border-slate-700 {
-  border-color: #214332 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* Dark Mode Typography */
@@ -201,46 +238,48 @@ html.dark h1,
 html.dark h2,
 html.dark h3,
 html.dark h4 {
-  color: #f7f4ed;
+  color: #f8fafc;
+  font-family: 'Syne', sans-serif;
 }
 
 html.dark p.text-slate-400,
 html.dark span.text-slate-400,
 html.dark .dark\:text-slate-400 {
-  color: #a1b5a8;
+  color: #94a3b8;
 }
 
 html.dark p.text-slate-300,
 html.dark span.text-slate-300,
 html.dark .dark\:text-slate-300 {
-  color: #d6e2da;
+  color: #cbd5e1;
 }
 
-/* Terracotta Accents in Dark Mode */
+/* CYBER NEON MINT ACCENTS IN DARK MODE (MATCHING USER SCREENSHOT) */
 html.dark .text-cyan-500,
 html.dark .text-cyan-400,
 html.dark .dark\:text-cyan-400,
 html.dark .dark\:text-cyan-500 {
-  color: #ea580c !important;
+  color: #0df2a3 !important;
 }
 
 html.dark .bg-cyan-500,
 html.dark .bg-cyan-600,
 html.dark .dark\:bg-cyan-500 {
-  background-color: #ea580c !important;
-  color: #ffffff !important;
+  background-color: #0df2a3 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
 }
 
 html.dark .border-cyan-500\/40,
 html.dark .border-cyan-500\/30,
 html.dark .dark\:border-cyan-500\/40 {
-  border-color: rgba(234, 88, 12, 0.45) !important;
+  border-color: rgba(13, 242, 163, 0.45) !important;
 }
 
 html.dark .shadow-cyan-500\/20,
 html.dark .shadow-cyan-500\/25,
 html.dark .shadow-cyan-500\/30 {
-  box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.3) !important;
+  box-shadow: 0 0 30px -5px rgba(13, 242, 163, 0.45) !important;
 }
 
 /* ==========================================================================
