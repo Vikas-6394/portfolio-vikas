@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Eye, Sparkles, ArrowRight, Check } from 'lucide-react';
 import { usePortfolio } from '../../context/PortfolioContext';
+import { getSafeImageUrl } from '../../utils/imageHelper';
 
 export const WebsiteTemplatesSection = ({ onRequestTemplate }) => {
   const { templates } = usePortfolio();
@@ -10,25 +11,25 @@ export const WebsiteTemplatesSection = ({ onRequestTemplate }) => {
   return (
     <section className="py-16 border-t border-slate-200 dark:border-white/[0.06]">
       <div className="flex items-center gap-2 mb-3">
-        <span className="p-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+        <span className="p-1 rounded-md bg-[#ea580c]/10 text-[#ea580c]">
           <Layout className="w-4 h-4" />
         </span>
-        <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Ready-Made Designs</span>
+        <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c]">Ready-Made Designs</span>
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
         <div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
-            Website <span className="text-gradient">Templates Gallery</span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-normal text-slate-900 dark:text-[#f7f4ed]">
+            Website <span className="text-gradient italic font-serif">Templates Gallery</span>
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1 max-w-xl">
+          <p className="text-slate-600 dark:text-[#a1b5a8] text-sm mt-1 max-w-xl">
             Pre-designed, fully responsive website concepts ready for rapid customization and deployment.
           </p>
         </div>
 
         <Link
           to="/templates"
-          className="text-xs font-bold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300 flex items-center gap-1.5 transition"
+          className="text-xs font-bold text-[#ea580c] hover:text-[#c2410c] dark:text-[#fed7aa] dark:hover:text-[#ea580c] flex items-center gap-1.5 transition"
         >
           <span>Explore All Templates</span>
           <ArrowRight className="w-4 h-4" />
@@ -45,7 +46,7 @@ export const WebsiteTemplatesSection = ({ onRequestTemplate }) => {
             {/* Thumbnail */}
             <div className="relative aspect-video overflow-hidden bg-slate-900">
               <img
-                src={template.thumbnail || 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80'}
+                src={getSafeImageUrl(template.thumbnail)}
                 alt={template.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />

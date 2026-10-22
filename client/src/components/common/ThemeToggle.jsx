@@ -9,10 +9,10 @@ export const ThemeToggle = ({ className = '' }) => {
     <button
       onClick={toggleTheme}
       type="button"
-      className={`relative p-2.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 ${
+      className={`relative p-2.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#ea580c]/40 ${
         theme === 'dark'
-          ? 'bg-slate-800/90 text-amber-300 hover:bg-slate-700 hover:text-amber-200 border border-slate-700/60 shadow-inner'
-          : 'bg-white text-indigo-600 hover:bg-slate-100 hover:text-indigo-700 border border-slate-200 shadow-sm'
+          ? 'bg-[#162f23] text-amber-400 hover:bg-[#1c3a2c] hover:text-amber-300 border border-emerald-500/20 shadow-inner'
+          : 'bg-[#efe9da] text-[#152a1f] hover:bg-[#e5dec9] hover:text-[#ea580c] border border-[#e5dec9] shadow-sm'
       } ${className}`}
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}

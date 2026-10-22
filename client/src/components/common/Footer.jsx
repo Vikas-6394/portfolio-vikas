@@ -9,16 +9,16 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-100 dark:bg-[#050811] text-slate-600 dark:text-slate-400 transition-colors">
+    <footer className="mt-24 border-t border-[#e5dec9] dark:border-white/[0.08] bg-[#efe9da] dark:bg-[#08120d] text-[#45584b] dark:text-[#a1b5a8] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           {/* Brand Info */}
           <div className="md:col-span-1 space-y-4">
             <Link to="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-cyan-500/20">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#ea580c] via-[#f05a28] to-[#f59e0b] flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-[#ea580c]/20">
                 VM
               </div>
-              <span className="font-extrabold text-lg text-slate-900 dark:text-white">Mr. Vikas Maurya</span>
+              <span className="font-serif font-bold text-lg text-slate-900 dark:text-[#f7f4ed]">Mr. Vikas Maurya</span>
             </Link>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               MERN Stack Developer & Web Specialist. Crafting high-performance websites, custom web apps, and modern templates.

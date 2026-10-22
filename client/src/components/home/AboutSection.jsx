@@ -9,27 +9,27 @@ export const AboutSection = () => {
   return (
     <section className="py-16 border-t border-slate-200 dark:border-white/[0.06]">
       <div className="flex items-center gap-2 mb-3">
-        <span className="p-1 rounded-md bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
+        <span className="p-1 rounded-md bg-[#ea580c]/10 text-[#ea580c]">
           <User className="w-4 h-4" />
         </span>
-        <span className="text-xs font-bold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">About Me</span>
+        <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c]">About Me</span>
       </div>
 
-      <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-6">
-        Designing Digital Experiences That <span className="text-gradient">Convert</span>
+      <h2 className="font-serif text-3xl sm:text-4xl font-normal text-slate-900 dark:text-[#f7f4ed] mb-6">
+        Designing Digital Experiences That <span className="text-gradient italic font-serif">Convert</span>
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Bio & Background */}
-        <div className="lg:col-span-2 space-y-6 text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+        <div className="lg:col-span-2 space-y-6 text-slate-600 dark:text-[#d6e2da] text-sm sm:text-base leading-relaxed">
           <p>
             {profile?.aboutIntro ||
               'I am a web developer specializing in the MERN stack (MongoDB, Express, React, Node.js) with hands-on proficiency in Tailwind CSS, modern JavaScript, and responsive design systems. My focus is delivering production-ready, accessible, and fast websites that deliver measurable value for clients.'}
           </p>
 
           <div className="p-6 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none">
-            <h3 className="text-slate-900 dark:text-white text-base font-bold flex items-center gap-2 mb-2">
-              <GraduationCap className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            <h3 className="font-serif text-slate-900 dark:text-white text-base font-bold flex items-center gap-2 mb-2">
+              <GraduationCap className="w-5 h-5 text-[#ea580c]" />
               <span>Professional Background</span>
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">

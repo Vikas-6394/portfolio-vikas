@@ -4,7 +4,9 @@
 
 @layer base {
   :root {
-    color-scheme: dark light;
+    color-scheme: light dark;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
   
   html {
@@ -13,91 +15,238 @@
 
   body {
     @apply antialiased overflow-x-hidden;
+    font-family: var(--font-sans);
+  }
+
+  /* Editorial typography for headings */
+  h1, h2, h3, .font-display, .font-serif {
+    font-family: var(--font-heading);
+    letter-spacing: -0.015em;
   }
 }
 
-/* Glassmorphism and modern surface card styling */
+/* ==========================================================================
+   GLASSMORPHISM & SURFACE ELEVATIONS
+   ========================================================================== */
+
+/* Dark Mode Panels & Cards (Forest Pine + Crisp Translucent Edges) */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.75);
+  background: rgba(21, 45, 33, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.light .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-}
-
 .glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%), #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #152d21;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(6, 182, 212, 0.35);
-  box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.2);
+  border-color: rgba(234, 88, 12, 0.5);
+  box-shadow: 0 14px 35px -10px rgba(234, 88, 12, 0.22);
   transform: translateY(-3px);
+}
+
+/* Light Mode Panels & Cards (Warm Ivory Cream + Sand Borders) */
+.light .glass-panel {
+  background: rgba(247, 244, 236, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #e5dec9;
 }
 
 .light .glass-card {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e5dec9;
+  box-shadow: 0 6px 20px -2px rgba(21, 42, 31, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .light .glass-card:hover {
-  border-color: #0284c7;
-  box-shadow: 0 12px 25px -5px rgba(2, 132, 199, 0.15);
-}
-
-/* Glowing text and gradients */
-.text-gradient {
-  background: linear-gradient(135deg, #38bdf8 0%, #06b6d4 50%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-purple {
-  background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Custom modern scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #070b14;
-}
-
-.light ::-webkit-scrollbar-track,
-html:not(.dark) ::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 9999px;
-}
-
-.light ::-webkit-scrollbar-thumb,
-html:not(.dark) ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #0ea5e9;
+  border-color: #ea580c;
+  box-shadow: 0 14px 28px -5px rgba(234, 88, 12, 0.16);
+  transform: translateY(-3px);
 }
 
 /* ==========================================================================
-   COMPREHENSIVE LIGHT THEME ENGINE
+   WARM EDITORIAL GRADIENTS & GLOWS
    ========================================================================== */
 
-/* Page Backgrounds in Light Mode */
+/* Terracotta to Warm Sun Amber */
+.text-gradient {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 45%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Vibrant Golden Terracotta */
+.text-gradient-purple {
+  background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Botanical Moss / Emerald */
+.text-gradient-forest {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   CUSTOM EDITORIAL SCROLLBAR
+   ========================================================================== */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+/* Dark mode track */
+::-webkit-scrollbar-track {
+  background: #08120d;
+}
+
+/* Light mode track */
+.light ::-webkit-scrollbar-track,
+html:not(.dark) ::-webkit-scrollbar-track {
+  background: #efe9da;
+}
+
+/* Dark mode thumb */
+::-webkit-scrollbar-thumb {
+  background: #1c3a2c;
+  border-radius: 9999px;
+  border: 2px solid #08120d;
+}
+
+/* Light mode thumb */
+.light ::-webkit-scrollbar-thumb,
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #cfc2a7;
+  border-radius: 9999px;
+  border: 2px solid #efe9da;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ea580c;
+}
+
+/* ==========================================================================
+   DARK THEME: FOREST PINE & BOTANICAL MOSS (CHARLOTTE STYLE)
+   ========================================================================== */
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #0e1e16 !important;
+  color: #f7f4ed !important;
+}
+
+/* Deep Pine Canvas Surfaces */
+html.dark .bg-\[\#070b14\],
+html.dark .bg-\[\#050811\],
+html.dark .bg-\[\#0a0f1d\] {
+  background-color: #0e1e16 !important;
+}
+
+/* Header & Sticky Nav in Dark Mode */
+html.dark .bg-\[\#070b14\]\/80,
+html.dark header.bg-\[\#070b14\]\/80,
+html.dark .dark\:bg-\[\#070b14\]\/80 {
+  background-color: rgba(14, 30, 22, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Card Surfaces in Dark Mode: Deep Moss Pine */
+html.dark .bg-\[\#0c1322\],
+html.dark .bg-\[\#0c1222\],
+html.dark .bg-\[\#0b101d\],
+html.dark .bg-\[\#0f172a\],
+html.dark .bg-\[\#11192e\],
+html.dark .dark\:bg-\[\#0c1322\],
+html.dark .dark\:bg-\[\#0f172a\] {
+  background-color: #152d21 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Slate helpers remapped to harmonious dark pine tones */
+html.dark .bg-slate-900,
+html.dark .dark\:bg-slate-900 {
+  background-color: #11251b !important;
+}
+
+html.dark .bg-slate-950,
+html.dark .dark\:bg-slate-950 {
+  background-color: #08120d !important;
+}
+
+html.dark .bg-slate-800,
+html.dark .dark\:bg-slate-800 {
+  background-color: #1c3a2c !important;
+}
+
+html.dark .border-slate-800,
+html.dark .dark\:border-slate-800,
+html.dark .border-slate-700,
+html.dark .dark\:border-slate-700 {
+  border-color: #214332 !important;
+}
+
+/* Dark Mode Typography */
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4 {
+  color: #f7f4ed;
+}
+
+html.dark p.text-slate-400,
+html.dark span.text-slate-400,
+html.dark .dark\:text-slate-400 {
+  color: #a1b5a8;
+}
+
+html.dark p.text-slate-300,
+html.dark span.text-slate-300,
+html.dark .dark\:text-slate-300 {
+  color: #d6e2da;
+}
+
+/* Terracotta Accents in Dark Mode */
+html.dark .text-cyan-500,
+html.dark .text-cyan-400,
+html.dark .dark\:text-cyan-400,
+html.dark .dark\:text-cyan-500 {
+  color: #ea580c !important;
+}
+
+html.dark .bg-cyan-500,
+html.dark .bg-cyan-600,
+html.dark .dark\:bg-cyan-500 {
+  background-color: #ea580c !important;
+  color: #ffffff !important;
+}
+
+html.dark .border-cyan-500\/40,
+html.dark .border-cyan-500\/30,
+html.dark .dark\:border-cyan-500\/40 {
+  border-color: rgba(234, 88, 12, 0.45) !important;
+}
+
+html.dark .shadow-cyan-500\/20,
+html.dark .shadow-cyan-500\/25,
+html.dark .shadow-cyan-500\/30 {
+  box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.3) !important;
+}
+
+/* ==========================================================================
+   LIGHT THEME: EDITORIAL LINEN CREAM & PORCELAIN (CHARLOTTE STYLE)
+   ========================================================================== */
+
 html.light,
 html:not(.dark) {
   color-scheme: light;
@@ -105,30 +254,32 @@ html:not(.dark) {
 
 html.light body,
 html:not(.dark) body {
-  background-color: #f8fafc !important;
-  color: #0f172a !important;
+  background-color: #f7f4ec !important;
+  color: #152a1f !important;
 }
 
-/* Container surfaces */
+/* Canvas surfaces in Light Mode: Warm Editorial Sand Linen */
 html.light .bg-\[\#070b14\],
 html:not(.dark) .bg-\[\#070b14\],
 html.light .bg-\[\#050811\],
 html:not(.dark) .bg-\[\#050811\],
 html.light .bg-\[\#0a0f1d\],
 html:not(.dark) .bg-\[\#0a0f1d\] {
-  background-color: #f8fafc !important;
+  background-color: #f7f4ec !important;
 }
 
-/* Glass & Header blur */
+/* Header & Glass Nav in Light Mode */
 html.light .bg-\[\#070b14\]\/80,
-html:not(.dark) .bg-\[\#070b14\]\/80 {
-  background-color: rgba(255, 255, 255, 0.92) !important;
+html:not(.dark) .bg-\[\#070b14\]\/80,
+html.light header,
+html:not(.dark) header {
+  background-color: rgba(247, 244, 236, 0.92) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-color: #e2e8f0 !important;
+  border-color: #e5dec9 !important;
 }
 
-/* Card surfaces: clean white with soft elevation and crisp border */
+/* Card surfaces: Crisp Porcelain White with Warm Sand Elevation */
 html.light .bg-\[\#0c1322\],
 html:not(.dark) .bg-\[\#0c1322\],
 html.light .bg-\[\#0c1222\],
@@ -140,11 +291,25 @@ html:not(.dark) .bg-\[\#0f172a\],
 html.light .bg-\[\#11192e\],
 html:not(.dark) .bg-\[\#11192e\] {
   background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  border-color: #e5dec9 !important;
+  box-shadow: 0 6px 24px -2px rgba(21, 42, 31, 0.05);
 }
 
-/* Global borders in light mode */
+/* Light Mode Secondary Surfaces */
+html.light .bg-slate-100,
+html:not(.dark) .bg-slate-100,
+html.light .bg-slate-50,
+html:not(.dark) .bg-slate-50 {
+  background-color: #efe9da !important;
+}
+
+html.light .bg-slate-900,
+html:not(.dark) .bg-slate-900 {
+  background-color: #efe9da !important;
+  color: #152a1f !important;
+}
+
+/* Global borders in light mode: Warm Sand / Linen */
 html.light .border-white\/\[0\.08\],
 html:not(.dark) .border-white\/\[0\.08\],
 html.light .border-white\/\[0\.07\],
@@ -162,11 +327,13 @@ html:not(.dark) .border-white\/20,
 html.light .border-slate-700\/80,
 html:not(.dark) .border-slate-700\/80,
 html.light .border-slate-800,
-html:not(.dark) .border-slate-800 {
-  border-color: #e2e8f0 !important;
+html:not(.dark) .border-slate-800,
+html.light .border-slate-200,
+html:not(.dark) .border-slate-200 {
+  border-color: #e5dec9 !important;
 }
 
-/* Headings in light mode */
+/* Headings in Light Mode: Deep Pine Espresso Ink */
 html.light h1:not(.text-gradient):not(.dark-banner *):not([class*="from-"] *),
 html:not(.dark) h1:not(.text-gradient):not(.dark-banner *):not([class*="from-"] *),
 html.light h2:not(.text-gradient):not(.dark-banner *):not([class*="from-"] *),
@@ -175,22 +342,63 @@ html.light h3:not(.dark-banner *):not([class*="from-"] *),
 html:not(.dark) h3:not(.dark-banner *):not([class*="from-"] *),
 html.light h4:not(.dark-banner *):not([class*="from-"] *),
 html:not(.dark) h4:not(.dark-banner *):not([class*="from-"] *) {
-  color: #0f172a;
+  color: #152a1f;
 }
 
-/* Muted / secondary text in light mode */
+/* Muted / secondary text in light mode: Refined Olive Slate */
 html.light p.text-slate-400,
-html:not(.dark) p.text-slate-400 {
-  color: #475569;
+html:not(.dark) p.text-slate-400,
+html.light p.text-slate-500,
+html:not(.dark) p.text-slate-500,
+html.light p.text-slate-600,
+html:not(.dark) p.text-slate-600 {
+  color: #45584b;
 }
 
 html.light span.text-slate-400,
-html:not(.dark) span.text-slate-400 {
-  color: #64748b;
+html:not(.dark) span.text-slate-400,
+html.light span.text-slate-500,
+html:not(.dark) span.text-slate-500 {
+  color: #596f60;
 }
 
-/* Explicit class to guarantee white text on dark banners and gradients */
-.keep-white,
+/* Buttons and Accents in Light Mode */
+html.light .bg-cyan-500,
+html.light .bg-cyan-600,
+html:not(.dark) .bg-cyan-500,
+html:not(.dark) .bg-cyan-600 {
+  background-color: #ea580c !important;
+  color: #ffffff !important;
+}
+
+html.light .hover\:bg-cyan-600:hover,
+html:not(.dark) .hover\:bg-cyan-600:hover {
+  background-color: #c2410c !important;
+}
+
+html.light .text-cyan-500,
+html.light .text-cyan-600,
+html:not(.dark) .text-cyan-500,
+html:not(.dark) .text-cyan-600 {
+  color: #ea580c !important;
+}
+
+html.light .border-cyan-500\/40,
+html:not(.dark) .border-cyan-500\/40 {
+  border-color: rgba(234, 88, 12, 0.4) !important;
+}
+
+/* ==========================================================================
+   CALLOUT BANNERS & ACCENT BOXES
+   ========================================================================== */
+
+/* Dark Banner (Contact CTA / Special Sections) */
+.dark-banner {
+  background: linear-gradient(135deg, #102219 0%, #152d21 50%, #241a14 100%) !important;
+  border: 1px solid rgba(234, 88, 12, 0.3) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.45);
+}
+
 .dark-banner,
 .dark-banner h1,
 .dark-banner h2,
@@ -198,6 +406,9 @@ html:not(.dark) span.text-slate-400 {
 .dark-banner h4,
 .dark-banner p,
 .dark-banner span {
-  color: #ffffff !important;
+  color: #f7f4ed !important;
 }
 
+.keep-white {
+  color: #ffffff !important;
+}

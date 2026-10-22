@@ -31,18 +31,18 @@ export const ServicesSection = ({ onSelectService }) => {
   return (
     <section className="py-16 border-t border-slate-200 dark:border-white/[0.06]">
       <div className="flex items-center gap-2 mb-3">
-        <span className="p-1 rounded-md bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
+        <span className="p-1 rounded-md bg-[#ea580c]/10 text-[#ea580c]">
           <Briefcase className="w-4 h-4" />
         </span>
-        <span className="text-xs font-bold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">What I Offer</span>
+        <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c]">What I Offer</span>
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
         <div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
-            Professional Web <span className="text-gradient">Services</span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-normal text-slate-900 dark:text-[#f7f4ed]">
+            Professional Web <span className="text-gradient italic font-serif">Services</span>
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1 max-w-xl">
+          <p className="text-slate-600 dark:text-[#a1b5a8] text-sm mt-1 max-w-xl">
             From modern personal portfolios to custom MERN applications, I deliver scalable, responsive websites tailored to your goals.
           </p>
         </div>

@@ -13,25 +13,25 @@ export const FeaturedProjectsSection = () => {
   return (
     <section className="py-16 border-t border-slate-200 dark:border-white/[0.06]">
       <div className="flex items-center gap-2 mb-3">
-        <span className="p-1 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400">
+        <span className="p-1 rounded-md bg-[#ea580c]/10 text-[#ea580c]">
           <Layers className="w-4 h-4" />
         </span>
-        <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">Recent Work</span>
+        <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c]">Recent Work</span>
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
         <div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
-            Featured <span className="text-gradient">Projects</span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-normal text-slate-900 dark:text-[#f7f4ed]">
+            Featured <span className="text-gradient italic font-serif">Projects</span>
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1 max-w-xl">
+          <p className="text-slate-600 dark:text-[#a1b5a8] text-sm mt-1 max-w-xl">
             Selected client and showcase applications built with React, Node.js, and modern full-stack architectures.
           </p>
         </div>
 
         <Link
           to="/projects"
-          className="text-xs font-bold text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300 flex items-center gap-1.5 transition"
+          className="text-xs font-bold text-[#ea580c] hover:text-[#c2410c] dark:text-[#fed7aa] dark:hover:text-[#ea580c] flex items-center gap-1.5 transition"
         >
           <span>View All Projects</span>
           <ArrowRight className="w-4 h-4" />
@@ -43,7 +43,7 @@ export const FeaturedProjectsSection = () => {
         {featuredList.map((project) => (
           <div
             key={project._id || project.slug}
-            className="group rounded-3xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] hover:border-cyan-500/40 shadow-sm dark:shadow-none overflow-hidden transition duration-300 flex flex-col justify-between"
+            className="group rounded-3xl bg-white dark:bg-[#152d21] border border-slate-200 dark:border-white/[0.08] hover:border-[#ea580c]/50 shadow-sm dark:shadow-none overflow-hidden transition duration-300 flex flex-col justify-between"
           >
             {/* Project Image */}
             <div className="relative aspect-video overflow-hidden bg-slate-900">
@@ -53,7 +53,7 @@ export const FeaturedProjectsSection = () => {
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />
               <div className="absolute top-4 left-4">
-                <span className="px-3 py-1 rounded-full bg-white/90 dark:bg-slate-900/80 backdrop-blur-md text-[11px] font-bold text-cyan-600 dark:text-cyan-400 border border-slate-200 dark:border-white/10 shadow-sm">
+                <span className="px-3 py-1 rounded-full bg-white/90 dark:bg-[#11251b]/90 backdrop-blur-md text-[11px] font-bold text-[#ea580c] dark:text-[#fed7aa] border border-slate-200 dark:border-emerald-500/20 shadow-sm">
                   {project.category}
                 </span>
               </div>
@@ -62,10 +62,10 @@ export const FeaturedProjectsSection = () => {
             {/* Project Details */}
             <div className="p-6 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition mb-2">
+                <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-[#f7f4ed] group-hover:text-[#ea580c] dark:group-hover:text-[#ea580c] transition mb-2">
                   {project.title}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed mb-4">
+                <p className="text-slate-600 dark:text-[#a1b5a8] text-xs sm:text-sm leading-relaxed mb-4">
                   {project.shortDescription}
                 </p>
 
@@ -91,7 +91,7 @@ export const FeaturedProjectsSection = () => {
               <div className="pt-4 border-t border-slate-200/80 dark:border-white/[0.06] flex items-center justify-between">
                 <Link
                   to={`/projects/${project.slug}`}
-                  className="text-xs font-semibold text-slate-600 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-white transition flex items-center gap-1"
+                  className="text-xs font-semibold text-slate-600 hover:text-[#ea580c] dark:text-[#a1b5a8] dark:hover:text-[#f7f4ed] transition flex items-center gap-1"
                 >
                   <span>Case Study</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -114,7 +114,7 @@ export const FeaturedProjectsSection = () => {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3.5 py-1.5 rounded-xl bg-cyan-50 hover:bg-cyan-500 text-cyan-600 hover:text-white border border-cyan-200 hover:border-cyan-500 dark:bg-cyan-500/10 dark:hover:bg-cyan-500 dark:text-cyan-400 dark:hover:text-white dark:border-cyan-500/30 text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
+                      className="px-3.5 py-1.5 rounded-xl bg-orange-50 hover:bg-[#ea580c] text-[#ea580c] hover:text-white border border-orange-200 hover:border-[#ea580c] dark:bg-[#ea580c]/10 dark:hover:bg-[#ea580c] dark:text-[#fed7aa] dark:hover:text-white dark:border-[#ea580c]/30 text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
                     >
                       <span>Live Demo</span>
                       <ExternalLink className="w-3.5 h-3.5" />

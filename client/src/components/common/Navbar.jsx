@@ -30,14 +30,14 @@ export const Navbar = ({ onOpenHireModal }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition duration-300">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#ea580c] via-[#f05a28] to-[#f59e0b] flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-[#ea580c]/25 group-hover:scale-105 transition duration-300">
             VM
           </div>
           <div className="flex flex-col">
-            <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-white group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition">
+            <span className="font-serif font-bold text-lg tracking-tight text-[#152a1f] dark:text-[#f7f4ed] group-hover:text-[#ea580c] dark:group-hover:text-[#ea580c] transition">
               {profile?.fullName || 'Mr. Vikas Maurya'}
             </span>
-            <span className="text-[10px] text-slate-500 dark:text-slate-400 tracking-wider uppercase font-semibold">
+            <span className="text-[10px] text-[#596f60] dark:text-[#a1b5a8] tracking-wider uppercase font-semibold">
               MERN Stack Developer
             </span>
           </div>
@@ -53,7 +53,7 @@ export const Navbar = ({ onOpenHireModal }) => {
                 to={link.path}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
                   isActive
-                    ? 'bg-cyan-500 text-white font-semibold shadow-md shadow-cyan-500/30'
+                    ? 'bg-[#ea580c] text-white font-semibold shadow-md shadow-[#ea580c]/30'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.06]'
                 }`}
               >
@@ -80,7 +80,7 @@ export const Navbar = ({ onOpenHireModal }) => {
           <button
             onClick={onOpenHireModal}
             type="button"
-            className="px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white text-xs font-bold tracking-wide shadow-lg shadow-cyan-500/20 hover:opacity-95 transition hover:scale-105 flex items-center gap-1.5"
+            className="px-4 py-2 rounded-full bg-gradient-to-r from-[#ea580c] via-[#f05a28] to-[#f59e0b] text-white text-xs font-bold tracking-wide shadow-lg shadow-[#ea580c]/25 hover:shadow-[#ea580c]/40 hover:opacity-95 transition hover:scale-105 flex items-center gap-1.5"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Hire Me</span>

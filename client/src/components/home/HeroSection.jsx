@@ -9,7 +9,7 @@ export const HeroSection = ({ onOpenHireModal }) => {
   return (
     <section className="relative overflow-hidden pt-8 pb-16">
       {/* Background glow effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-2xl h-96 bg-gradient-to-r from-cyan-500/15 via-blue-500/10 to-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-2xl h-96 bg-gradient-to-r from-[#ea580c]/15 via-amber-500/10 to-emerald-700/15 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="relative z-10 flex flex-col items-center text-center">
         {/* Availability Badge */}
@@ -24,11 +24,11 @@ export const HeroSection = ({ onOpenHireModal }) => {
         </div>
 
         {/* Heading */}
-        <p className="text-cyan-500 dark:text-cyan-400 text-base md:text-lg font-semibold tracking-wide mb-2 text-center">
+        <p className="text-[#ea580c] text-base md:text-lg font-semibold tracking-wide mb-2 text-center">
           {profile?.heroHeading || "Hi, I'm Mr. Vikas Maurya."}
         </p>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15] max-w-4xl mb-6 text-center">
-          I Create <span className="text-gradient">Modern Websites</span> That Help Businesses Grow.
+        <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-slate-900 dark:text-[#f7f4ed] tracking-tight leading-[1.18] max-w-4xl mb-6 text-center">
+          I Create <span className="text-gradient italic font-serif">Modern Websites</span> That Help Businesses Grow.
         </h1>
         <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed mb-8 text-center mx-auto">
           {profile?.heroDescription ||
@@ -40,7 +40,7 @@ export const HeroSection = ({ onOpenHireModal }) => {
           <button
             type="button"
             onClick={onOpenHireModal}
-            className="px-6 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-bold text-sm tracking-wide shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 transition-all flex items-center gap-2"
+            className="px-6 py-3.5 rounded-full bg-gradient-to-r from-[#ea580c] via-[#f05a28] to-[#f59e0b] text-white font-bold text-sm tracking-wide shadow-xl shadow-[#ea580c]/25 hover:shadow-[#ea580c]/40 hover:scale-105 transition-all flex items-center gap-2"
           >
             <Sparkles className="w-4 h-4" />
             <span>Hire Me Now</span>
@@ -48,9 +48,9 @@ export const HeroSection = ({ onOpenHireModal }) => {
 
           <Link
             to="/projects"
-            className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-100 text-slate-800 dark:bg-slate-900/80 dark:hover:bg-slate-800 dark:text-white font-semibold text-sm border border-slate-200 dark:border-slate-700/80 hover:border-cyan-500/50 shadow-sm dark:shadow-md transition-all flex items-center gap-2"
+            className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-100 text-slate-800 dark:bg-slate-900/80 dark:hover:bg-slate-800 dark:text-white font-semibold text-sm border border-slate-200 dark:border-slate-700/80 hover:border-[#ea580c]/50 shadow-sm dark:shadow-md transition-all flex items-center gap-2"
           >
-            <FolderGit2 className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
+            <FolderGit2 className="w-4 h-4 text-[#ea580c]" />
             <span>View My Work</span>
           </Link>
 
@@ -74,7 +74,7 @@ export const HeroSection = ({ onOpenHireModal }) => {
           </div>
 
           <div className="p-4 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200/80 dark:border-white/[0.07] text-center shadow-sm dark:shadow-none transition-colors">
-            <span className="text-2xl sm:text-3xl font-extrabold text-cyan-500 dark:text-cyan-400 block">
+            <span className="text-2xl sm:text-3xl font-extrabold text-[#ea580c] block">
               {profile?.clientSatisfaction || 100}%
             </span>
             <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1 block">
@@ -83,7 +83,7 @@ export const HeroSection = ({ onOpenHireModal }) => {
           </div>
 
           <div className="p-4 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200/80 dark:border-white/[0.07] text-center shadow-sm dark:shadow-none transition-colors">
-            <span className="text-2xl sm:text-3xl font-extrabold text-purple-500 dark:text-purple-400 block">
+            <span className="text-2xl sm:text-3xl font-extrabold text-amber-500 block">
               {profile?.yearsExperience || 2}+
             </span>
             <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1 block">
