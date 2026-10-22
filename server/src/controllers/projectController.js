@@ -1,5 +1,35 @@
+import mongoose from 'mongoose';
 import { Project } from '../models/Project.js';
 import { AuditLog } from '../models/AuditLog.js';
+
+// Helper to generate guaranteed unique URL slug
+const generateUniqueSlug = async (text, currentId = null) => {
+  const baseSlug = (text || 'project')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '') || 'project';
+
+  let slug = baseSlug;
+  let counter = 1;
+  while (true) {
+    const existing = await Project.findOne({ slug, ...(currentId ? { _id: { $ne: currentId } } : {}) });
+    if (!existing) break;
+    slug = `${baseSlug}-${counter++}`;
+  }
+  return slug;
+};
+
+// Helper to normalize array fields (technologies, features)
+const normalizeStringArray = (input, fallback = []) => {
+  if (Array.isArray(input)) return input.map((s) => String(s).trim()).filter(Boolean);
+  if (typeof input === 'string') {
+    return input
+      .split(/[\n,]/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+  return fallback;
+};
 
 // Public: Get all published projects (optional category filter)
 export const getAllProjects = async (req, res, next) => {
@@ -39,10 +69,27 @@ export const getAllProjectsAdmin = async (req, res, next) => {
   }
 };
 
-// Public: Get single project by slug
+// Public: Get single project by slug or ID
 export const getProjectBySlug = async (req, res, next) => {
   try {
-    const project = await Project.findOne({ slug: req.params.slug, isPublished: true });
+    const { slug } = req.params;
+    let query = { slug, isPublished: true };
+
+    // Support querying by direct MongoDB _id as well
+    if (mongoose.isValidObjectId(slug)) {
+      query = { $or: [{ slug }, { _id: slug }], isPublished: true };
+    }
+
+    let project = await Project.findOne(query);
+
+    // Fallback: If not found and slug contains hyphens, try partial regex search on slug
+    if (!project) {
+      project = await Project.findOne({
+        slug: new RegExp(`^${slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i'),
+        isPublished: true,
+      });
+    }
+
     if (!project) {
       return res.status(404).json({
         success: false,
@@ -61,12 +108,20 @@ export const getProjectBySlug = async (req, res, next) => {
 // Admin: Create project
 export const createProject = async (req, res, next) => {
   try {
-    const projectData = req.body;
-    if (!projectData.slug) {
-      projectData.slug = projectData.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, '');
+    const projectData = { ...req.body };
+
+    // Auto-generate unique slug
+    if (!projectData.slug && projectData.title) {
+      projectData.slug = await generateUniqueSlug(projectData.title);
+    } else if (projectData.slug) {
+      projectData.slug = await generateUniqueSlug(projectData.slug);
+    }
+
+    if (projectData.technologies) {
+      projectData.technologies = normalizeStringArray(projectData.technologies, ['React', 'Node.js', 'MongoDB']);
+    }
+    if (projectData.features) {
+      projectData.features = normalizeStringArray(projectData.features);
     }
 
     const project = await Project.create(projectData);
@@ -93,7 +148,21 @@ export const createProject = async (req, res, next) => {
 // Admin: Update project
 export const updateProject = async (req, res, next) => {
   try {
-    const project = await Project.findByIdAndUpdate(req.params.id, req.body, {
+    const updateData = { ...req.body };
+
+    // If slug is explicitly changed or provided, ensure uniqueness
+    if (updateData.slug) {
+      updateData.slug = await generateUniqueSlug(updateData.slug, req.params.id);
+    }
+
+    if (updateData.technologies !== undefined) {
+      updateData.technologies = normalizeStringArray(updateData.technologies, ['React', 'Node.js', 'MongoDB']);
+    }
+    if (updateData.features !== undefined) {
+      updateData.features = normalizeStringArray(updateData.features);
+    }
+
+    const project = await Project.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
       runValidators: true,
     });

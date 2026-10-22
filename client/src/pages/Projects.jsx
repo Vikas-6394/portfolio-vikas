@@ -16,10 +16,16 @@ export const Projects = ({ onOpenHireModal }) => {
   const filteredProjects = projects.filter((project) => {
     if (!project.isPublished) return false;
     const matchesCategory = selectedCategory === 'All' || project.category === selectedCategory;
+    const techs = Array.isArray(project.technologies)
+      ? project.technologies
+      : typeof project.technologies === 'string'
+      ? project.technologies.split(/[\n,]/).map((s) => s.trim()).filter(Boolean)
+      : [];
+
     const matchesSearch =
-      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.technologies.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      (project.title || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (project.shortDescription || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+      techs.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
 
     return matchesCategory && matchesSearch;
   });
@@ -117,7 +123,12 @@ export const Projects = ({ onOpenHireModal }) => {
                     </p>
 
                     <div className="flex flex-wrap gap-1.5 mb-6">
-                      {project.technologies.map((tech, idx) => (
+                      {(Array.isArray(project.technologies)
+                        ? project.technologies
+                        : typeof project.technologies === 'string'
+                        ? project.technologies.split(/[\n,]/).map((s) => s.trim()).filter(Boolean)
+                        : []
+                      ).map((tech, idx) => (
                         <span
                           key={idx}
                           className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800/80 text-[11px] font-semibold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.04]"

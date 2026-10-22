@@ -1341,17 +1341,41 @@ export const AdminDashboard = () => {
                 </div>
 
                 <div className="space-y-3 text-xs">
-                  <div>
-                    <label className="block text-slate-300 mb-1">Project Title *</label>
-                    <input
-                      type="text"
-                      required
-                      value={editingItem.title}
-                      onChange={(e) => setEditingItem({ ...editingItem, title: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
-                      placeholder="e.g. EduSphere Portal"
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-slate-300 mb-1">Project Title *</label>
+                      <input
+                        type="text"
+                        required
+                        value={editingItem.title}
+                        onChange={(e) => {
+                          const newTitle = e.target.value;
+                          const autoSlug = !editingItem._id
+                            ? newTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
+                            : (editingItem.slug || '');
+                          setEditingItem({ ...editingItem, title: newTitle, slug: autoSlug });
+                        }}
+                        className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                        placeholder="e.g. Clotes Shop"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-slate-300 mb-1">Slug (URL path)</label>
+                      <input
+                        type="text"
+                        value={editingItem.slug || ''}
+                        onChange={(e) =>
+                          setEditingItem({
+                            ...editingItem,
+                            slug: e.target.value.toLowerCase().replace(/\s+/g, '-'),
+                          })
+                        }
+                        className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono"
+                        placeholder="e.g. clotes-shop-ecommerce"
+                      />
+                    </div>
                   </div>
+
                   <div>
                     <label className="block text-slate-300 mb-1">Category</label>
                     <select
@@ -1366,6 +1390,24 @@ export const AdminDashboard = () => {
                       <option value="Business Website">Business Website</option>
                     </select>
                   </div>
+
+                  <div>
+                    <label className="block text-slate-300 mb-1">Technologies (comma separated)</label>
+                    <input
+                      type="text"
+                      value={
+                        Array.isArray(editingItem.technologies)
+                          ? editingItem.technologies.join(', ')
+                          : (editingItem.technologies || '')
+                      }
+                      onChange={(e) =>
+                        setEditingItem({ ...editingItem, technologies: e.target.value })
+                      }
+                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                      placeholder="React, Tailwind CSS, Node.js, MongoDB"
+                    />
+                  </div>
+
                   <div>
                     <label className="block text-slate-300 mb-1">Cover Image URL</label>
                     <input
@@ -1378,6 +1420,7 @@ export const AdminDashboard = () => {
                       placeholder="https://..."
                     />
                   </div>
+
                   <div>
                     <label className="block text-slate-300 mb-1">Short Description *</label>
                     <textarea
@@ -1389,6 +1432,20 @@ export const AdminDashboard = () => {
                       className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white resize-none"
                     ></textarea>
                   </div>
+
+                  <div>
+                    <label className="block text-slate-300 mb-1">Full Case Study / Overview</label>
+                    <textarea
+                      rows={4}
+                      value={editingItem.fullCaseStudy || ''}
+                      onChange={(e) =>
+                        setEditingItem({ ...editingItem, fullCaseStudy: e.target.value })
+                      }
+                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white resize-none"
+                      placeholder="Detailed overview and key architectural decisions..."
+                    ></textarea>
+                  </div>
+
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-slate-300 mb-1">Live URL</label>
@@ -1415,6 +1472,7 @@ export const AdminDashboard = () => {
                       />
                     </div>
                   </div>
+
                   <div className="flex items-center gap-2 pt-2">
                     <input
                       type="checkbox"
@@ -1443,16 +1501,32 @@ export const AdminDashboard = () => {
                         alert('Title and description required');
                         return;
                       }
-                      if (editingItem._id) {
-                        await portfolioAPI.updateProject(editingItem._id, editingItem);
-                      } else {
-                        await portfolioAPI.createProject(editingItem);
+
+                      const payload = {
+                        ...editingItem,
+                        technologies:
+                          typeof editingItem.technologies === 'string'
+                            ? editingItem.technologies
+                                .split(/[\n,]/)
+                                .map((s) => s.trim())
+                                .filter(Boolean)
+                            : (editingItem.technologies || ['React', 'Node.js', 'MongoDB']),
+                      };
+
+                      try {
+                        if (editingItem._id) {
+                          await portfolioAPI.updateProject(editingItem._id, payload);
+                        } else {
+                          await portfolioAPI.createProject(payload);
+                        }
+                        setModalType(null);
+                        await loadDashboardData();
+                        refreshPortfolioData();
+                      } catch (err) {
+                        alert('Error saving project: ' + (err.response?.data?.message || err.message));
                       }
-                      setModalType(null);
-                      loadDashboardData();
-                      refreshPortfolioData();
                     }}
-                    className="px-4 py-2 rounded-xl bg-cyan-500 text-white font-bold"
+                    className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold transition"
                   >
                     Save Project
                   </button>
