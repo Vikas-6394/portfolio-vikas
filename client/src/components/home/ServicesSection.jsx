@@ -29,22 +29,20 @@ export const ServicesSection = ({ onSelectService }) => {
   const { services } = usePortfolio();
 
   return (
-    <section className="py-12 border-t border-slate-200 dark:border-white/[0.08]">
+    <section className="py-16 border-t border-slate-200 dark:border-white/[0.06]">
       <div className="flex items-center gap-2 mb-3">
-        <span className="p-1.5 rounded-lg bg-[#0df2a3]/10 text-emerald-600 dark:text-[#0df2a3] border border-[#0df2a3]/20">
+        <span className="p-1 rounded-md bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
           <Briefcase className="w-4 h-4" />
         </span>
-        <span className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-600 dark:text-[#0df2a3]">
-          What I Offer
-        </span>
+        <span className="text-xs font-bold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">What I Offer</span>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
         <div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-display">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
             Professional Web <span className="text-gradient">Services</span>
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1 max-w-xl font-sans">
+          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1 max-w-xl">
             From modern personal portfolios to custom MERN applications, I deliver scalable, responsive websites tailored to your goals.
           </p>
         </div>
@@ -58,27 +56,27 @@ export const ServicesSection = ({ onSelectService }) => {
           return (
             <div
               key={service._id || service.slug}
-              className={`relative rounded-3xl bg-white dark:bg-[#0c0d12] border transition duration-300 p-6 flex flex-col justify-between group shadow-sm dark:shadow-none ${
+              className={`relative rounded-3xl bg-white dark:bg-[#0c1322] border transition duration-300 p-6 flex flex-col justify-between group shadow-sm dark:shadow-none ${
                 service.isPopular
-                  ? 'border-[#0df2a3] shadow-[0_0_20px_rgba(13,242,163,0.15)]'
-                  : 'border-slate-200 dark:border-white/[0.08] hover:border-[#0df2a3]/40'
+                  ? 'border-cyan-500/60 shadow-md shadow-cyan-500/10'
+                  : 'border-slate-200 dark:border-white/[0.08] hover:border-cyan-500/30'
               }`}
             >
               {service.isPopular && (
-                <div className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-[#0df2a3] text-black text-[10px] font-mono font-extrabold tracking-wide uppercase shadow-md shadow-[#0df2a3]/30">
+                <div className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-[10px] font-extrabold tracking-wide uppercase shadow-md shadow-cyan-500/20">
                   Most Requested
                 </div>
               )}
 
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#0df2a3]/10 border border-[#0df2a3]/20 flex items-center justify-center text-emerald-600 dark:text-[#0df2a3] mb-5 group-hover:scale-110 transition duration-300">
+                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-5 group-hover:scale-110 transition duration-300">
                   <IconComponent className="w-6 h-6" />
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-[#0df2a3] transition mb-2 font-display">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition mb-2">
                   {service.title}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed mb-6 font-sans">
+                <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
                   {service.shortDescription}
                 </p>
 
@@ -87,7 +85,7 @@ export const ServicesSection = ({ onSelectService }) => {
                   <ul className="space-y-2 mb-6">
                     {service.features.slice(0, 4).map((feat, idx) => (
                       <li key={idx} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
-                        <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-[#0df2a3] flex-shrink-0" />
+                        <Check className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 flex-shrink-0" />
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -100,22 +98,22 @@ export const ServicesSection = ({ onSelectService }) => {
                 <div>
                   {service.startingPrice ? (
                     <div>
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 block uppercase font-mono tracking-wider">
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400 block uppercase tracking-wider">
                         {service.priceUnit || 'Starting from'}
                       </span>
-                      <span className="text-lg font-mono font-extrabold text-slate-900 dark:text-white">
-                        ₹{service.startingPrice}
+                      <span className="text-lg font-extrabold text-slate-900 dark:text-white">
+                        ${service.startingPrice}
                       </span>
                     </div>
                   ) : (
-                    <span className="text-xs text-slate-600 dark:text-slate-400 font-mono font-medium">Custom Quote</span>
+                    <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">Custom Quote</span>
                   )}
                 </div>
 
                 <button
                   type="button"
                   onClick={() => onSelectService(service.title)}
-                  className="px-4 py-2 rounded-xl bg-emerald-50 hover:bg-[#0df2a3] text-emerald-800 hover:text-black border border-emerald-200 hover:border-[#0df2a3] dark:bg-[#0df2a3]/10 dark:hover:bg-[#0df2a3] dark:text-[#0df2a3] dark:hover:text-black dark:border-[#0df2a3]/30 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm"
+                  className="px-4 py-2 rounded-xl bg-cyan-50 hover:bg-cyan-500 text-cyan-600 hover:text-white border border-cyan-200 hover:border-cyan-500 dark:bg-cyan-500/10 dark:hover:bg-cyan-500 dark:text-cyan-400 dark:hover:text-white dark:border-cyan-500/30 text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
                 >
                   <span>Enquire</span>
                   <ArrowRight className="w-3.5 h-3.5" />

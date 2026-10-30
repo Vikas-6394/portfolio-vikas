@@ -4,10 +4,7 @@
 
 @layer base {
   :root {
-    color-scheme: light dark;
-    --font-heading: 'Syne', 'Space Grotesk', system-ui, sans-serif;
-    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-    --font-mono: 'Space Grotesk', monospace;
+    color-scheme: dark light;
   }
   
   html {
@@ -16,276 +13,91 @@
 
   body {
     @apply antialiased overflow-x-hidden;
-    font-family: var(--font-sans);
-  }
-
-  /* Cyber & Futuristic Display Typography for Headings */
-  h1, h2, h3, .font-display, .font-syne {
-    font-family: var(--font-heading);
-    letter-spacing: -0.02em;
   }
 }
 
-/* ==========================================================================
-   CYBERPUNK GLASSMORPHISM & SURFACE ELEVATIONS (MATCHING USER REFERENCE)
-   ========================================================================== */
-
-/* Dark Mode Panels & Cards (Obsidian Black + Micro Etched Glow) */
+/* Glassmorphism and modern surface card styling */
 .glass-panel {
-  background: rgba(12, 13, 18, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.light .glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 .glass-card {
-  background: #0c0d12;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%), #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.07);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(13, 242, 163, 0.45);
-  box-shadow: 0 14px 35px -10px rgba(13, 242, 163, 0.22);
+  border-color: rgba(6, 182, 212, 0.35);
+  box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.2);
   transform: translateY(-3px);
-}
-
-/* Light Mode Panels & Cards (Clean Platinum Minimalist) */
-.light .glass-panel {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid #e2e8f0;
 }
 
 .light .glass-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .light .glass-card:hover {
-  border-color: #10b981;
-  box-shadow: 0 14px 28px -5px rgba(16, 185, 129, 0.16);
-  transform: translateY(-3px);
+  border-color: #0284c7;
+  box-shadow: 0 12px 25px -5px rgba(2, 132, 199, 0.15);
 }
 
-/* ==========================================================================
-   CYBER NEON MINT & HOLOGRAPHIC GRADIENTS
-   ========================================================================== */
-
-/* Electric Neon Mint to Cyber Emerald */
+/* Glowing text and gradients */
 .text-gradient {
-  background: linear-gradient(135deg, #0df2a3 0%, #00ff88 45%, #38bdf8 100%);
+  background: linear-gradient(135deg, #38bdf8 0%, #06b6d4 50%, #818cf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Cyber Mint to Ice Cyan */
-.text-gradient-purple,
-.text-gradient-cyan {
-  background: linear-gradient(135deg, #0df2a3 0%, #38bdf8 100%);
+.text-gradient-purple {
+  background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Deep Cyber Green Glow */
-.text-gradient-forest {
-  background: linear-gradient(135deg, #00ff88 0%, #10b981 50%, #06b6d4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Giant Ghost Chrome / Outline Watermark */
-.cyber-watermark {
-  font-family: 'Syne', sans-serif;
-  font-weight: 900;
-  letter-spacing: 0.06em;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.09);
-  text-transform: uppercase;
-  user-select: none;
-  pointer-events: none;
-}
-
-html.light .cyber-watermark {
-  -webkit-text-stroke: 1.5px rgba(15, 23, 42, 0.08);
-}
-
-/* Glowing Neon Mint Pill Button */
-.btn-cyber-pill {
-  background-color: #0df2a3;
-  color: #000000;
-  font-weight: 800;
-  font-family: 'Space Grotesk', sans-serif;
-  box-shadow: 0 0 25px rgba(13, 242, 163, 0.4);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-cyber-pill:hover {
-  background-color: #00ff88;
-  box-shadow: 0 0 35px rgba(13, 242, 163, 0.65);
-  transform: translateY(-2px);
-}
-
-/* ==========================================================================
-   CUSTOM CYBER SCROLLBAR
-   ========================================================================== */
+/* Custom modern scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-/* Dark mode track */
 ::-webkit-scrollbar-track {
-  background: #030305;
+  background: #070b14;
 }
 
-/* Light mode track */
 .light ::-webkit-scrollbar-track,
 html:not(.dark) ::-webkit-scrollbar-track {
   background: #f1f5f9;
 }
 
-/* Dark mode thumb */
 ::-webkit-scrollbar-thumb {
-  background: #12141c;
+  background: #1e293b;
   border-radius: 9999px;
-  border: 2px solid #030305;
 }
 
-/* Light mode thumb */
 .light ::-webkit-scrollbar-thumb,
 html:not(.dark) ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 9999px;
-  border: 2px solid #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0df2a3;
+  background: #0ea5e9;
 }
 
 /* ==========================================================================
-   DARK THEME: PURE OBSIDIAN BLACK & CYBER NEON MINT (REFERENCE STYLE)
+   COMPREHENSIVE LIGHT THEME ENGINE
    ========================================================================== */
 
-html.dark {
-  color-scheme: dark;
-}
-
-html.dark body {
-  background-color: #050507 !important;
-  color: #f8fafc !important;
-}
-
-/* Deep Obsidian Canvas Surfaces */
-html.dark .bg-\[\#070b14\],
-html.dark .bg-\[\#050811\],
-html.dark .bg-\[\#0a0f1d\] {
-  background-color: #050507 !important;
-}
-
-/* Header & Sticky Nav in Dark Mode */
-html.dark .bg-\[\#070b14\]\/80,
-html.dark header.bg-\[\#070b14\]\/80,
-html.dark .dark\:bg-\[\#070b14\]\/80,
-html.dark header {
-  background-color: rgba(5, 5, 7, 0.88) !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(20px);
-}
-
-/* Card Surfaces in Dark Mode: Obsidian Matte Glass */
-html.dark .bg-\[\#0c1322\],
-html.dark .bg-\[\#0c1222\],
-html.dark .bg-\[\#0b101d\],
-html.dark .bg-\[\#0f172a\],
-html.dark .bg-\[\#11192e\],
-html.dark .dark\:bg-\[\#0c1322\],
-html.dark .dark\:bg-\[\#0f172a\] {
-  background-color: #0c0d12 !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.85);
-}
-
-/* Slate helpers remapped to deep obsidian cyber tones */
-html.dark .bg-slate-900,
-html.dark .dark\:bg-slate-900 {
-  background-color: #08090d !important;
-}
-
-html.dark .bg-slate-950,
-html.dark .dark\:bg-slate-950 {
-  background-color: #030305 !important;
-}
-
-html.dark .bg-slate-800,
-html.dark .dark\:bg-slate-800 {
-  background-color: #12141c !important;
-}
-
-html.dark .border-slate-800,
-html.dark .dark\:border-slate-800,
-html.dark .border-slate-700,
-html.dark .dark\:border-slate-700 {
-  border-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-/* Dark Mode Typography */
-html.dark h1,
-html.dark h2,
-html.dark h3,
-html.dark h4 {
-  color: #f8fafc;
-  font-family: 'Syne', sans-serif;
-}
-
-html.dark p.text-slate-400,
-html.dark span.text-slate-400,
-html.dark .dark\:text-slate-400 {
-  color: #94a3b8;
-}
-
-html.dark p.text-slate-300,
-html.dark span.text-slate-300,
-html.dark .dark\:text-slate-300 {
-  color: #cbd5e1;
-}
-
-/* CYBER NEON MINT ACCENTS IN DARK MODE (MATCHING USER SCREENSHOT) */
-html.dark .text-cyan-500,
-html.dark .text-cyan-400,
-html.dark .dark\:text-cyan-400,
-html.dark .dark\:text-cyan-500 {
-  color: #0df2a3 !important;
-}
-
-html.dark .bg-cyan-500,
-html.dark .bg-cyan-600,
-html.dark .dark\:bg-cyan-500 {
-  background-color: #0df2a3 !important;
-  color: #000000 !important;
-  font-weight: 700 !important;
-}
-
-html.dark .border-cyan-500\/40,
-html.dark .border-cyan-500\/30,
-html.dark .dark\:border-cyan-500\/40 {
-  border-color: rgba(13, 242, 163, 0.45) !important;
-}
-
-html.dark .shadow-cyan-500\/20,
-html.dark .shadow-cyan-500\/25,
-html.dark .shadow-cyan-500\/30 {
-  box-shadow: 0 0 30px -5px rgba(13, 242, 163, 0.45) !important;
-}
-
-/* ==========================================================================
-   LIGHT THEME: EDITORIAL LINEN CREAM & PORCELAIN (HIGH CONTRAST & READABLE)
-   ========================================================================== */
-
+/* Page Backgrounds in Light Mode */
 html.light,
 html:not(.dark) {
   color-scheme: light;
@@ -293,32 +105,30 @@ html:not(.dark) {
 
 html.light body,
 html:not(.dark) body {
-  background-color: #f7f4ec !important;
-  color: #152a1f !important;
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
 }
 
-/* Canvas surfaces in Light Mode: Warm Editorial Sand Linen */
+/* Container surfaces */
 html.light .bg-\[\#070b14\],
 html:not(.dark) .bg-\[\#070b14\],
 html.light .bg-\[\#050811\],
 html:not(.dark) .bg-\[\#050811\],
 html.light .bg-\[\#0a0f1d\],
 html:not(.dark) .bg-\[\#0a0f1d\] {
-  background-color: #f7f4ec !important;
+  background-color: #f8fafc !important;
 }
 
-/* Header & Glass Nav in Light Mode */
+/* Glass & Header blur */
 html.light .bg-\[\#070b14\]\/80,
-html:not(.dark) .bg-\[\#070b14\]\/80,
-html.light header,
-html:not(.dark) header {
-  background-color: rgba(247, 244, 236, 0.95) !important;
+html:not(.dark) .bg-\[\#070b14\]\/80 {
+  background-color: rgba(255, 255, 255, 0.92) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-color: #e5dec9 !important;
+  border-color: #e2e8f0 !important;
 }
 
-/* Card surfaces: Crisp Porcelain White with Warm Sand Elevation */
+/* Card surfaces: clean white with soft elevation and crisp border */
 html.light .bg-\[\#0c1322\],
 html:not(.dark) .bg-\[\#0c1322\],
 html.light .bg-\[\#0c1222\],
@@ -328,129 +138,13 @@ html:not(.dark) .bg-\[\#0b101d\],
 html.light .bg-\[\#0f172a\],
 html:not(.dark) .bg-\[\#0f172a\],
 html.light .bg-\[\#11192e\],
-html:not(.dark) .bg-\[\#11192e\],
-html.light .dark\:bg-\[\#0c1322\],
-html:not(.dark) .dark\:bg-\[\#0c1322\] {
+html:not(.dark) .bg-\[\#11192e\] {
   background-color: #ffffff !important;
-  border-color: #e5dec9 !important;
-  box-shadow: 0 6px 24px -2px rgba(21, 42, 31, 0.05);
-}
-
-/* Modal Windows & Popups in Light Mode */
-html.light .fixed [class*="max-w-"],
-html:not(.dark) .fixed [class*="max-w-"],
-html.light [role="dialog"],
-html:not(.dark) [role="dialog"] {
-  background-color: #ffffff !important;
-  color: #152a1f !important;
-  border-color: #e5dec9 !important;
-  box-shadow: 0 25px 60px -15px rgba(21, 42, 31, 0.25) !important;
-}
-
-/* Light Mode Secondary Surfaces */
-html.light .bg-slate-100,
-html:not(.dark) .bg-slate-100,
-html.light .bg-slate-50,
-html:not(.dark) .bg-slate-50 {
-  background-color: #f8fafc !important;
-}
-
-/* Inner Panels & Subcontainers inside Modals / Cards */
-html.light .bg-slate-900\/60,
-html:not(.dark) .bg-slate-900\/60,
-html.light .bg-slate-900\/80,
-html:not(.dark) .bg-slate-900\/80,
-html.light .bg-slate-900\/50,
-html:not(.dark) .bg-slate-900\/50,
-html.light .bg-slate-900\/40,
-html:not(.dark) .bg-slate-900\/40,
-html.light .bg-slate-950,
-html:not(.dark) .bg-slate-950 {
-  background-color: #f8fafc !important;
   border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
 }
 
-/* Standalone bg-slate-900 elements in Light Mode */
-html.light .bg-slate-900:not(button),
-html:not(.dark) .bg-slate-900:not(button) {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
-}
-
-/* ALL FORM INPUTS & TEXTAREAS IN LIGHT MODE */
-html.light input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
-html:not(.dark) input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
-html.light textarea,
-html:not(.dark) textarea,
-html.light select,
-html:not(.dark) select {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
-  border: 1px solid #cbd5e1 !important;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05) !important;
-}
-
-html.light input:focus,
-html:not(.dark) input:focus,
-html.light textarea:focus,
-html:not(.dark) textarea:focus,
-html.light select:focus,
-html:not(.dark) select:focus {
-  border-color: #ea580c !important;
-  outline: none !important;
-  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15) !important;
-}
-
-html.light input::placeholder,
-html:not(.dark) input::placeholder,
-html.light textarea::placeholder,
-html:not(.dark) textarea::placeholder {
-  color: #64748b !important;
-}
-
-/* ALL LABELS IN LIGHT MODE: HIGH CONTRAST & READABLE */
-html.light label,
-html:not(.dark) label {
-  color: #1e293b !important;
-  font-weight: 600 !important;
-}
-
-/* FIX LIGHT TEXT CLASSES IN LIGHT MODE (PREVENTS WASHED OUT TEXT) */
-html.light .text-slate-100,
-html:not(.dark) .text-slate-100,
-html.light .text-slate-200,
-html:not(.dark) .text-slate-200,
-html.light .text-slate-300,
-html:not(.dark) .text-slate-300 {
-  color: #1e293b !important;
-}
-
-html.light .text-slate-400,
-html:not(.dark) .text-slate-400 {
-  color: #475569 !important;
-}
-
-html.light .text-slate-500,
-html:not(.dark) .text-slate-500 {
-  color: #64748b !important;
-}
-
-html.light .text-slate-600,
-html:not(.dark) .text-slate-600 {
-  color: #334155 !important;
-}
-
-html.light .text-slate-700,
-html:not(.dark) .text-slate-700 {
-  color: #1e293b !important;
-}
-
-/* Override text-white when in light mode (unless on a dark-banner or colored button) */
-html.light .text-white:not(.dark-banner *):not(button.bg-cyan-500 *):not(button.bg-cyan-600 *):not(button[class*="bg-[#ea580c]"] *):not(a[class*="bg-[#ea580c]"] *):not(button.bg-emerald-500 *):not(button.bg-rose-500 *):not(button.bg-purple-500 *):not(span.text-white[class*="bg-"]):not(.keep-white) {
-  color: #0f172a !important;
-}
-
-/* Global borders in light mode: Warm Sand / Linen */
+/* Global borders in light mode */
 html.light .border-white\/\[0\.08\],
 html:not(.dark) .border-white\/\[0\.08\],
 html.light .border-white\/\[0\.07\],
@@ -468,15 +162,11 @@ html:not(.dark) .border-white\/20,
 html.light .border-slate-700\/80,
 html:not(.dark) .border-slate-700\/80,
 html.light .border-slate-800,
-html:not(.dark) .border-slate-800,
-html.light .border-slate-700,
-html:not(.dark) .border-slate-700,
-html.light .border-slate-200,
-html:not(.dark) .border-slate-200 {
-  border-color: #e5dec9 !important;
+html:not(.dark) .border-slate-800 {
+  border-color: #e2e8f0 !important;
 }
 
-/* Headings in Light Mode: Deep Pine Espresso Ink */
+/* Headings in light mode */
 html.light h1:not(.text-gradient):not(.dark-banner *):not([class*="from-"] *),
 html:not(.dark) h1:not(.text-gradient):not(.dark-banner *):not([class*="from-"] *),
 html.light h2:not(.text-gradient):not(.dark-banner *):not([class*="from-"] *),
@@ -485,59 +175,22 @@ html.light h3:not(.dark-banner *):not([class*="from-"] *),
 html:not(.dark) h3:not(.dark-banner *):not([class*="from-"] *),
 html.light h4:not(.dark-banner *):not([class*="from-"] *),
 html:not(.dark) h4:not(.dark-banner *):not([class*="from-"] *) {
-  color: #152a1f !important;
+  color: #0f172a;
 }
 
-/* Secondary Buttons in Light Mode (Cancel, edit, actions) */
-html.light .bg-slate-800,
-html:not(.dark) .bg-slate-800 {
-  background-color: #efe9da !important;
-  color: #152a1f !important;
-  border: 1px solid #d1c5ab !important;
+/* Muted / secondary text in light mode */
+html.light p.text-slate-400,
+html:not(.dark) p.text-slate-400 {
+  color: #475569;
 }
 
-html.light .bg-slate-800:hover,
-html:not(.dark) .bg-slate-800:hover {
-  background-color: #e2d9c4 !important;
+html.light span.text-slate-400,
+html:not(.dark) span.text-slate-400 {
+  color: #64748b;
 }
 
-/* Buttons and Accents in Light Mode */
-html.light .bg-cyan-500,
-html.light .bg-cyan-600,
-html:not(.dark) .bg-cyan-500,
-html:not(.dark) .bg-cyan-600 {
-  background-color: #ea580c !important;
-  color: #ffffff !important;
-}
-
-html.light .hover\:bg-cyan-600:hover,
-html:not(.dark) .hover\:bg-cyan-600:hover {
-  background-color: #c2410c !important;
-}
-
-html.light .text-cyan-500,
-html.light .text-cyan-600,
-html:not(.dark) .text-cyan-500,
-html:not(.dark) .text-cyan-600 {
-  color: #ea580c !important;
-}
-
-html.light .border-cyan-500\/40,
-html:not(.dark) .border-cyan-500\/40 {
-  border-color: rgba(234, 88, 12, 0.4) !important;
-}
-
-/* ==========================================================================
-   CALLOUT BANNERS & ACCENT BOXES
-   ========================================================================== */
-
-/* Dark Banner (Contact CTA / Special Sections) */
-.dark-banner {
-  background: linear-gradient(135deg, #102219 0%, #152d21 50%, #241a14 100%) !important;
-  border: 1px solid rgba(234, 88, 12, 0.3) !important;
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.45);
-}
-
+/* Explicit class to guarantee white text on dark banners and gradients */
+.keep-white,
 .dark-banner,
 .dark-banner h1,
 .dark-banner h2,
@@ -545,9 +198,6 @@ html:not(.dark) .border-cyan-500\/40 {
 .dark-banner h4,
 .dark-banner p,
 .dark-banner span {
-  color: #f7f4ed !important;
-}
-
-.keep-white {
   color: #ffffff !important;
 }
+
