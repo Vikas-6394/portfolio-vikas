@@ -34,8 +34,8 @@ export const Home = ({ onOpenHireModal, onSelectService, onRequestTemplate }) =>
           <main className="flex-1 w-full min-w-0 space-y-4">
             <HeroSection onOpenHireModal={onOpenHireModal} />
             <SkillsSection />
-            <ServicesSection onSelectService={onSelectService} />
             <FeaturedProjectsSection />
+            <ServicesSection onSelectService={onSelectService} />
             <WebsiteTemplatesSection onRequestTemplate={onRequestTemplate} />
             <AboutSection />
             <TestimonialsSection />
