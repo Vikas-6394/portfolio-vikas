@@ -279,19 +279,19 @@ export const AdminDashboard = () => {
     navigate('/admin/login', { replace: true });
   };
 
-  // Status Badge Colors
+  // Status Badge Colors (High contrast in both Light & Dark modes)
   const getStatusBadge = (status) => {
     switch (status) {
       case 'New':
-        return 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30';
+        return 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/25';
       case 'In Progress':
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+        return 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/25';
       case 'Responded':
-        return 'bg-purple-500/10 text-purple-400 border-purple-500/30';
+        return 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/25';
       case 'Closed':
-        return 'bg-slate-800 text-slate-400 border-slate-700';
+        return 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700';
       default:
-        return 'bg-slate-800 text-slate-400';
+        return 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400';
     }
   };
 
@@ -413,8 +413,8 @@ export const AdminDashboard = () => {
 
   if (authLoading || !isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#070b14] text-white">
-        <Loader2 className="w-8 h-8 animate-spin text-cyan-400" />
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#070b14] text-slate-900 dark:text-white">
+        <Loader2 className="w-8 h-8 animate-spin text-cyan-500" />
       </div>
     );
   }
@@ -586,46 +586,46 @@ export const AdminDashboard = () => {
             <div className="space-y-8">
               {/* Stat Cards */}
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-                <div className="p-5 rounded-2xl bg-[#0c1322] border border-white/[0.08]">
-                  <span className="text-xs text-slate-400 block mb-1">Total Enquiries</span>
-                  <span className="text-3xl font-extrabold text-white">{stats.total}</span>
+                <div className="p-5 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Total Enquiries</span>
+                  <span className="text-3xl font-extrabold text-slate-900 dark:text-white">{stats.total}</span>
                 </div>
-                <div className="p-5 rounded-2xl bg-[#0c1322] border border-cyan-500/30">
-                  <span className="text-xs text-cyan-400 block mb-1">New Enquiries</span>
-                  <span className="text-3xl font-extrabold text-cyan-400">{stats.new}</span>
+                <div className="p-5 rounded-2xl bg-white dark:bg-[#0c1322] border border-cyan-500/25 dark:border-cyan-500/30 shadow-sm">
+                  <span className="text-xs text-cyan-600 dark:text-cyan-400 block mb-1">New Enquiries</span>
+                  <span className="text-3xl font-extrabold text-cyan-600 dark:text-cyan-400">{stats.new}</span>
                 </div>
-                <div className="p-5 rounded-2xl bg-[#0c1322] border border-amber-500/30">
-                  <span className="text-xs text-amber-400 block mb-1">In Progress</span>
-                  <span className="text-3xl font-extrabold text-amber-400">{stats.inProgress}</span>
+                <div className="p-5 rounded-2xl bg-white dark:bg-[#0c1322] border border-amber-500/25 dark:border-amber-500/30 shadow-sm">
+                  <span className="text-xs text-amber-600 dark:text-amber-400 block mb-1">In Progress</span>
+                  <span className="text-3xl font-extrabold text-amber-600 dark:text-amber-400">{stats.inProgress}</span>
                 </div>
-                <div className="p-5 rounded-2xl bg-[#0c1322] border border-purple-500/30">
-                  <span className="text-xs text-purple-400 block mb-1">Responded</span>
-                  <span className="text-3xl font-extrabold text-purple-400">{stats.responded}</span>
+                <div className="p-5 rounded-2xl bg-white dark:bg-[#0c1322] border border-purple-500/25 dark:border-purple-500/30 shadow-sm">
+                  <span className="text-xs text-purple-600 dark:text-purple-400 block mb-1">Responded</span>
+                  <span className="text-3xl font-extrabold text-purple-600 dark:text-purple-400">{stats.responded}</span>
                 </div>
-                <div className="p-5 rounded-2xl bg-[#0c1322] border border-white/[0.08]">
-                  <span className="text-xs text-slate-400 block mb-1">Closed</span>
-                  <span className="text-3xl font-extrabold text-slate-400">{stats.closed}</span>
+                <div className="p-5 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Closed</span>
+                  <span className="text-3xl font-extrabold text-slate-600 dark:text-slate-400">{stats.closed}</span>
                 </div>
               </div>
 
               {/* Recent Enquiries Preview */}
-              <div className="p-6 rounded-3xl bg-[#0c1322] border border-white/[0.08]">
+              <div className="p-6 rounded-3xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-base font-bold text-white">Recent Client Enquiries</h3>
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white">Recent Client Enquiries</h3>
                   <button
                     onClick={() => setActiveTab('enquiries')}
-                    className="text-xs text-cyan-400 font-semibold hover:underline"
+                    className="text-xs text-cyan-600 dark:text-cyan-400 font-bold hover:underline"
                   >
                     View All
                   </button>
                 </div>
 
                 {enquiries.length === 0 ? (
-                  <p className="text-xs text-slate-500 py-6 text-center">No enquiries received yet.</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 py-6 text-center">No enquiries received yet.</p>
                 ) : (
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs">
-                      <thead className="text-slate-400 border-b border-white/[0.08]">
+                      <thead className="text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-white/[0.08]">
                         <tr>
                           <th className="pb-3 font-semibold">Ref</th>
                           <th className="pb-3 font-semibold">Client</th>
@@ -635,13 +635,13 @@ export const AdminDashboard = () => {
                           <th className="pb-3 font-semibold text-right">Action</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-white/[0.04]">
+                      <tbody className="divide-y divide-slate-100 dark:divide-white/[0.04]">
                         {enquiries.slice(0, 5).map((enq) => (
-                          <tr key={enq._id} className="hover:bg-white/[0.02]">
-                            <td className="py-3 font-mono text-cyan-400">{enq.referenceNumber}</td>
-                            <td className="py-3 text-white font-medium">{enq.fullName}</td>
-                            <td className="py-3 text-slate-300">{enq.serviceRequired}</td>
-                            <td className="py-3 text-slate-400">{enq.budgetRange}</td>
+                          <tr key={enq._id} className="hover:bg-slate-50 dark:hover:bg-white/[0.02] transition">
+                            <td className="py-3 font-mono font-bold text-cyan-600 dark:text-cyan-400">{enq.referenceNumber}</td>
+                            <td className="py-3 text-slate-900 dark:text-white font-medium">{enq.fullName}</td>
+                            <td className="py-3 text-slate-700 dark:text-slate-300">{enq.serviceRequired}</td>
+                            <td className="py-3 text-slate-500 dark:text-slate-400">{enq.budgetRange}</td>
                             <td className="py-3">
                               <span
                                 className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${getStatusBadge(
@@ -657,7 +657,7 @@ export const AdminDashboard = () => {
                                   setEditingItem(enq);
                                   setModalType('enquiryDetails');
                                 }}
-                                className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
+                                className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white transition font-medium"
                               >
                                 View
                               </button>
@@ -675,7 +675,7 @@ export const AdminDashboard = () => {
           {/* TAB 2: ENQUIRIES INBOX */}
           {activeTab === 'enquiries' && (
             <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-[#0c1322] border border-white/[0.08]">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm">
                 <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                   {['All', 'New', 'In Progress', 'Responded', 'Closed'].map((st) => (
                     <button
@@ -683,8 +683,8 @@ export const AdminDashboard = () => {
                       onClick={() => setEnquiryFilter(st)}
                       className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition ${
                         enquiryFilter === st
-                          ? 'bg-cyan-500 text-white'
-                          : 'bg-slate-900 text-slate-400 hover:text-white border border-white/[0.06]'
+                          ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/20'
+                          : 'bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/[0.06]'
                       }`}
                     >
                       {st}
@@ -693,21 +693,21 @@ export const AdminDashboard = () => {
                 </div>
 
                 <div className="relative w-full sm:w-64">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                   <input
                     type="text"
                     value={enquirySearch}
                     onChange={(e) => setEnquirySearch(e.target.value)}
                     placeholder="Search client or ref..."
-                    className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                    className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition text-xs placeholder:text-slate-400"
                   />
                 </div>
               </div>
 
-              <div className="rounded-3xl bg-[#0c1322] border border-white/[0.08] overflow-hidden">
+              <div className="rounded-3xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-slate-900/60 text-slate-400 border-b border-white/[0.08]">
+                    <thead className="bg-slate-50 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-white/[0.08]">
                       <tr>
                         <th className="p-4 font-semibold">Ref Code</th>
                         <th className="p-4 font-semibold">Client Name & Email</th>
@@ -718,7 +718,7 @@ export const AdminDashboard = () => {
                         <th className="p-4 font-semibold text-right">Actions</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/[0.04]">
+                    <tbody className="divide-y divide-slate-100 dark:divide-white/[0.04]">
                       {enquiries
                         .filter((e) => {
                           const matchesFilter =
@@ -730,29 +730,29 @@ export const AdminDashboard = () => {
                           return matchesFilter && matchesSearch;
                         })
                         .map((enq) => (
-                          <tr key={enq._id} className="hover:bg-white/[0.02]">
-                            <td className="p-4 font-mono font-bold text-cyan-400">
+                          <tr key={enq._id} className="hover:bg-slate-50 dark:hover:bg-white/[0.02] transition">
+                            <td className="p-4 font-mono font-bold text-cyan-600 dark:text-cyan-400">
                               {enq.referenceNumber}
                             </td>
                             <td className="p-4">
-                              <span className="text-white font-bold block">{enq.fullName}</span>
-                              <span className="text-slate-400 text-[11px] block">{enq.email}</span>
+                              <span className="text-slate-900 dark:text-white font-bold block">{enq.fullName}</span>
+                              <span className="text-slate-500 dark:text-slate-400 text-[11px] block">{enq.email}</span>
                               {enq.phone && (
-                                <span className="text-emerald-400 text-[10px] block">
+                                <span className="text-emerald-600 dark:text-emerald-400 font-medium text-[10px] block">
                                   {enq.phone}
                                 </span>
                               )}
                             </td>
-                            <td className="p-4 text-slate-300 font-medium">
+                            <td className="p-4 text-slate-700 dark:text-slate-300 font-medium">
                               {enq.serviceRequired}
                               {enq.selectedTemplate && (
-                                <span className="block text-[10px] text-purple-400">
+                                <span className="block text-[10px] text-purple-600 dark:text-purple-400 font-semibold">
                                   Template: {enq.selectedTemplate}
                                 </span>
                               )}
                             </td>
-                            <td className="p-4 text-slate-400">{enq.budgetRange}</td>
-                            <td className="p-4 text-slate-500">
+                            <td className="p-4 text-slate-500 dark:text-slate-400">{enq.budgetRange}</td>
+                            <td className="p-4 text-slate-500 dark:text-slate-400">
                               {new Date(enq.createdAt).toLocaleDateString()}
                             </td>
                             <td className="p-4">
@@ -761,7 +761,7 @@ export const AdminDashboard = () => {
                                 onChange={(e) =>
                                   handleUpdateEnquiryStatus(enq._id, e.target.value, enq.internalNotes)
                                 }
-                                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border bg-slate-900 ${getStatusBadge(
+                                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border bg-white dark:bg-slate-900 transition ${getStatusBadge(
                                   enq.status
                                 )}`}
                               >
@@ -778,14 +778,14 @@ export const AdminDashboard = () => {
                                     setEditingItem(enq);
                                     setModalType('enquiryDetails');
                                   }}
-                                  className="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
+                                  className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white transition"
                                   title="View Details"
                                 >
                                   <Eye className="w-3.5 h-3.5" />
                                 </button>
                                 <button
                                   onClick={() => handleDeleteEnquiry(enq._id)}
-                                  className="p-1.5 rounded-lg bg-rose-950/40 text-rose-400 hover:text-rose-300"
+                                  className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-400 dark:hover:text-rose-300 border border-rose-200 dark:border-transparent transition"
                                   title="Delete Enquiry"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
@@ -805,7 +805,7 @@ export const AdminDashboard = () => {
           {activeTab === 'services' && (
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-400">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                   {adminServices.length} Total Services Active
                 </span>
                 <button
@@ -819,7 +819,7 @@ export const AdminDashboard = () => {
                     });
                     setModalType('service');
                   }}
-                  className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-cyan-500/20"
+                  className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-cyan-500/20 transition hover:scale-[1.02]"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add New Service</span>
@@ -830,29 +830,29 @@ export const AdminDashboard = () => {
                 {adminServices.map((svc) => (
                   <div
                     key={svc._id}
-                    className="p-5 rounded-2xl bg-[#0c1322] border border-white/[0.08] flex flex-col justify-between"
+                    className="p-5 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm flex flex-col justify-between hover:border-cyan-500/40 transition hover:shadow-md"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs text-cyan-400 font-semibold uppercase tracking-wider">
+                        <span className="text-xs text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-wider">
                           {svc.category || 'Service'}
                         </span>
-                        <span className="text-sm font-extrabold text-white">
+                        <span className="text-sm font-extrabold text-slate-900 dark:text-white">
                           ${svc.startingPrice || 0}
                         </span>
                       </div>
-                      <h3 className="text-base font-bold text-white mb-2">{svc.title}</h3>
-                      <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">{svc.title}</h3>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
                         {svc.shortDescription}
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between">
+                    <div className="pt-4 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between">
                       <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
                           svc.isPublished
-                            ? 'bg-emerald-500/10 text-emerald-400'
-                            : 'bg-slate-800 text-slate-500'
+                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                            : 'bg-slate-100 text-slate-500 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-transparent'
                         }`}
                       >
                         {svc.isPublished ? 'Published' : 'Draft'}
@@ -864,13 +864,15 @@ export const AdminDashboard = () => {
                             setEditingItem(svc);
                             setModalType('service');
                           }}
-                          className="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
+                          className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white transition"
+                          title="Edit Service"
                         >
                           <Edit className="w-3.5 h-3.5" />
                         </button>
                         <button
                           onClick={() => handleDeleteService(svc._id)}
-                          className="p-1.5 rounded-lg bg-rose-950/40 text-rose-400 hover:text-rose-300"
+                          className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-400 dark:hover:text-rose-300 border border-rose-200 dark:border-transparent transition"
+                          title="Delete Service"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -886,7 +888,7 @@ export const AdminDashboard = () => {
           {activeTab === 'projects' && (
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-400">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                   {adminProjects.length} Portfolio Projects
                 </span>
                 <button
@@ -902,7 +904,7 @@ export const AdminDashboard = () => {
                     });
                     setModalType('project');
                   }}
-                  className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-cyan-500/20"
+                  className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-cyan-500/20 transition hover:scale-[1.02]"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add New Project</span>
@@ -913,9 +915,9 @@ export const AdminDashboard = () => {
                 {adminProjects.map((prj) => (
                   <div
                     key={prj._id}
-                    className="rounded-2xl bg-[#0c1322] border border-white/[0.08] overflow-hidden flex flex-col justify-between"
+                    className="rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm overflow-hidden flex flex-col justify-between hover:border-cyan-500/40 transition hover:shadow-md"
                   >
-                    <div className="relative aspect-video bg-slate-900">
+                    <div className="relative aspect-video bg-slate-100 dark:bg-slate-900">
                       <img
                         src={getSafeImageUrl(prj.coverImage)}
                         alt={prj.title}
@@ -924,21 +926,21 @@ export const AdminDashboard = () => {
                     </div>
                     <div className="p-5 flex-1 flex flex-col justify-between">
                       <div>
-                        <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider block mb-1">
+                        <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-wider block mb-1">
                           {prj.category}
                         </span>
-                        <h3 className="text-base font-bold text-white mb-2">{prj.title}</h3>
-                        <p className="text-xs text-slate-400 line-clamp-2 mb-3">
+                        <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">{prj.title}</h3>
+                        <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 mb-3 leading-relaxed">
                           {prj.shortDescription}
                         </p>
                       </div>
 
-                      <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between">
+                      <div className="pt-4 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between">
                         <span
-                          className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
                             prj.isPublished
-                              ? 'bg-emerald-500/10 text-emerald-400'
-                              : 'bg-slate-800 text-slate-500'
+                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                              : 'bg-slate-100 text-slate-500 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-transparent'
                           }`}
                         >
                           {prj.isPublished ? 'Published' : 'Draft'}
@@ -949,13 +951,15 @@ export const AdminDashboard = () => {
                               setEditingItem(prj);
                               setModalType('project');
                             }}
-                            className="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
+                            className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white transition"
+                            title="Edit Project"
                           >
                             <Edit className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleDeleteProject(prj._id)}
-                            className="p-1.5 rounded-lg bg-rose-950/40 text-rose-400 hover:text-rose-300"
+                            className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-400 dark:hover:text-rose-300 border border-rose-200 dark:border-transparent transition"
+                            title="Delete Project"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -972,7 +976,7 @@ export const AdminDashboard = () => {
           {activeTab === 'templates' && (
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-400">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                   {adminTemplates.length} Ready-Made Templates
                 </span>
                 <button
@@ -989,7 +993,7 @@ export const AdminDashboard = () => {
                     });
                     setModalType('template');
                   }}
-                  className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-emerald-500/20"
+                  className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-emerald-500/20 transition hover:scale-[1.02]"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add New Template</span>
@@ -1000,9 +1004,9 @@ export const AdminDashboard = () => {
                 {adminTemplates.map((tpl) => (
                   <div
                     key={tpl._id}
-                    className="rounded-2xl bg-[#0c1322] border border-white/[0.08] overflow-hidden flex flex-col justify-between"
+                    className="rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm overflow-hidden flex flex-col justify-between hover:border-emerald-500/40 transition hover:shadow-md"
                   >
-                    <div className="relative aspect-video bg-slate-900">
+                    <div className="relative aspect-video bg-slate-100 dark:bg-slate-900">
                       <img
                         src={getSafeImageUrl(tpl.thumbnail)}
                         alt={tpl.name}
@@ -1011,17 +1015,17 @@ export const AdminDashboard = () => {
                     </div>
                     <div className="p-5 flex-1 flex flex-col justify-between">
                       <div>
-                        <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider block mb-1">
+                        <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider block mb-1">
                           {tpl.category}
                         </span>
-                        <h3 className="text-base font-bold text-white mb-2">{tpl.name}</h3>
-                        <p className="text-xs text-slate-400 line-clamp-2 mb-3">
+                        <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">{tpl.name}</h3>
+                        <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 mb-3 leading-relaxed">
                           {tpl.shortDescription}
                         </p>
                       </div>
 
-                      <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between">
-                        <span className="text-sm font-extrabold text-white">
+                      <div className="pt-4 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between">
+                        <span className="text-sm font-extrabold text-slate-900 dark:text-white">
                           ${tpl.startingPrice || 0}
                         </span>
                         <div className="flex items-center gap-1.5">
@@ -1030,13 +1034,15 @@ export const AdminDashboard = () => {
                               setEditingItem(tpl);
                               setModalType('template');
                             }}
-                            className="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
+                            className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white transition"
+                            title="Edit Template"
                           >
                             <Edit className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleDeleteTemplate(tpl._id)}
-                            className="p-1.5 rounded-lg bg-rose-950/40 text-rose-400 hover:text-rose-300"
+                            className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-400 dark:hover:text-rose-300 border border-rose-200 dark:border-transparent transition"
+                            title="Delete Template"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -1258,7 +1264,7 @@ export const AdminDashboard = () => {
           {/* TAB 7: TESTIMONIALS MODERATION */}
           {activeTab === 'testimonials' && (
             <div className="space-y-6">
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                 Moderate client reviews submitted on the public website.
               </span>
 
@@ -1266,34 +1272,34 @@ export const AdminDashboard = () => {
                 {adminTestimonials.map((t) => (
                   <div
                     key={t._id}
-                    className="p-6 rounded-2xl bg-[#0c1322] border border-white/[0.08] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                    className="p-6 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition hover:border-cyan-500/40"
                   >
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-sm text-white">{t.clientName}</span>
-                        <span className="text-xs text-slate-400">
+                    <div className="space-y-1.5 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-bold text-sm text-slate-900 dark:text-white">{t.clientName}</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400">
                           {t.clientRole} {t.clientCompany ? `(${t.clientCompany})` : ''}
                         </span>
                         <span
-                          className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
                             t.isApproved
-                              ? 'bg-emerald-500/10 text-emerald-400'
-                              : 'bg-amber-500/10 text-amber-400'
+                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                              : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
                           }`}
                         >
                           {t.isApproved ? 'Approved & Visible' : 'Pending Moderation'}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-300 italic">"{t.testimonialText}"</p>
+                      <p className="text-xs text-slate-700 dark:text-slate-300 italic leading-relaxed">"{t.testimonialText}"</p>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 shrink-0">
                       <button
                         onClick={() => handleToggleTestimonial(t._id)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-sm ${
                           t.isApproved
-                            ? 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                            : 'bg-emerald-500 text-white'
+                            ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white border border-slate-200 dark:border-transparent'
+                            : 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-500/20'
                         }`}
                       >
                         {t.isApproved ? 'Unapprove' : 'Approve & Publish'}
@@ -1306,7 +1312,8 @@ export const AdminDashboard = () => {
                             refreshPortfolioData();
                           }
                         }}
-                        className="p-1.5 rounded-lg bg-rose-950/40 text-rose-400 hover:text-rose-300"
+                        className="p-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-400 dark:hover:text-rose-300 border border-rose-200 dark:border-transparent transition"
+                        title="Delete Review"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -1356,68 +1363,68 @@ export const AdminDashboard = () => {
               )}
 
               <form onSubmit={handleSaveProfile} className="space-y-6">
-                <div className="p-6 rounded-3xl bg-[#0c1322] border border-white/[0.08] space-y-4">
-                  <h3 className="text-base font-bold text-white">General Information</h3>
+                <div className="p-6 rounded-3xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm space-y-4">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white">General Information</h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs text-slate-300 mb-1">Full Name</label>
+                      <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Full Name</label>
                       <input
                         type="text"
                         value={editableProfile.fullName || ''}
                         onChange={(e) =>
                           setEditableProfile({ ...editableProfile, fullName: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition text-xs"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-slate-300 mb-1">Professional Title</label>
+                      <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Professional Title</label>
                       <input
                         type="text"
                         value={editableProfile.headline || ''}
                         onChange={(e) =>
                           setEditableProfile({ ...editableProfile, headline: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition text-xs"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs text-slate-300 mb-1">Supporting Headline</label>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Supporting Headline</label>
                     <input
                       type="text"
                       value={editableProfile.subHeadline || ''}
                       onChange={(e) =>
                         setEditableProfile({ ...editableProfile, subHeadline: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs text-slate-300 mb-1">About Summary</label>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">About Summary</label>
                     <textarea
                       rows={4}
                       value={editableProfile.aboutIntro || ''}
                       onChange={(e) =>
                         setEditableProfile({ ...editableProfile, aboutIntro: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs resize-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition text-xs resize-none"
                     ></textarea>
                   </div>
                 </div>
 
-                <div className="p-6 rounded-3xl bg-[#0c1322] border border-white/[0.08] space-y-4">
-                  <h3 className="text-base font-bold text-white">Contact & WhatsApp Configuration</h3>
+                <div className="p-6 rounded-3xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm space-y-4">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white">Contact & WhatsApp Configuration</h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
-                      <div className="flex items-center justify-between mb-1">
-                        <label className="block text-xs text-slate-300">Email</label>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Email</label>
                         {profileErrors.email && (
-                          <span className="text-[10px] font-semibold text-rose-400">{profileErrors.email}</span>
+                          <span className="text-[10px] font-semibold text-rose-500 dark:text-rose-400">{profileErrors.email}</span>
                         )}
                       </div>
                       <input
@@ -1427,16 +1434,16 @@ export const AdminDashboard = () => {
                           setEditableProfile({ ...editableProfile, email: e.target.value });
                           if (profileErrors.email) setProfileErrors((p) => ({ ...p, email: '' }));
                         }}
-                        className={`w-full px-3 py-2 rounded-xl bg-slate-900 border text-white text-xs ${
-                          profileErrors.email ? 'border-rose-500' : 'border-slate-700'
+                        className={`w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border focus:outline-none focus:border-cyan-500 transition text-xs ${
+                          profileErrors.email ? 'border-rose-500' : 'border-slate-300 dark:border-slate-700'
                         }`}
                       />
                     </div>
                     <div>
-                      <div className="flex items-center justify-between mb-1">
-                        <label className="block text-xs text-slate-300">Phone</label>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Phone</label>
                         {profileErrors.phone && (
-                          <span className="text-[10px] font-semibold text-rose-400">{profileErrors.phone}</span>
+                          <span className="text-[10px] font-semibold text-rose-500 dark:text-rose-400">{profileErrors.phone}</span>
                         )}
                       </div>
                       <input
@@ -1446,13 +1453,13 @@ export const AdminDashboard = () => {
                           setEditableProfile({ ...editableProfile, phone: e.target.value });
                           if (profileErrors.phone) setProfileErrors((p) => ({ ...p, phone: '' }));
                         }}
-                        className={`w-full px-3 py-2 rounded-xl bg-slate-900 border text-white text-xs ${
-                          profileErrors.phone ? 'border-rose-500' : 'border-slate-700'
+                        className={`w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border focus:outline-none focus:border-cyan-500 transition text-xs ${
+                          profileErrors.phone ? 'border-rose-500' : 'border-slate-300 dark:border-slate-700'
                         }`}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-slate-300 mb-1">
+                      <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                         WhatsApp Number (int'l digits)
                       </label>
                       <input
@@ -1461,7 +1468,7 @@ export const AdminDashboard = () => {
                         onChange={(e) =>
                           setEditableProfile({ ...editableProfile, whatsappNumber: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition text-xs"
                       />
                     </div>
                   </div>
@@ -1480,66 +1487,66 @@ export const AdminDashboard = () => {
 
           {/* MODAL: ENQUIRY DETAILS */}
           {modalType === 'enquiryDetails' && editingItem && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-              <div className="w-full max-w-lg rounded-2xl bg-[#0c1322] border border-white/10 p-6 shadow-2xl text-slate-100 space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-                  <span className="font-mono text-cyan-400 font-bold text-sm">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+              <div className="w-full max-w-lg rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/10 p-6 shadow-2xl text-slate-900 dark:text-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/[0.08]">
+                  <span className="font-mono text-cyan-600 dark:text-cyan-400 font-bold text-sm">
                     {editingItem.referenceNumber}
                   </span>
                   <button
                     onClick={() => setModalType(null)}
-                    className="p-1 rounded text-slate-400 hover:text-white"
+                    className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05] transition"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                <div className="space-y-2 text-xs">
+                <div className="space-y-3 text-xs">
                   <div>
-                    <span className="text-slate-400 block">Client Name</span>
-                    <span className="text-white font-semibold text-sm">{editingItem.fullName}</span>
+                    <span className="text-slate-500 dark:text-slate-400 block font-medium mb-0.5">Client Name</span>
+                    <span className="text-slate-900 dark:text-white font-semibold text-sm">{editingItem.fullName}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">Email Address</span>
+                    <span className="text-slate-500 dark:text-slate-400 block font-medium mb-0.5">Email Address</span>
                     <a
                       href={`mailto:${editingItem.email}`}
-                      className="text-cyan-400 underline font-medium"
+                      className="text-cyan-600 dark:text-cyan-400 underline font-semibold"
                     >
                       {editingItem.email}
                     </a>
                   </div>
                   {editingItem.phone && (
                     <div>
-                      <span className="text-slate-400 block">Phone / WhatsApp</span>
-                      <span className="text-emerald-400 font-medium">{editingItem.phone}</span>
+                      <span className="text-slate-500 dark:text-slate-400 block font-medium mb-0.5">Phone / WhatsApp</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{editingItem.phone}</span>
                     </div>
                   )}
                   <div>
-                    <span className="text-slate-400 block">Service Requested</span>
-                    <span className="text-white">{editingItem.serviceRequired}</span>
+                    <span className="text-slate-500 dark:text-slate-400 block font-medium mb-0.5">Service Requested</span>
+                    <span className="text-slate-900 dark:text-white font-medium">{editingItem.serviceRequired}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">Budget & Target Date</span>
-                    <span className="text-white">
+                    <span className="text-slate-500 dark:text-slate-400 block font-medium mb-0.5">Budget & Target Date</span>
+                    <span className="text-slate-900 dark:text-white font-medium">
                       {editingItem.budgetRange} • {editingItem.expectedCompletionDate || 'Flexible'}
                     </span>
                   </div>
                   {editingItem.selectedTemplate && (
                     <div>
-                      <span className="text-slate-400 block">Requested Template</span>
-                      <span className="text-purple-400 font-bold">
+                      <span className="text-slate-500 dark:text-slate-400 block font-medium mb-0.5">Requested Template</span>
+                      <span className="text-purple-600 dark:text-purple-400 font-bold">
                         {editingItem.selectedTemplate}
                       </span>
                     </div>
                   )}
                   <div>
-                    <span className="text-slate-400 block">Project Description</span>
-                    <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 whitespace-pre-wrap leading-relaxed mt-1">
+                    <span className="text-slate-500 dark:text-slate-400 block font-medium mb-0.5">Project Description</span>
+                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-relaxed mt-1">
                       {editingItem.projectDescription}
                     </div>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">Internal Notes (Private)</span>
+                    <span className="text-slate-500 dark:text-slate-400 block font-medium mb-0.5">Internal Notes (Private)</span>
                     <textarea
                       rows={2}
                       value={editingItem.internalNotes || ''}
@@ -1547,19 +1554,19 @@ export const AdminDashboard = () => {
                         setEditingItem({ ...editingItem, internalNotes: e.target.value })
                       }
                       placeholder="Add private note (e.g. called client on Oct 14, agreed on $350)..."
-                      className="w-full p-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white resize-none mt-1"
+                      className="w-full p-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 text-xs resize-none mt-1 focus:outline-none focus:border-cyan-500 transition"
                     ></textarea>
                   </div>
                 </div>
 
-                <div className="pt-2 flex justify-between items-center">
+                <div className="pt-3 flex justify-between items-center border-t border-slate-200 dark:border-white/[0.08]">
                   <select
                     value={editingItem.status}
                     onChange={(e) => {
                       const newSt = e.target.value;
                       handleUpdateEnquiryStatus(editingItem._id, newSt, editingItem.internalNotes);
                     }}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold border bg-slate-900 ${getStatusBadge(
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border bg-white dark:bg-slate-900 transition ${getStatusBadge(
                       editingItem.status
                     )}`}
                   >
@@ -1579,7 +1586,7 @@ export const AdminDashboard = () => {
                         );
                         setModalType(null);
                       }}
-                      className="px-4 py-2 rounded-xl bg-cyan-500 text-white font-bold text-xs"
+                      className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs shadow-md shadow-cyan-500/20 transition"
                     >
                       Save Notes
                     </button>
@@ -1591,31 +1598,31 @@ export const AdminDashboard = () => {
 
           {/* MODAL: CREATE / EDIT SERVICE */}
           {modalType === 'service' && editingItem && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-              <div className="w-full max-w-lg rounded-2xl bg-[#0c1322] border border-white/10 p-6 shadow-2xl text-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
-                <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-                  <h3 className="font-bold text-white text-base">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+              <div className="w-full max-w-lg rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/10 p-6 shadow-2xl text-slate-900 dark:text-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/[0.08]">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">
                     {editingItem._id ? 'Edit Service' : 'Add New Service'}
                   </h3>
-                  <button onClick={() => setModalType(null)} className="text-slate-400 hover:text-white">
+                  <button onClick={() => setModalType(null)} className="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/[0.05] transition">
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                <div className="space-y-3 text-xs">
+                <div className="space-y-3.5 text-xs">
                   <div>
-                    <label className="block text-slate-300 mb-1">Service Title *</label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Service Title <span className="text-cyan-500">*</span></label>
                     <input
                       type="text"
                       required
                       value={editingItem.title}
                       onChange={(e) => setEditingItem({ ...editingItem, title: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                       placeholder="e.g. MERN Stack Custom Development"
                     />
                   </div>
                   <div>
-                    <label className="block text-slate-300 mb-1">Short Description *</label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Short Description <span className="text-cyan-500">*</span></label>
                     <textarea
                       rows={3}
                       required
@@ -1623,12 +1630,12 @@ export const AdminDashboard = () => {
                       onChange={(e) =>
                         setEditingItem({ ...editingItem, shortDescription: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white resize-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition resize-none"
                     ></textarea>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-slate-300 mb-1">Starting Price ($)</label>
+                      <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Starting Price ($)</label>
                       <input
                         type="number"
                         value={editingItem.startingPrice || ''}
@@ -1638,22 +1645,22 @@ export const AdminDashboard = () => {
                             startingPrice: parseFloat(e.target.value) || null,
                           })
                         }
-                        className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                       />
                     </div>
                     <div>
-                      <label className="block text-slate-300 mb-1">Category</label>
+                      <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Category</label>
                       <input
                         type="text"
                         value={editingItem.category || 'Web Development'}
                         onChange={(e) =>
                           setEditingItem({ ...editingItem, category: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                       />
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 pt-2">
+                  <div className="flex items-center gap-2 pt-1">
                     <input
                       type="checkbox"
                       id="svcPublished"
@@ -1661,17 +1668,18 @@ export const AdminDashboard = () => {
                       onChange={(e) =>
                         setEditingItem({ ...editingItem, isPublished: e.target.checked })
                       }
+                      className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer"
                     />
-                    <label htmlFor="svcPublished" className="text-slate-300">
+                    <label htmlFor="svcPublished" className="text-slate-700 dark:text-slate-300 font-medium cursor-pointer">
                       Publish publicly on website
                     </label>
                   </div>
                 </div>
 
-                <div className="pt-3 flex justify-end gap-2 border-t border-white/[0.08]">
+                <div className="pt-3 flex justify-end gap-2 border-t border-slate-200 dark:border-white/[0.08]">
                   <button
                     onClick={() => setModalType(null)}
-                    className="px-4 py-2 rounded-xl bg-slate-800 text-slate-400"
+                    className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white transition font-semibold"
                   >
                     Cancel
                   </button>
@@ -1690,7 +1698,7 @@ export const AdminDashboard = () => {
                       loadDashboardData();
                       refreshPortfolioData();
                     }}
-                    className="px-4 py-2 rounded-xl bg-cyan-500 text-white font-bold"
+                    className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold shadow-md shadow-cyan-500/20 transition"
                   >
                     Save Service
                   </button>
@@ -1701,20 +1709,20 @@ export const AdminDashboard = () => {
 
           {/* MODAL: CREATE / EDIT PROJECT */}
           {modalType === 'project' && editingItem && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-              <div className="w-full max-w-lg rounded-2xl bg-[#0c1322] border border-white/10 p-6 shadow-2xl text-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
-                <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-                  <h3 className="font-bold text-white text-base">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+              <div className="w-full max-w-lg rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/10 p-6 shadow-2xl text-slate-900 dark:text-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/[0.08]">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">
                     {editingItem._id ? 'Edit Project' : 'Add New Project'}
                   </h3>
-                  <button onClick={() => setModalType(null)} className="text-slate-400 hover:text-white">
+                  <button onClick={() => setModalType(null)} className="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/[0.05] transition">
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                <div className="space-y-3 text-xs">
+                <div className="space-y-3.5 text-xs">
                   <div>
-                    <label className="block text-slate-300 mb-1">Project Title *</label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Project Title <span className="text-cyan-500">*</span></label>
                     <input
                       type="text"
                       required
@@ -1726,17 +1734,17 @@ export const AdminDashboard = () => {
                           : (editingItem.slug || newTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''));
                         setEditingItem({ ...editingItem, title: newTitle, slug: autoSlug });
                       }}
-                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
-                      placeholder="e.g. Clotes Shop"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
+                      placeholder="e.g. EduTrack Portal"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1">Category</label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Category</label>
                     <select
                       value={editingItem.category}
                       onChange={(e) => setEditingItem({ ...editingItem, category: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                     >
                       <option value="Full Stack MERN">Full Stack MERN</option>
                       <option value="Frontend Web App">Frontend Web App</option>
@@ -1747,7 +1755,7 @@ export const AdminDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1">Technologies (comma separated)</label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Technologies (comma separated)</label>
                     <input
                       type="text"
                       value={
@@ -1758,23 +1766,23 @@ export const AdminDashboard = () => {
                       onChange={(e) =>
                         setEditingItem({ ...editingItem, technologies: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                       placeholder="React, Tailwind CSS, Node.js, MongoDB"
                     />
                   </div>
 
                   {/* PROJECT COVER IMAGE: DIRECT FILE UPLOAD ONLY */}
-                  <div className="rounded-xl border border-white/10 bg-slate-900/60 p-3.5 space-y-3">
+                  <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-slate-900/60 p-3.5 space-y-3">
                     <div className="flex items-center justify-between">
-                      <label className="text-slate-200 font-semibold text-xs flex items-center gap-1.5">
-                        <ImageIcon className="w-3.5 h-3.5 text-cyan-400" />
+                      <label className="text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center gap-1.5">
+                        <ImageIcon className="w-3.5 h-3.5 text-cyan-500" />
                         Project Photo / Cover Image
                       </label>
                       {editingItem.coverImage && (
                         <button
                           type="button"
                           onClick={() => projectFileInputRef.current?.click()}
-                          className="text-cyan-400 hover:text-cyan-300 text-[11px] font-medium flex items-center gap-1 hover:underline"
+                          className="text-cyan-600 dark:text-cyan-400 hover:underline text-[11px] font-semibold flex items-center gap-1"
                         >
                           <Upload className="w-3 h-3" />
                           Change Photo
@@ -1799,49 +1807,49 @@ export const AdminDashboard = () => {
                     {!editingItem.coverImage ? (
                       <div
                         onClick={() => projectFileInputRef.current?.click()}
-                        className="border-2 border-dashed border-slate-700 hover:border-cyan-500/70 bg-slate-900/80 hover:bg-slate-900 rounded-xl p-5 text-center cursor-pointer transition group"
+                        className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-cyan-500 bg-white dark:bg-slate-900/80 rounded-xl p-5 text-center cursor-pointer transition group"
                       >
                         {uploadingProjectImg ? (
-                          <div className="flex flex-col items-center justify-center py-2 text-cyan-400">
+                          <div className="flex flex-col items-center justify-center py-2 text-cyan-500">
                             <Loader2 className="w-6 h-6 animate-spin mb-1" />
                             <span className="text-xs font-medium">Uploading & compressing photo...</span>
                           </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center py-2">
-                            <div className="w-10 h-10 rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-2 group-hover:scale-110 transition">
+                            <div className="w-10 h-10 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-2 group-hover:scale-110 transition">
                               <Upload className="w-5 h-5" />
                             </div>
-                            <p className="text-xs font-semibold text-slate-200">
+                            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                               Click to upload photo from your device
                             </p>
-                            <p className="text-[10px] text-slate-500 mt-1">
+                            <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
                               Supports PNG, JPG, JPEG, WEBP, SVG (Auto-compressed)
                             </p>
                           </div>
                         )}
                       </div>
                     ) : (
-                      <div className="rounded-lg border border-slate-800 bg-slate-950 p-2.5 space-y-2">
+                      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-2.5 space-y-2">
                         <div className="flex items-center justify-between text-[11px]">
-                          <span className="flex items-center gap-1 text-emerald-400 font-medium">
+                          <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
                             <CheckCircle className="w-3.5 h-3.5" /> Photo Selected / Uploaded
                           </span>
                           <button
                             type="button"
                             onClick={() => setEditingItem({ ...editingItem, coverImage: '' })}
-                            className="text-rose-400 hover:text-rose-300 flex items-center gap-1 hover:underline text-[11px]"
+                            className="text-rose-500 hover:text-rose-600 dark:text-rose-400 flex items-center gap-1 hover:underline text-[11px] font-medium"
                           >
                             <X className="w-3 h-3" /> Remove Photo
                           </button>
                         </div>
-                        <div className="relative h-44 w-full rounded-md overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <div className="relative h-44 w-full rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center">
                           <img
                             src={getSafeImageUrl(editingItem.coverImage)}
                             alt="Project Preview"
                             className="w-full h-full object-cover"
                           />
                         </div>
-                        <p className="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
+                        <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
                           <CheckCircle className="w-3 h-3" />
                           <span>Image is ready! Click "Save Project" below to save changes.</span>
                         </p>
@@ -1850,58 +1858,58 @@ export const AdminDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1">Short Description *</label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Short Description <span className="text-cyan-500">*</span></label>
                     <textarea
                       rows={3}
                       value={editingItem.shortDescription}
                       onChange={(e) =>
                         setEditingItem({ ...editingItem, shortDescription: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white resize-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition resize-none"
                     ></textarea>
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1">Full Case Study / Overview</label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Full Case Study / Overview</label>
                     <textarea
                       rows={4}
                       value={editingItem.fullCaseStudy || ''}
                       onChange={(e) =>
                         setEditingItem({ ...editingItem, fullCaseStudy: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white resize-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition resize-none"
                       placeholder="Detailed overview and key architectural decisions..."
                     ></textarea>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-slate-300 mb-1">Live URL</label>
+                      <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Live URL</label>
                       <input
                         type="text"
                         value={editingItem.liveUrl || ''}
                         onChange={(e) =>
                           setEditingItem({ ...editingItem, liveUrl: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                         placeholder="https://..."
                       />
                     </div>
                     <div>
-                      <label className="block text-slate-300 mb-1">GitHub URL</label>
+                      <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">GitHub URL</label>
                       <input
                         type="text"
                         value={editingItem.githubUrl || ''}
                         onChange={(e) =>
                           setEditingItem({ ...editingItem, githubUrl: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                         placeholder="https://github.com/..."
                       />
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 pt-2">
+                  <div className="flex items-center gap-2 pt-1">
                     <input
                       type="checkbox"
                       id="prjPublished"
@@ -1909,36 +1917,35 @@ export const AdminDashboard = () => {
                       onChange={(e) =>
                         setEditingItem({ ...editingItem, isPublished: e.target.checked })
                       }
+                      className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer"
                     />
-                    <label htmlFor="prjPublished" className="text-slate-300">
-                      Publish publicly
+                    <label htmlFor="prjPublished" className="text-slate-700 dark:text-slate-300 font-medium cursor-pointer">
+                      Publish publicly on website
                     </label>
                   </div>
                 </div>
 
-                <div className="pt-3 flex justify-end gap-2 border-t border-white/[0.08]">
+                <div className="pt-3 flex justify-end gap-2 border-t border-slate-200 dark:border-white/[0.08]">
                   <button
                     onClick={() => setModalType(null)}
-                    className="px-4 py-2 rounded-xl bg-slate-800 text-slate-400"
+                    className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white transition font-semibold"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={async () => {
-                      if (!editingItem.title || !editingItem.shortDescription) {
-                        alert('Title and description required');
+                      if (!editingItem.title) {
+                        alert('Project title is required');
                         return;
                       }
-
                       const payload = {
                         ...editingItem,
-                        technologies:
-                          typeof editingItem.technologies === 'string'
-                            ? editingItem.technologies
-                                .split(/[\n,]/)
-                                .map((s) => s.trim())
-                                .filter(Boolean)
-                            : (editingItem.technologies || ['React', 'Node.js', 'MongoDB']),
+                        technologies: Array.isArray(editingItem.technologies)
+                          ? editingItem.technologies
+                          : (editingItem.technologies || '')
+                              .split(',')
+                              .map((t) => t.trim())
+                              .filter(Boolean),
                       };
 
                       try {
@@ -1954,7 +1961,7 @@ export const AdminDashboard = () => {
                         alert('Error saving project: ' + (err.response?.data?.message || err.message));
                       }
                     }}
-                    className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold transition"
+                    className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold shadow-md shadow-cyan-500/20 transition"
                   >
                     Save Project
                   </button>
@@ -1962,41 +1969,40 @@ export const AdminDashboard = () => {
               </div>
             </div>
           )}
-
           {/* MODAL: CREATE / EDIT TEMPLATE */}
           {modalType === 'template' && editingItem && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-              <div className="w-full max-w-lg rounded-2xl bg-[#0c1322] border border-white/10 p-6 shadow-2xl text-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
-                <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-                  <h3 className="font-bold text-white text-base">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+              <div className="w-full max-w-lg rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/10 p-6 shadow-2xl text-slate-900 dark:text-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/[0.08]">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">
                     {editingItem._id ? 'Edit Template' : 'Add New Template'}
                   </h3>
-                  <button onClick={() => setModalType(null)} className="text-slate-400 hover:text-white">
+                  <button onClick={() => setModalType(null)} className="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/[0.05] transition">
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                <div className="space-y-3 text-xs">
+                <div className="space-y-3.5 text-xs">
                   <div>
-                    <label className="block text-slate-300 mb-1">Template Name *</label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Template Name <span className="text-cyan-500">*</span></label>
                     <input
                       type="text"
                       required
                       value={editingItem.name}
                       onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                       placeholder="e.g. ApexCorp Corporate Template"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-slate-300 mb-1">Category</label>
+                      <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Category</label>
                       <select
                         value={editingItem.category}
                         onChange={(e) =>
                           setEditingItem({ ...editingItem, category: e.target.value })
                         }
-                        className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                       >
                         <option value="Personal Portfolio">Personal Portfolio</option>
                         <option value="Business Website">Business Website</option>
@@ -2010,7 +2016,7 @@ export const AdminDashboard = () => {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-slate-300 mb-1">Starting Price ($)</label>
+                      <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Starting Price ($)</label>
                       <input
                         type="number"
                         value={editingItem.startingPrice || ''}
@@ -2020,25 +2026,26 @@ export const AdminDashboard = () => {
                             startingPrice: parseFloat(e.target.value) || null,
                           })
                         }
-                        className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                       />
                     </div>
                   </div>
+
                   {/* TEMPLATE THUMBNAIL: URL & DIRECT FILE UPLOAD */}
-                  <div className="rounded-xl border border-white/10 bg-slate-900/60 p-3.5 space-y-3">
+                  <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-slate-900/60 p-3.5 space-y-3">
                     <div className="flex items-center justify-between">
-                      <label className="text-slate-200 font-semibold text-xs flex items-center gap-1.5">
-                        <ImageIcon className="w-3.5 h-3.5 text-cyan-400" />
+                      <label className="text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center gap-1.5">
+                        <ImageIcon className="w-3.5 h-3.5 text-cyan-500" />
                         Template Thumbnail Photo
                       </label>
-                      <div className="flex items-center bg-slate-950 p-0.5 rounded-lg border border-slate-800 text-[11px]">
+                      <div className="flex items-center bg-slate-200 dark:bg-slate-950 p-0.5 rounded-lg border border-slate-300 dark:border-slate-800 text-[11px]">
                         <button
                           type="button"
                           onClick={() => setTemplateImageMode('url')}
-                          className={`px-2.5 py-1 rounded-md transition flex items-center gap-1 ${
+                          className={`px-2.5 py-1 rounded-md transition flex items-center gap-1 font-semibold ${
                             templateImageMode === 'url'
-                              ? 'bg-cyan-500 text-white font-semibold shadow-sm'
-                              : 'text-slate-400 hover:text-white'
+                              ? 'bg-cyan-500 text-white shadow-sm'
+                              : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
                           }`}
                         >
                           <LinkIcon className="w-3 h-3" />
@@ -2047,10 +2054,10 @@ export const AdminDashboard = () => {
                         <button
                           type="button"
                           onClick={() => setTemplateImageMode('file')}
-                          className={`px-2.5 py-1 rounded-md transition flex items-center gap-1 ${
+                          className={`px-2.5 py-1 rounded-md transition flex items-center gap-1 font-semibold ${
                             templateImageMode === 'file'
-                              ? 'bg-cyan-500 text-white font-semibold shadow-sm'
-                              : 'text-slate-400 hover:text-white'
+                              ? 'bg-cyan-500 text-white shadow-sm'
+                              : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
                           }`}
                         >
                           <Upload className="w-3 h-3" />
@@ -2069,12 +2076,12 @@ export const AdminDashboard = () => {
                             onChange={(e) =>
                               setEditingItem({ ...editingItem, thumbnail: e.target.value })
                             }
-                            className="w-full px-3 py-2 pl-9 rounded-lg bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-xs focus:border-cyan-500 focus:outline-none"
+                            className="w-full px-3.5 py-2.5 pl-9 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 text-xs focus:border-cyan-500 focus:outline-none transition"
                             placeholder="Paste photo URL (e.g. https://images.unsplash.com/...)"
                           />
-                          <LinkIcon className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-2.5" />
+                          <LinkIcon className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
                         </div>
-                        <p className="text-[10px] text-slate-400">
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400">
                           Paste any web image URL from Unsplash, Imgur, Cloudinary, etc.
                         </p>
                       </div>
@@ -2096,22 +2103,22 @@ export const AdminDashboard = () => {
                         />
                         <div
                           onClick={() => templateFileInputRef.current?.click()}
-                          className="border-2 border-dashed border-slate-700 hover:border-cyan-500/70 bg-slate-900/80 hover:bg-slate-900 rounded-xl p-4 text-center cursor-pointer transition group"
+                          className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-cyan-500 bg-white dark:bg-slate-900/80 rounded-xl p-4 text-center cursor-pointer transition group"
                         >
                           {uploadingTemplateImg ? (
-                            <div className="flex flex-col items-center justify-center py-2 text-cyan-400">
+                            <div className="flex flex-col items-center justify-center py-2 text-cyan-500">
                               <Loader2 className="w-6 h-6 animate-spin mb-1" />
                               <span className="text-xs font-medium">Uploading photo from device...</span>
                             </div>
                           ) : (
                             <div className="flex flex-col items-center justify-center py-1">
-                              <div className="w-9 h-9 rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-1.5 group-hover:scale-110 transition">
+                              <div className="w-9 h-9 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-1.5 group-hover:scale-110 transition">
                                 <Upload className="w-4 h-4" />
                               </div>
-                              <p className="text-xs font-semibold text-slate-200">
+                              <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                                 Click to select image from your computer / device
                               </p>
-                              <p className="text-[10px] text-slate-500 mt-0.5">
+                              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
                                 Supports PNG, JPG, JPEG, WEBP, SVG (Max 5MB)
                               </p>
                             </div>
@@ -2122,20 +2129,20 @@ export const AdminDashboard = () => {
 
                     {/* Live Image Preview (when image is present) */}
                     {editingItem.thumbnail && (
-                      <div className="rounded-lg border border-slate-800 bg-slate-950 p-2.5 space-y-1.5">
+                      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-2.5 space-y-1.5">
                         <div className="flex items-center justify-between text-[11px]">
-                          <span className="flex items-center gap-1 text-emerald-400 font-medium">
+                          <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
                             <CheckCircle className="w-3.5 h-3.5" /> Photo Selected / Preview
                           </span>
                           <button
                             type="button"
                             onClick={() => setEditingItem({ ...editingItem, thumbnail: '' })}
-                            className="text-rose-400 hover:text-rose-300 flex items-center gap-1 hover:underline text-[11px]"
+                            className="text-rose-500 hover:text-rose-600 dark:text-rose-400 flex items-center gap-1 hover:underline text-[11px] font-medium"
                           >
                             <X className="w-3 h-3" /> Remove Photo
                           </button>
                         </div>
-                        <div className="relative h-40 w-full rounded-md overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <div className="relative h-40 w-full rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center">
                           <img
                             src={getSafeImageUrl(editingItem.thumbnail)}
                             alt="Template Preview"
@@ -2146,7 +2153,7 @@ export const AdminDashboard = () => {
                             }}
                           />
                         </div>
-                        <p className="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
+                        <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
                           <CheckCircle className="w-3 h-3" />
                           <span>Thumbnail is ready! Click "Save Template" below to save changes.</span>
                         </p>
@@ -2154,17 +2161,17 @@ export const AdminDashboard = () => {
                     )}
                   </div>
                   <div>
-                    <label className="block text-slate-300 mb-1">Short Description *</label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">Short Description <span className="text-cyan-500">*</span></label>
                     <textarea
                       rows={3}
                       value={editingItem.shortDescription}
                       onChange={(e) =>
                         setEditingItem({ ...editingItem, shortDescription: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white resize-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition resize-none"
                     ></textarea>
                   </div>
-                  <div className="flex items-center gap-2 pt-2">
+                  <div className="flex items-center gap-2 pt-1">
                     <input
                       type="checkbox"
                       id="tplPublished"
@@ -2172,24 +2179,25 @@ export const AdminDashboard = () => {
                       onChange={(e) =>
                         setEditingItem({ ...editingItem, isPublished: e.target.checked })
                       }
+                      className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer"
                     />
-                    <label htmlFor="tplPublished" className="text-slate-300">
-                      Publish publicly
+                    <label htmlFor="tplPublished" className="text-slate-700 dark:text-slate-300 font-medium cursor-pointer">
+                      Publish publicly on website
                     </label>
                   </div>
                 </div>
 
-                <div className="pt-3 flex justify-end gap-2 border-t border-white/[0.08]">
+                <div className="pt-3 flex justify-end gap-2 border-t border-slate-200 dark:border-white/[0.08]">
                   <button
                     onClick={() => setModalType(null)}
-                    className="px-4 py-2 rounded-xl bg-slate-800 text-slate-400"
+                    className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white transition font-semibold"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={async () => {
-                      if (!editingItem.name || !editingItem.shortDescription) {
-                        alert('Name and description required');
+                      if (!editingItem.name) {
+                        alert('Template name is required');
                         return;
                       }
                       if (editingItem._id) {
@@ -2201,7 +2209,7 @@ export const AdminDashboard = () => {
                       loadDashboardData();
                       refreshPortfolioData();
                     }}
-                    className="px-4 py-2 rounded-xl bg-emerald-500 text-white font-bold"
+                    className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-md shadow-emerald-500/20 transition"
                   >
                     Save Template
                   </button>
