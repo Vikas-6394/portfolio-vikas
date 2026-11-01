@@ -52,6 +52,7 @@ export const AdminDashboard = () => {
   const [adminProjects, setAdminProjects] = useState([]);
   const [adminTemplates, setAdminTemplates] = useState([]);
   const [adminSkills, setAdminSkills] = useState([]);
+  const [skillCategoryFilter, setSkillCategoryFilter] = useState('All');
   const [adminTestimonials, setAdminTestimonials] = useState([]);
   const [editableProfile, setEditableProfile] = useState({});
 
@@ -906,74 +907,210 @@ export const AdminDashboard = () => {
           )}
 
           {/* TAB 6: SKILLS MANAGER */}
-          {activeTab === 'skills' && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                  {adminSkills.length} Technical Skills
-                </span>
-                <button
-                  onClick={() => {
-                    setEditingItem({
-                      name: '',
-                      category: 'Frontend',
-                      proficiencyPercentage: 85,
-                      levelLabel: 'Proficient',
-                      iconName: 'Code',
-                      isFeatured: true,
-                      displayOrder: adminSkills.length + 1,
-                    });
-                    setModalType('skill');
-                  }}
-                  className="px-4 py-2 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 transition hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>Add Skill</span>
-                </button>
-              </div>
+          {activeTab === 'skills' && (() => {
+            const frontendCount = adminSkills.filter((s) => s.category === 'Frontend').length;
+            const backendCount = adminSkills.filter((s) => s.category === 'Backend').length;
+            const databaseCount = adminSkills.filter((s) => s.category === 'Database').length;
+            const aiToolsCount = adminSkills.filter(
+              (s) => s.category === 'AI & Tools' || s.category === 'Tools & DevOps'
+            ).length;
+            const otherCount = adminSkills.filter(
+              (s) => !['Frontend', 'Backend', 'Database', 'AI & Tools', 'Tools & DevOps'].includes(s.category)
+            ).length;
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                {adminSkills.map((sk) => (
-                  <div
-                    key={sk._id}
-                    className="p-4 rounded-xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none flex items-center justify-between transition hover:border-purple-500/40"
-                  >
-                    <div>
-                      <h4 className="text-sm font-bold text-slate-900 dark:text-white">{sk.name}</h4>
-                      <span className="text-[11px] text-slate-500 dark:text-slate-400">
-                        {sk.category} ({sk.proficiencyPercentage}%)
+            const categoryTabs = [
+              { id: 'All', label: 'All Skills', count: adminSkills.length },
+              { id: 'Frontend', label: '01 FRONTEND', count: frontendCount },
+              { id: 'Backend', label: '02 BACKEND', count: backendCount },
+              { id: 'Database', label: '03 DATABASE', count: databaseCount },
+              { id: 'AI & Tools', label: '04 AI & TOOLS', count: aiToolsCount },
+            ];
+
+            if (otherCount > 0) {
+              categoryTabs.push({ id: 'Other', label: 'OTHER', count: otherCount });
+            }
+
+            const filteredSkills = adminSkills.filter((sk) => {
+              if (skillCategoryFilter === 'All') return true;
+              if (skillCategoryFilter === 'AI & Tools') {
+                return sk.category === 'AI & Tools' || sk.category === 'Tools & DevOps';
+              }
+              if (skillCategoryFilter === 'Other') {
+                return !['Frontend', 'Backend', 'Database', 'AI & Tools', 'Tools & DevOps'].includes(sk.category);
+              }
+              return sk.category === skillCategoryFilter;
+            });
+
+            return (
+              <div className="space-y-6">
+                {/* Header & Add Button */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                      <span>Skills & Technologies</span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-semibold border border-cyan-500/20">
+                        {adminSkills.length} Total
                       </span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => {
-                          setEditingItem({ ...sk });
-                          setModalType('skill');
-                        }}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-purple-600 dark:text-slate-500 dark:hover:text-purple-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] transition"
-                        title="Edit Skill"
-                      >
-                        <Edit className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={async () => {
-                          if (window.confirm(`Delete ${sk.name}?`)) {
-                            await portfolioAPI.deleteSkill(sk._id);
-                            setAdminSkills((p) => p.filter((s) => s._id !== sk._id));
-                            refreshPortfolioData();
-                          }
-                        }}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:text-slate-500 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] transition"
-                        title="Delete Skill"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                      Manage skills across the 4 portfolio cards (Frontend, Backend, Database, AI & Tools).
+                    </p>
                   </div>
-                ))}
+                  <button
+                    onClick={() => {
+                      setEditingItem({
+                        name: '',
+                        category: skillCategoryFilter !== 'All' && skillCategoryFilter !== 'Other' ? skillCategoryFilter : 'Frontend',
+                        proficiencyPercentage: 85,
+                        levelLabel: 'Proficient',
+                        iconName: 'Code',
+                        isFeatured: true,
+                        displayOrder: adminSkills.length + 1,
+                      });
+                      setModalType('skill');
+                    }}
+                    className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-cyan-500/20 transition hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Add Skill</span>
+                  </button>
+                </div>
+
+                {/* Category Filter Pills */}
+                <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                  {categoryTabs.map((tab) => {
+                    const isActive = skillCategoryFilter === tab.id;
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => setSkillCategoryFilter(tab.id)}
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition flex items-center gap-2 ${
+                          isActive
+                            ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/25'
+                            : 'bg-white dark:bg-[#0c1322] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/[0.08]'
+                        }`}
+                      >
+                        <span>{tab.label}</span>
+                        <span
+                          className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                            isActive
+                              ? 'bg-white/20 text-white'
+                              : 'bg-slate-100 dark:bg-white/[0.06] text-slate-500 dark:text-slate-400'
+                          }`}
+                        >
+                          {tab.count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Skills Cards Grid */}
+                {filteredSkills.length === 0 ? (
+                  <div className="p-8 text-center rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08]">
+                    <p className="text-sm text-slate-500 dark:text-slate-400">No skills found in this category.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    {filteredSkills.map((sk) => {
+                      const isFrontend = sk.category === 'Frontend';
+                      const isBackend = sk.category === 'Backend';
+                      const isDatabase = sk.category === 'Database';
+                      const isAITools = sk.category === 'AI & Tools' || sk.category === 'Tools & DevOps';
+
+                      const badgeStyle = isFrontend
+                        ? 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/20'
+                        : isBackend
+                        ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'
+                        : isDatabase
+                        ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                        : isAITools
+                        ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20'
+                        : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20';
+
+                      const categoryBadge = isFrontend
+                        ? '01 FRONTEND'
+                        : isBackend
+                        ? '02 BACKEND'
+                        : isDatabase
+                        ? '03 DATABASE'
+                        : isAITools
+                        ? '04 AI & TOOLS'
+                        : sk.category.toUpperCase();
+
+                      const progressColor = isFrontend
+                        ? 'bg-cyan-500'
+                        : isBackend
+                        ? 'bg-blue-500'
+                        : isDatabase
+                        ? 'bg-emerald-500'
+                        : isAITools
+                        ? 'bg-purple-500'
+                        : 'bg-amber-500';
+
+                      return (
+                        <div
+                          key={sk._id}
+                          className="p-4 rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none flex flex-col justify-between gap-3 transition hover:border-cyan-500/40 hover:shadow-md"
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div>
+                              <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-md border mb-1.5 ${badgeStyle}`}>
+                                {categoryBadge}
+                              </span>
+                              <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">
+                                {sk.name}
+                              </h4>
+                            </div>
+                            <div className="flex items-center gap-1 shrink-0">
+                              <button
+                                onClick={() => {
+                                  setEditingItem({ ...sk });
+                                  setModalType('skill');
+                                }}
+                                className="p-1.5 rounded-lg text-slate-400 hover:text-cyan-600 dark:text-slate-500 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] transition"
+                                title="Edit Skill"
+                              >
+                                <Edit className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                onClick={async () => {
+                                  if (window.confirm(`Delete ${sk.name}?`)) {
+                                    await portfolioAPI.deleteSkill(sk._id);
+                                    setAdminSkills((p) => p.filter((s) => s._id !== sk._id));
+                                    refreshPortfolioData();
+                                  }
+                                }}
+                                className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:text-slate-500 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-white/[0.05] transition"
+                                title="Delete Skill"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+
+                          <div>
+                            <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 mb-1">
+                              <span>{sk.levelLabel || 'Proficient'}</span>
+                              <span className="font-bold text-slate-700 dark:text-slate-300">
+                                {sk.proficiencyPercentage}%
+                              </span>
+                            </div>
+                            <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+                              <div
+                                className={`h-full rounded-full transition-all duration-500 ${progressColor}`}
+                                style={{ width: `${sk.proficiencyPercentage}%` }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* TAB 7: TESTIMONIALS MODERATION */}
           {activeTab === 'testimonials' && (
@@ -1921,32 +2058,33 @@ export const AdminDashboard = () => {
                 <div className="space-y-4 text-xs">
                   <div>
                     <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">
-                      Skill Name <span className="text-purple-500">*</span>
+                      Skill Name <span className="text-cyan-500">*</span>
                     </label>
                     <input
                       type="text"
                       required
                       value={editingItem.name || ''}
                       onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500 transition"
-                      placeholder="e.g. Next.js, Docker, TypeScript"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition"
+                      placeholder="e.g. Next.js, Claude AI, TypeScript, Docker"
                     />
                   </div>
 
                   <div>
                     <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">
-                      Category <span className="text-purple-500">*</span>
+                      Category <span className="text-cyan-500">*</span>
                     </label>
                     <select
                       value={editingItem.category || 'Frontend'}
                       onChange={(e) => setEditingItem({ ...editingItem, category: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-purple-500 transition"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                     >
-                      <option value="Frontend">Frontend</option>
-                      <option value="Backend">Backend</option>
-                      <option value="Database">Database</option>
-                      <option value="Programming Languages">Programming Languages</option>
+                      <option value="Frontend">Frontend (Card 01)</option>
+                      <option value="Backend">Backend (Card 02)</option>
+                      <option value="Database">Database (Card 03)</option>
+                      <option value="AI & Tools">AI & Tools (Card 04)</option>
                       <option value="Tools & DevOps">Tools & DevOps</option>
+                      <option value="Programming Languages">Programming Languages</option>
                       <option value="Security & Fundamentals">Security & Fundamentals</option>
                     </select>
                   </div>
@@ -1967,7 +2105,7 @@ export const AdminDashboard = () => {
                             proficiencyPercentage: Math.max(1, Math.min(100, parseInt(e.target.value, 10) || 0)),
                           })
                         }
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-purple-500 transition"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                       />
                     </div>
 
@@ -1976,7 +2114,7 @@ export const AdminDashboard = () => {
                       <select
                         value={editingItem.levelLabel || 'Proficient'}
                         onChange={(e) => setEditingItem({ ...editingItem, levelLabel: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-purple-500 transition"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                       >
                         <option value="Beginner">Beginner</option>
                         <option value="Intermediate">Intermediate</option>
@@ -2000,7 +2138,7 @@ export const AdminDashboard = () => {
                           proficiencyPercentage: parseInt(e.target.value, 10),
                         })
                       }
-                      className="w-full accent-purple-500 cursor-pointer"
+                      className="w-full accent-cyan-500 cursor-pointer"
                     />
                   </div>
 
@@ -2009,7 +2147,7 @@ export const AdminDashboard = () => {
                     <select
                       value={editingItem.iconName || 'Code'}
                       onChange={(e) => setEditingItem({ ...editingItem, iconName: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-purple-500 transition"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-cyan-500 transition"
                     >
                       <option value="Code">Code (General / Web)</option>
                       <option value="Atom">Atom (React / Frontend Frameworks)</option>
@@ -2024,7 +2162,7 @@ export const AdminDashboard = () => {
                       <option value="ShieldCheck">ShieldCheck (Security / Auth)</option>
                       <option value="Binary">Binary (DSA / Algorithms)</option>
                       <option value="Coffee">Coffee (Java / Programming)</option>
-                      <option value="Cpu">Cpu (C++ / Systems / OS)</option>
+                      <option value="Cpu">Cpu (Claude AI / Hardware / C++)</option>
                       <option value="Network">Network (APIs / Networking)</option>
                       <option value="Smartphone">Smartphone (Mobile / Responsive)</option>
                       <option value="Layers">Layers (Full Stack / Architecture)</option>
@@ -2039,7 +2177,7 @@ export const AdminDashboard = () => {
                       onChange={(e) =>
                         setEditingItem({ ...editingItem, isFeatured: e.target.checked })
                       }
-                      className="w-4 h-4 rounded text-purple-600 focus:ring-purple-500 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer"
+                      className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer"
                     />
                     <label htmlFor="skillFeatured" className="text-slate-700 dark:text-slate-300 font-medium cursor-pointer">
                       Feature on Portfolio Website
@@ -2088,7 +2226,7 @@ export const AdminDashboard = () => {
                         alert(err.response?.data?.message || 'Error saving skill');
                       }
                     }}
-                    className="px-5 py-2 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold text-xs shadow-md shadow-purple-500/25 transition"
+                    className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs shadow-md shadow-cyan-500/25 transition"
                   >
                     {editingItem._id ? 'Update Skill' : 'Save Skill'}
                   </button>

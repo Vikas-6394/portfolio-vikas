@@ -37,26 +37,44 @@ export const defaultProfileData = {
 };
 
 export const defaultSkillsData = [
-  { name: 'HTML5', category: 'Frontend', proficiencyPercentage: 95, levelLabel: 'Expert', iconName: 'FileCode', displayOrder: 1 },
-  { name: 'CSS3', category: 'Frontend', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Palette', displayOrder: 2 },
-  { name: 'JavaScript (ES6+)', category: 'Frontend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Code', displayOrder: 3 },
-  { name: 'React', category: 'Frontend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Atom', displayOrder: 4 },
-  { name: 'Tailwind CSS', category: 'Frontend', proficiencyPercentage: 95, levelLabel: 'Expert', iconName: 'Wind', displayOrder: 5 },
-  { name: 'Responsive Web Design', category: 'Frontend', proficiencyPercentage: 96, levelLabel: 'Expert', iconName: 'Smartphone', displayOrder: 6 },
-  
-  { name: 'Node.js', category: 'Backend', proficiencyPercentage: 85, levelLabel: 'Advanced', iconName: 'Server', displayOrder: 7 },
-  { name: 'Express.js', category: 'Backend', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'Cpu', displayOrder: 8 },
-  { name: 'REST APIs', category: 'Backend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Network', displayOrder: 9 },
-  
-  { name: 'MongoDB', category: 'Database', proficiencyPercentage: 85, levelLabel: 'Advanced', iconName: 'Database', displayOrder: 10 },
-  
-  { name: 'Python', category: 'Programming Languages', proficiencyPercentage: 80, levelLabel: 'Proficient', iconName: 'Terminal', displayOrder: 11 },
-  { name: 'C Programming', category: 'Programming Languages', proficiencyPercentage: 78, levelLabel: 'Proficient', iconName: 'Binary', displayOrder: 12 },
-  { name: 'Java', category: 'Programming Languages', proficiencyPercentage: 80, levelLabel: 'Proficient', iconName: 'Coffee', displayOrder: 13 },
-  { name: 'DSA', category: 'Programming Languages', proficiencyPercentage: 82, levelLabel: 'Proficient', iconName: 'GitBranch', displayOrder: 14 },
-  
-  { name: 'Git & GitHub', category: 'Tools & DevOps', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'GitPullRequest', displayOrder: 15 },
-  { name: 'Website Security Fundamentals', category: 'Security & Fundamentals', proficiencyPercentage: 84, levelLabel: 'Advanced', iconName: 'ShieldCheck', displayOrder: 16 },
+  // Card 01 - FRONTEND
+  { name: 'React.js', category: 'Frontend', proficiencyPercentage: 95, levelLabel: 'Expert', iconName: 'Atom', displayOrder: 1 },
+  { name: 'Next.js', category: 'Frontend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Layers', displayOrder: 2 },
+  { name: 'TypeScript', category: 'Frontend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'FileCode', displayOrder: 3 },
+  { name: 'JavaScript', category: 'Frontend', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Code', displayOrder: 4 },
+  { name: 'HTML5', category: 'Frontend', proficiencyPercentage: 96, levelLabel: 'Expert', iconName: 'FileCode', displayOrder: 5 },
+  { name: 'CSS3', category: 'Frontend', proficiencyPercentage: 94, levelLabel: 'Expert', iconName: 'Palette', displayOrder: 6 },
+  { name: 'Tailwind CSS', category: 'Frontend', proficiencyPercentage: 95, levelLabel: 'Expert', iconName: 'Wind', displayOrder: 7 },
+  { name: 'Redux Toolkit', category: 'Frontend', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'Layers', displayOrder: 8 },
+
+  // Card 02 - BACKEND
+  { name: 'Node.js', category: 'Backend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Server', displayOrder: 9 },
+  { name: 'Express.js', category: 'Backend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Cpu', displayOrder: 10 },
+  { name: 'REST APIs', category: 'Backend', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Network', displayOrder: 11 },
+  { name: 'JWT', category: 'Backend', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'ShieldCheck', displayOrder: 12 },
+  { name: 'Socket.IO', category: 'Backend', proficiencyPercentage: 85, levelLabel: 'Advanced', iconName: 'Network', displayOrder: 13 },
+
+  // Card 03 - DATABASE
+  { name: 'MongoDB', category: 'Database', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Database', displayOrder: 14 },
+  { name: 'PostgreSQL', category: 'Database', proficiencyPercentage: 85, levelLabel: 'Advanced', iconName: 'Database', displayOrder: 15 },
+  { name: 'MySQL', category: 'Database', proficiencyPercentage: 86, levelLabel: 'Advanced', iconName: 'Database', displayOrder: 16 },
+  { name: 'Prisma', category: 'Database', proficiencyPercentage: 84, levelLabel: 'Advanced', iconName: 'Layers', displayOrder: 17 },
+  { name: 'Mongoose', category: 'Database', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Database', displayOrder: 18 },
+
+  // Card 04 - AI & TOOLS
+  { name: 'Claude AI', category: 'AI & Tools', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Cpu', displayOrder: 19 },
+  { name: 'Git', category: 'AI & Tools', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'GitBranch', displayOrder: 20 },
+  { name: 'GitHub', category: 'AI & Tools', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'GitPullRequest', displayOrder: 21 },
+  { name: 'Postman', category: 'AI & Tools', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Terminal', displayOrder: 22 },
+  { name: 'Chart.js', category: 'AI & Tools', proficiencyPercentage: 86, levelLabel: 'Advanced', iconName: 'Layers', displayOrder: 23 },
+  { name: 'Recharts', category: 'AI & Tools', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'Layers', displayOrder: 24 },
+  { name: 'Vercel', category: 'AI & Tools', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Server', displayOrder: 25 },
+
+  // Additional Languages
+  { name: 'Python', category: 'Programming Languages', proficiencyPercentage: 80, levelLabel: 'Proficient', iconName: 'Terminal', displayOrder: 26 },
+  { name: 'C Programming', category: 'Programming Languages', proficiencyPercentage: 78, levelLabel: 'Proficient', iconName: 'Binary', displayOrder: 27 },
+  { name: 'Java', category: 'Programming Languages', proficiencyPercentage: 80, levelLabel: 'Proficient', iconName: 'Coffee', displayOrder: 28 },
+  { name: 'DSA', category: 'Programming Languages', proficiencyPercentage: 82, levelLabel: 'Proficient', iconName: 'GitBranch', displayOrder: 29 },
 ];
 
 export const defaultServicesData = [

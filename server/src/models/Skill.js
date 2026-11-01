@@ -9,7 +9,15 @@ const skillSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ['Frontend', 'Backend', 'Database', 'Programming Languages', 'Tools & DevOps', 'Security & Fundamentals'],
+      enum: [
+        'Frontend',
+        'Backend',
+        'Database',
+        'AI & Tools',
+        'Tools & DevOps',
+        'Programming Languages',
+        'Security & Fundamentals',
+      ],
       required: true,
     },
     proficiencyPercentage: {

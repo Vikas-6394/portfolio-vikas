@@ -62,13 +62,13 @@ export const fallbackSkills = [
   { _id: '18', name: 'Mongoose', category: 'Database', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Database' },
 
   // AI & TOOLS
-  { _id: '19', name: 'Claude AI', category: 'Tools & DevOps', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Cpu' },
-  { _id: '20', name: 'Git', category: 'Tools & DevOps', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'GitBranch' },
-  { _id: '21', name: 'GitHub', category: 'Tools & DevOps', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'GitPullRequest' },
-  { _id: '22', name: 'Postman', category: 'Tools & DevOps', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Terminal' },
-  { _id: '23', name: 'Chart.js', category: 'Tools & DevOps', proficiencyPercentage: 86, levelLabel: 'Advanced', iconName: 'Layers' },
-  { _id: '24', name: 'Recharts', category: 'Tools & DevOps', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'Layers' },
-  { _id: '25', name: 'Vercel', category: 'Tools & DevOps', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Server' },
+  { _id: '19', name: 'Claude AI', category: 'AI & Tools', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Cpu' },
+  { _id: '20', name: 'Git', category: 'AI & Tools', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'GitBranch' },
+  { _id: '21', name: 'GitHub', category: 'AI & Tools', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'GitPullRequest' },
+  { _id: '22', name: 'Postman', category: 'AI & Tools', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Terminal' },
+  { _id: '23', name: 'Chart.js', category: 'AI & Tools', proficiencyPercentage: 86, levelLabel: 'Advanced', iconName: 'Layers' },
+  { _id: '24', name: 'Recharts', category: 'AI & Tools', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'Layers' },
+  { _id: '25', name: 'Vercel', category: 'AI & Tools', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Server' },
 ];
 
 export const fallbackServices = [
