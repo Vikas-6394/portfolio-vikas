@@ -508,26 +508,12 @@ export const AdminDashboard = () => {
 
         {/* Main Content Area */}
         <main className="flex-1 p-6 md:p-10 overflow-y-auto">
-          {/* Top Navigation Bar with Hamburger & Quick Actions */}
+          {/* Top Navigation Bar with Quick Actions */}
           <div className="flex items-center justify-between gap-3 pb-4 mb-6 md:mb-8 border-b border-slate-200 dark:border-white/[0.08]">
-            <div className="flex items-center gap-2.5 sm:gap-4">
-              {/* Hamburger Menu Button */}
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(true)}
-                className="px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 shadow-sm transition flex items-center gap-2 group cursor-pointer"
-                title="Open Sections Menu"
-                aria-label="Navigation Menu"
-              >
-                <Menu className="w-5 h-5 text-cyan-500 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                  Sections
-                </span>
-              </button>
-
+            <div className="flex items-center gap-3">
               {/* Mobile-only brand emblem */}
-              <div className="flex md:hidden items-center gap-2">
-                <div className="w-7 h-7 flex-shrink-0 drop-shadow-[0_2px_6px_rgba(6,182,212,0.4)]">
+              <div className="flex md:hidden items-center">
+                <div className="w-8 h-8 flex-shrink-0 drop-shadow-[0_2px_6px_rgba(6,182,212,0.4)]">
                   <img
                     src="/vm-logo-ring-transparent.png"
                     alt="VM"
@@ -538,7 +524,7 @@ export const AdminDashboard = () => {
 
               {/* Active Tab Heading */}
               <div>
-                <h1 className="text-lg sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white capitalize leading-tight">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white capitalize leading-tight">
                   {activeTab.replace('-', ' ')}
                 </h1>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">
@@ -549,23 +535,6 @@ export const AdminDashboard = () => {
 
             {/* Topbar Right Actions */}
             <div className="flex items-center gap-2 sm:gap-3">
-              {/* Change Password Button in Header */}
-              <button
-                type="button"
-                onClick={() => {
-                  setPasswordError('');
-                  setPasswordSuccess('');
-                  setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
-                  setShowPasswordModal(true);
-                }}
-                className="px-3 sm:px-3.5 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/25 text-xs font-bold flex items-center gap-1.5 transition shadow-sm hover:scale-[1.02]"
-                title="Change Admin Password"
-              >
-                <KeyRound className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-500 flex-shrink-0" />
-                <span className="hidden sm:inline">Change Password</span>
-                <span className="sm:hidden text-[11px]">Password</span>
-              </button>
-
               <ThemeToggle />
 
               <a
@@ -578,6 +547,20 @@ export const AdminDashboard = () => {
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span className="hidden md:inline">View Website</span>
               </a>
+
+              {/* Mobile-Only Hamburger Menu Button (Right Side) */}
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(true)}
+                className="flex md:hidden px-2.5 py-2 rounded-xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 shadow-sm transition items-center gap-1.5 group cursor-pointer"
+                title="Open Navigation Menu"
+                aria-label="Navigation Menu"
+              >
+                <Menu className="w-5 h-5 text-cyan-500 group-hover:scale-110 transition-transform" />
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200 sm:inline hidden">
+                  Menu
+                </span>
+              </button>
             </div>
           </div>
 
@@ -2220,15 +2203,15 @@ export const AdminDashboard = () => {
 
         {/* HAMBURGER SLIDE-OVER NAVIGATION DRAWER */}
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 flex animate-in fade-in duration-200">
+          <div className="fixed inset-0 z-50 flex justify-end animate-in fade-in duration-200">
             {/* Backdrop */}
             <div
               className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
               onClick={() => setMobileMenuOpen(false)}
             />
 
-            {/* Drawer Panel */}
-            <div className="relative w-full max-w-xs bg-white dark:bg-[#0a0f1d] border-r border-slate-200 dark:border-white/[0.08] p-5 shadow-2xl flex flex-col justify-between z-10 overflow-y-auto">
+            {/* Drawer Panel (Slides in from Right) */}
+            <div className="relative w-full max-w-xs bg-white dark:bg-[#0a0f1d] border-l border-slate-200 dark:border-white/[0.08] p-5 shadow-2xl flex flex-col justify-between z-10 overflow-y-auto animate-in slide-in-from-right duration-200">
               <div>
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-200 dark:border-white/[0.08]">
