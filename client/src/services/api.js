@@ -56,6 +56,7 @@ export const portfolioAPI = {
   getMe: () => api.get('/auth/me'),
   logout: () => api.post('/auth/logout'),
   setupAdmin: (data) => api.post('/auth/setup-admin', data),
+  changePassword: (data) => api.put('/auth/change-password', data),
 
   // Admin Profile & Settings
   updateProfile: (data) => api.put('/profile', data),

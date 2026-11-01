@@ -28,6 +28,10 @@ import {
   Upload,
   Link as LinkIcon,
   Image as ImageIcon,
+  Menu,
+  KeyRound,
+  Lock,
+  EyeOff,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { usePortfolio } from '../context/PortfolioContext';
@@ -53,6 +57,79 @@ export const AdminDashboard = () => {
   const [adminTemplates, setAdminTemplates] = useState([]);
   const [adminSkills, setAdminSkills] = useState([]);
   const [skillCategoryFilter, setSkillCategoryFilter] = useState('All');
+
+  // Hamburger menu and Change Password states
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const [showCurrentPass, setShowCurrentPass] = useState(false);
+  const [showNewPass, setShowNewPass] = useState(false);
+  const [showConfirmPass, setShowConfirmPass] = useState(false);
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordSuccess, setPasswordSuccess] = useState('');
+
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    setPasswordError('');
+    setPasswordSuccess('');
+
+    if (!passwordForm.currentPassword) {
+      setPasswordError('Please enter your current password.');
+      return;
+    }
+
+    if (!passwordForm.newPassword || passwordForm.newPassword.length < 8) {
+      setPasswordError('New password must be at least 8 characters long.');
+      return;
+    }
+
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordError('New password and confirm password do not match.');
+      return;
+    }
+
+    if (passwordForm.currentPassword === passwordForm.newPassword) {
+      setPasswordError('New password must be different from current password.');
+      return;
+    }
+
+    try {
+      setPasswordLoading(true);
+      const res = await portfolioAPI.changePassword({
+        currentPassword: passwordForm.currentPassword,
+        newPassword: passwordForm.newPassword,
+      });
+
+      if (res.data?.success) {
+        setPasswordSuccess(res.data.message || 'Password updated successfully!');
+        setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+        setTimeout(() => {
+          setShowPasswordModal(false);
+          setPasswordSuccess('');
+        }, 2200);
+      }
+    } catch (err) {
+      setPasswordError(err.response?.data?.message || 'Error updating password. Please check your current password.');
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
+  const navItems = [
+    { id: 'overview', label: 'Overview & Stats', icon: LayoutDashboard },
+    { id: 'enquiries', label: 'Enquiries', count: stats.new || 0, icon: Inbox },
+    { id: 'services', label: 'Services Manager', icon: Briefcase },
+    { id: 'projects', label: 'Projects Manager', icon: Layers },
+    { id: 'templates', label: 'Website Templates', icon: Layout },
+    { id: 'skills', label: 'Skills & Tech', icon: Code },
+    { id: 'testimonials', label: 'Testimonials', icon: MessageSquare },
+    { id: 'profile', label: 'Profile & Contact', icon: User },
+  ];
   const [adminTestimonials, setAdminTestimonials] = useState([]);
   const [editableProfile, setEditableProfile] = useState({});
 
@@ -351,7 +428,7 @@ export const AdminDashboard = () => {
 
       <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] text-slate-900 dark:text-slate-100 flex flex-col md:flex-row transition-colors">
         {/* Sidebar Nav */}
-        <aside className="w-full md:w-64 bg-white dark:bg-[#0a0f1d] border-r border-slate-200 dark:border-white/[0.08] p-5 flex flex-col justify-between flex-shrink-0 transition-colors">
+        <aside className="hidden md:flex md:w-64 bg-white dark:bg-[#0a0f1d] border-r border-slate-200 dark:border-white/[0.08] p-5 flex-col justify-between flex-shrink-0 transition-colors">
           <div>
             <div className="flex items-center gap-3 pb-6 mb-6 border-b border-slate-200 dark:border-white/[0.08]">
               <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]">
@@ -370,30 +447,34 @@ export const AdminDashboard = () => {
             </div>
 
             <nav className="space-y-1">
-              {[
-                { id: 'overview', label: 'Overview & Stats', icon: LayoutDashboard },
-                { id: 'enquiries', label: `Enquiries (${stats.new || 0} New)`, icon: Inbox },
-                { id: 'services', label: 'Services Manager', icon: Briefcase },
-                { id: 'projects', label: 'Projects Manager', icon: Layers },
-                { id: 'templates', label: 'Website Templates', icon: Layout },
-                { id: 'skills', label: 'Skills & Tech', icon: Code },
-                { id: 'testimonials', label: 'Testimonials', icon: MessageSquare },
-                { id: 'profile', label: 'Profile & Contact', icon: User },
-              ].map((item) => {
+              {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
                 return (
                   <button
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
-                    className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition ${
                       isActive
                         ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/20'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/[0.04]'
                     }`}
                   >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
-                    <span>{item.label}</span>
+                    <div className="flex items-center gap-3">
+                      <Icon className="w-4 h-4 flex-shrink-0" />
+                      <span>{item.label}</span>
+                    </div>
+                    {item.count > 0 && (
+                      <span
+                        className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                          isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400'
+                        }`}
+                      >
+                        {item.count}
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -401,10 +482,23 @@ export const AdminDashboard = () => {
           </div>
 
           <div className="pt-6 border-t border-slate-200 dark:border-white/[0.08] space-y-2">
-            
+            <button
+              onClick={() => {
+                setPasswordError('');
+                setPasswordSuccess('');
+                setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+                setShowPasswordModal(true);
+              }}
+              className="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/[0.04] transition"
+              title="Change Password"
+            >
+              <KeyRound className="w-4 h-4 text-cyan-500" />
+              <span>Change Password</span>
+            </button>
+
             <button
               onClick={handleLogout}
-              className="w-full flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:text-rose-300 dark:hover:bg-rose-950/20 transition"
+              className="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:text-rose-300 dark:hover:bg-rose-950/20 transition"
             >
               <LogOut className="w-4 h-4" />
               <span>Sign Out</span>
@@ -414,26 +508,75 @@ export const AdminDashboard = () => {
 
         {/* Main Content Area */}
         <main className="flex-1 p-6 md:p-10 overflow-y-auto">
-          {/* Header Title */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white capitalize">
-                {activeTab.replace('-', ' ')}
-              </h1>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Manage and update your public portfolio website content in real time.
-              </p>
+          {/* Top Navigation Bar with Hamburger & Quick Actions */}
+          <div className="flex items-center justify-between gap-3 pb-4 mb-6 md:mb-8 border-b border-slate-200 dark:border-white/[0.08]">
+            <div className="flex items-center gap-2.5 sm:gap-4">
+              {/* Hamburger Menu Button */}
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(true)}
+                className="px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] text-slate-700 dark:text-slate-200 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 shadow-sm transition flex items-center gap-2 group cursor-pointer"
+                title="Open Sections Menu"
+                aria-label="Navigation Menu"
+              >
+                <Menu className="w-5 h-5 text-cyan-500 group-hover:scale-110 transition-transform" />
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                  Sections
+                </span>
+              </button>
+
+              {/* Mobile-only brand emblem */}
+              <div className="flex md:hidden items-center gap-2">
+                <div className="w-7 h-7 flex-shrink-0 drop-shadow-[0_2px_6px_rgba(6,182,212,0.4)]">
+                  <img
+                    src="/vm-logo-ring-transparent.png"
+                    alt="VM"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              </div>
+
+              {/* Active Tab Heading */}
+              <div>
+                <h1 className="text-lg sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white capitalize leading-tight">
+                  {activeTab.replace('-', ' ')}
+                </h1>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">
+                  Live Admin Control Center
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-3">
+
+            {/* Topbar Right Actions */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Change Password Button in Header */}
+              <button
+                type="button"
+                onClick={() => {
+                  setPasswordError('');
+                  setPasswordSuccess('');
+                  setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+                  setShowPasswordModal(true);
+                }}
+                className="px-3 sm:px-3.5 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/25 text-xs font-bold flex items-center gap-1.5 transition shadow-sm hover:scale-[1.02]"
+                title="Change Admin Password"
+              >
+                <KeyRound className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-500 flex-shrink-0" />
+                <span className="hidden sm:inline">Change Password</span>
+                <span className="sm:hidden text-[11px]">Password</span>
+              </button>
+
               <ThemeToggle />
+
               <a
                 href="/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-300 dark:hover:text-white text-xs font-semibold flex items-center gap-1.5 transition"
+                className="hidden sm:flex px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-300 dark:hover:text-white text-xs font-semibold items-center gap-1.5 transition"
+                title="Open Public Portfolio"
               >
-                <span>View Live Website</span>
                 <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">View Website</span>
               </a>
             </div>
           </div>
@@ -1177,6 +1320,34 @@ export const AdminDashboard = () => {
           {/* TAB 8: PROFILE & CONTACT */}
           {activeTab === 'profile' && (
             <div className="max-w-3xl space-y-6">
+              {/* Account & Security Card */}
+              <div className="p-5 rounded-3xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/[0.08] shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center border border-cyan-500/20 flex-shrink-0">
+                    <Shield className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">Admin Account Security</h4>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
+                      Logged in as <strong className="text-cyan-600 dark:text-cyan-400">{user?.email}</strong> ({user?.role || 'Superadmin'})
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPasswordError('');
+                    setPasswordSuccess('');
+                    setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+                    setShowPasswordModal(true);
+                  }}
+                  className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-cyan-500/20 transition hover:scale-[1.02]"
+                >
+                  <KeyRound className="w-4 h-4" />
+                  <span>Change Password</span>
+                </button>
+              </div>
+
               {saveSuccess && (
                 <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
                   <CheckCircle className="w-4 h-4" />
@@ -2038,6 +2209,285 @@ export const AdminDashboard = () => {
               </div>
             </div>
           )}
+
+        {/* HAMBURGER SLIDE-OVER NAVIGATION DRAWER */}
+        {mobileMenuOpen && (
+          <div className="fixed inset-0 z-50 flex animate-in fade-in duration-200">
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Drawer Panel */}
+            <div className="relative w-full max-w-xs bg-white dark:bg-[#0a0f1d] border-r border-slate-200 dark:border-white/[0.08] p-5 shadow-2xl flex flex-col justify-between z-10 overflow-y-auto">
+              <div>
+                {/* Drawer Header */}
+                <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-200 dark:border-white/[0.08]">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 flex items-center justify-center flex-shrink-0 drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]">
+                      <img
+                        src="/vm-logo-ring-transparent.png"
+                        alt="Mr. Vikas Maurya"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <div>
+                      <span className="font-bold text-sm text-slate-900 dark:text-white block">
+                        Admin Menu
+                      </span>
+                      <span className="text-[11px] text-cyan-600 dark:text-cyan-400 font-medium block truncate max-w-[150px]">
+                        {user?.email || 'admin@vikasmaurya.dev'}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.05] transition"
+                    title="Close Menu"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Section Navigation Links */}
+                <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-2 mb-2">
+                  Jump To Section
+                </div>
+                <nav className="space-y-1">
+                  {navItems.map((item) => {
+                    const Icon = item.icon;
+                    const isActive = activeTab === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          setActiveTab(item.id);
+                          setMobileMenuOpen(false);
+                        }}
+                        className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition ${
+                          isActive
+                            ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/20'
+                            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/[0.04]'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <Icon className="w-4 h-4 flex-shrink-0" />
+                          <span>{item.label}</span>
+                        </div>
+                        {item.count > 0 && (
+                          <span
+                            className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                              isActive
+                                ? 'bg-white/20 text-white'
+                                : 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400'
+                            }`}
+                          >
+                            {item.count}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
+
+              {/* Drawer Bottom Actions */}
+              <div className="pt-4 mt-6 border-t border-slate-200 dark:border-white/[0.08] space-y-2">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setPasswordError('');
+                    setPasswordSuccess('');
+                    setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+                    setShowPasswordModal(true);
+                  }}
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] transition"
+                >
+                  <KeyRound className="w-4 h-4 text-cyan-500" />
+                  <span>Change Password</span>
+                </button>
+
+                <a
+                  href="/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] transition"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <ExternalLink className="w-4 h-4 text-slate-400" />
+                    <span>View Live Website</span>
+                  </div>
+                </a>
+
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:text-rose-300 dark:hover:bg-rose-950/20 transition"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* MODAL: CHANGE ADMIN PASSWORD */}
+        {showPasswordModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="w-full max-w-md rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/10 p-6 shadow-2xl text-slate-900 dark:text-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
+              {/* Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/[0.08]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center border border-cyan-500/20">
+                    <Lock className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 dark:text-white text-base">
+                      Change Admin Password
+                    </h3>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                      Update your login password for {user?.email}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowPasswordModal(false)}
+                  className="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/[0.05] transition"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Status Alerts */}
+              {passwordError && (
+                <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-medium">
+                  {passwordError}
+                </div>
+              )}
+              {passwordSuccess && (
+                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                  <span>{passwordSuccess}</span>
+                </div>
+              )}
+
+              {/* Form */}
+              <form onSubmit={handleChangePassword} className="space-y-4 text-xs">
+                {/* Current Password */}
+                <div>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">
+                    Current Password <span className="text-cyan-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showCurrentPass ? 'text' : 'password'}
+                      required
+                      value={passwordForm.currentPassword}
+                      onChange={(e) =>
+                        setPasswordForm({ ...passwordForm, currentPassword: e.target.value })
+                      }
+                      className="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition"
+                      placeholder="Enter existing password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowCurrentPass(!showCurrentPass)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                    >
+                      {showCurrentPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* New Password */}
+                <div>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">
+                    New Password <span className="text-cyan-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showNewPass ? 'text' : 'password'}
+                      required
+                      minLength={8}
+                      value={passwordForm.newPassword}
+                      onChange={(e) =>
+                        setPasswordForm({ ...passwordForm, newPassword: e.target.value })
+                      }
+                      className="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition"
+                      placeholder="Minimum 8 characters"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowNewPass(!showNewPass)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                    >
+                      {showNewPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 block">
+                    Must be at least 8 characters long with letters/numbers.
+                  </span>
+                </div>
+
+                {/* Confirm New Password */}
+                <div>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1.5">
+                    Confirm New Password <span className="text-cyan-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showConfirmPass ? 'text' : 'password'}
+                      required
+                      minLength={8}
+                      value={passwordForm.confirmPassword}
+                      onChange={(e) =>
+                        setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })
+                      }
+                      className="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-slate-50 hover:bg-white focus:bg-white text-slate-900 dark:bg-slate-900 dark:text-white border border-slate-300 dark:border-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition"
+                      placeholder="Re-type new password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPass(!showConfirmPass)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                    >
+                      {showConfirmPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Buttons */}
+                <div className="pt-3 flex justify-end gap-2 border-t border-slate-200 dark:border-white/[0.08]">
+                  <button
+                    type="button"
+                    onClick={() => setShowPasswordModal(false)}
+                    className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700 text-xs font-semibold transition"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={passwordLoading}
+                    className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs shadow-md shadow-cyan-500/25 transition flex items-center gap-1.5 disabled:opacity-60 cursor-pointer"
+                  >
+                    {passwordLoading ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Updating...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Lock className="w-3.5 h-3.5" />
+                        <span>Update Password</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
           {/* MODAL: CREATE / EDIT SKILL */}
           {modalType === 'skill' && editingItem && (

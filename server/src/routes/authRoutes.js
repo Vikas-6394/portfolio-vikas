@@ -1,6 +1,6 @@
 import express from 'express';
 import { body } from 'express-validator';
-import { login, getMe, logout, setupInitialAdmin } from '../controllers/authController.js';
+import { login, getMe, logout, setupInitialAdmin, changePassword } from '../controllers/authController.js';
 import { protectAdmin } from '../middleware/authMiddleware.js';
 import { authRateLimiter } from '../middleware/rateLimiter.js';
 import { handleValidationErrors } from '../middleware/validateMiddleware.js';
@@ -24,6 +24,19 @@ router.post(
 
 router.get('/me', protectAdmin, getMe);
 router.post('/logout', logout);
+
+router.put(
+  '/change-password',
+  protectAdmin,
+  [
+    body('currentPassword').notEmpty().withMessage('Current password is required'),
+    body('newPassword')
+      .isLength({ min: 8 })
+      .withMessage('New password must be at least 8 characters long'),
+  ],
+  handleValidationErrors,
+  changePassword
+);
 
 // One-time setup of admin account if zero accounts exist
 router.post(

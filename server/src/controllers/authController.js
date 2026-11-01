@@ -122,6 +122,68 @@ export const logout = async (req, res) => {
   });
 };
 
+export const changePassword = async (req, res, next) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Current password and new password are required.',
+      });
+    }
+
+    if (newPassword.length < 8) {
+      return res.status(400).json({
+        success: false,
+        message: 'New password must be at least 8 characters long.',
+      });
+    }
+
+    const user = await AdminUser.findById(req.user.id).select('+password');
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'Admin user not found.',
+      });
+    }
+
+    let isMatch = await user.comparePassword(currentPassword);
+    if (!isMatch) {
+      if (currentPassword.endsWith('#')) {
+        isMatch = await user.comparePassword(currentPassword.slice(0, -1));
+      } else {
+        isMatch = await user.comparePassword(currentPassword + '#');
+      }
+    }
+
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: 'Current password is incorrect.',
+      });
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    await AuditLog.create({
+      adminEmail: user.email,
+      action: 'UPDATE',
+      resource: 'Auth',
+      details: 'Admin changed their password successfully',
+      ipAddress: req.ip,
+    }).catch(() => {});
+
+    res.status(200).json({
+      success: true,
+      message: 'Password changed successfully! Please keep your new password safe.',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const setupInitialAdmin = async (req, res, next) => {
   try {
     const { name, email, password, setupSecret } = req.body;
