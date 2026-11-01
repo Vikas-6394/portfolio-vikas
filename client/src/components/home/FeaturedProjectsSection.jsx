@@ -53,7 +53,7 @@ export const FeaturedProjectsSection = () => {
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80';
+                  if (!project.coverImage?.startsWith('data:')) { e.target.src = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80'; }
                 }}
               />
               <div className="absolute top-4 left-4">

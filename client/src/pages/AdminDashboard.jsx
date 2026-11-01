@@ -42,7 +42,7 @@ import { getSafeImageUrl, compressImageFile } from '../utils/imageHelper';
 
 export const AdminDashboard = () => {
   const { user, logout, isAuthenticated, loading: authLoading } = useAuth();
-  const { profile, refreshPortfolioData } = usePortfolio();
+  const { profile, refreshPortfolioData, updateLocalProjects } = usePortfolio();
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState('overview'); // overview, enquiries, services, projects, templates, skills, testimonials, profile, settings
@@ -164,32 +164,14 @@ export const AdminDashboard = () => {
 
     setUploading(true);
     try {
-      // 1. Immediately compress in browser to high-quality lightweight Data URI (~60-120KB)
-      // This ensures the photo is saved directly into MongoDB and never lost on server restarts
+      // Immediately compress in browser to high-quality lightweight Data URI (~60-120KB)
+      // This ensures the photo is saved directly into MongoDB Atlas and permanently preserved across all devices and server restarts
       const compressedDataUri = await compressImageFile(file, 1280, 800, 0.82);
 
       setEditingItem((prev) => ({
         ...prev,
         [fieldName]: compressedDataUri,
       }));
-
-      // 2. Also attempt upload to backend (if cloud storage like Cloudinary is configured)
-      try {
-        const formData = new FormData();
-        formData.append('file', file);
-        const res = await portfolioAPI.uploadMedia(formData);
-        if (res.data?.success && (res.data.fileUrl || res.data.url)) {
-          const publicUrl = res.data.fileUrl || res.data.url;
-          if (publicUrl.startsWith('https://res.cloudinary.com') || (publicUrl.startsWith('http') && !publicUrl.includes('/uploads/'))) {
-            setEditingItem((prev) => ({
-              ...prev,
-              [fieldName]: publicUrl,
-            }));
-          }
-        }
-      } catch (uploadErr) {
-        console.info('Stored via persistent compressed image.');
-      }
     } catch (err) {
       console.warn('Image processing fallback to basic FileReader:', err);
       const reader = new FileReader();
@@ -357,6 +339,9 @@ export const AdminDashboard = () => {
     try {
       await portfolioAPI.deleteProject(id);
       setAdminProjects((prev) => prev.filter((p) => p._id !== id));
+      if (updateLocalProjects) {
+        updateLocalProjects((prev) => prev.filter((p) => p._id !== id));
+      }
       refreshPortfolioData();
     } catch (err) {
       alert('Error deleting project');
@@ -931,7 +916,7 @@ export const AdminDashboard = () => {
                         <div className="flex items-center gap-1.5">
                           <button
                             onClick={() => {
-                              setEditingItem(prj);
+                              setEditingItem({ ...prj });
                               setModalType('project');
                             }}
                             className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-white transition"
@@ -1932,14 +1917,38 @@ export const AdminDashboard = () => {
                       };
 
                       try {
+                        let savedPrj = null;
                         if (editingItem._id) {
-                          await portfolioAPI.updateProject(editingItem._id, payload);
+                          const res = await portfolioAPI.updateProject(editingItem._id, payload);
+                          savedPrj = res.data?.project || { ...payload, _id: editingItem._id };
                         } else {
-                          await portfolioAPI.createProject(payload);
+                          const res = await portfolioAPI.createProject(payload);
+                          savedPrj = res.data?.project;
                         }
+
+                        // Immediately update local admin state and persistent cache
+                        if (savedPrj) {
+                          setAdminProjects((prev) => {
+                            const exists = prev.some((p) => p._id === savedPrj._id);
+                            if (exists) {
+                              return prev.map((p) => (p._id === savedPrj._id ? savedPrj : p));
+                            }
+                            return [savedPrj, ...prev];
+                          });
+                          if (updateLocalProjects) {
+                            updateLocalProjects((prev) => {
+                              const exists = prev.some((p) => p._id === savedPrj._id || p.slug === savedPrj.slug);
+                              if (exists) {
+                                return prev.map((p) => (p._id === savedPrj._id || p.slug === savedPrj.slug ? savedPrj : p));
+                              }
+                              return [savedPrj, ...prev];
+                            });
+                          }
+                        }
+
                         setModalType(null);
                         await loadDashboardData();
-                        refreshPortfolioData();
+                        await refreshPortfolioData();
                       } catch (err) {
                         alert('Error saving project: ' + (err.response?.data?.message || err.message));
                       }
