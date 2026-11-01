@@ -51,6 +51,10 @@ export const FeaturedProjectsSection = () => {
                 src={getSafeImageUrl(project.coverImage)}
                 alt={project.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80';
+                }}
               />
               <div className="absolute top-4 left-4">
                 <span className="px-3 py-1 rounded-full bg-white/90 dark:bg-slate-900/80 backdrop-blur-md text-[11px] font-bold text-cyan-600 dark:text-cyan-400 border border-slate-200 dark:border-white/10 shadow-sm">

@@ -34,7 +34,7 @@ import { usePortfolio } from '../context/PortfolioContext';
 import { portfolioAPI } from '../services/api';
 import { ThemeToggle } from '../components/common/ThemeToggle';
 import { validateEmail, validateIndianMobile } from '../utils/formValidation';
-import { getSafeImageUrl } from '../utils/imageHelper';
+import { getSafeImageUrl, compressImageFile } from '../utils/imageHelper';
 
 export const AdminDashboard = () => {
   const { user, logout, isAuthenticated, loading: authLoading } = useAuth();
@@ -79,28 +79,41 @@ export const AdminDashboard = () => {
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) {
-      alert('File size exceeds 5MB limit. Please choose a smaller image.');
+    if (file.size > 15 * 1024 * 1024) {
+      alert('File size exceeds 15MB limit. Please choose a smaller image.');
       return;
     }
 
     setUploading(true);
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      const res = await portfolioAPI.uploadMedia(formData);
+      // 1. Immediately compress in browser to high-quality lightweight Data URI (~60-120KB)
+      // This ensures the photo is saved directly into MongoDB and never lost on server restarts
+      const compressedDataUri = await compressImageFile(file, 1280, 800, 0.82);
 
-      if (res.data?.success && (res.data.fileUrl || res.data.url)) {
-        const publicUrl = res.data.fileUrl || res.data.url;
-        setEditingItem((prev) => ({
-          ...prev,
-          [fieldName]: publicUrl,
-        }));
-      } else {
-        throw new Error(res.data?.message || 'Server did not return a valid file URL.');
+      setEditingItem((prev) => ({
+        ...prev,
+        [fieldName]: compressedDataUri,
+      }));
+
+      // 2. Also attempt upload to backend (if cloud storage like Cloudinary is configured)
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        const res = await portfolioAPI.uploadMedia(formData);
+        if (res.data?.success && (res.data.fileUrl || res.data.url)) {
+          const publicUrl = res.data.fileUrl || res.data.url;
+          if (publicUrl.startsWith('https://res.cloudinary.com') || (publicUrl.startsWith('http') && !publicUrl.includes('/uploads/'))) {
+            setEditingItem((prev) => ({
+              ...prev,
+              [fieldName]: publicUrl,
+            }));
+          }
+        }
+      } catch (uploadErr) {
+        console.info('Stored via persistent compressed image.');
       }
     } catch (err) {
-      console.warn('Server upload issue, loading image directly via Data URI:', err);
+      console.warn('Image processing fallback to basic FileReader:', err);
       const reader = new FileReader();
       reader.onloadend = () => {
         setEditingItem((prev) => ({
@@ -340,8 +353,12 @@ export const AdminDashboard = () => {
         <aside className="w-full md:w-64 bg-white dark:bg-[#0a0f1d] border-r border-slate-200 dark:border-white/[0.08] p-5 flex flex-col justify-between flex-shrink-0 transition-colors">
           <div>
             <div className="flex items-center gap-3 pb-6 mb-6 border-b border-slate-200 dark:border-white/[0.08]">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-cyan-500/20">
-                VM
+              <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]">
+                <img
+                  src="/vm-logo-ring-transparent.png"
+                  alt="Mr. Vikas Maurya"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="min-w-0">
                 <span className="font-bold text-sm text-slate-900 dark:text-white block truncate">Admin Panel</span>
@@ -383,16 +400,7 @@ export const AdminDashboard = () => {
           </div>
 
           <div className="pt-6 border-t border-slate-200 dark:border-white/[0.08] space-y-2">
-            <button
-              onClick={() => {
-                loadDashboardData();
-                refreshPortfolioData();
-              }}
-              className="w-full flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/[0.04] transition"
-            >
-              <RefreshCw className="w-4 h-4" />
-              <span>Refresh Data</span>
-            </button>
+            
             <button
               onClick={handleLogout}
               className="w-full flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:text-rose-300 dark:hover:bg-rose-950/20 transition"
@@ -1397,39 +1405,22 @@ export const AdminDashboard = () => {
                 </div>
 
                 <div className="space-y-3 text-xs">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-slate-300 mb-1">Project Title *</label>
-                      <input
-                        type="text"
-                        required
-                        value={editingItem.title}
-                        onChange={(e) => {
-                          const newTitle = e.target.value;
-                          const autoSlug = !editingItem._id
-                            ? newTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
-                            : (editingItem.slug || '');
-                          setEditingItem({ ...editingItem, title: newTitle, slug: autoSlug });
-                        }}
-                        className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
-                        placeholder="e.g. Clotes Shop"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-slate-300 mb-1">Slug (URL path)</label>
-                      <input
-                        type="text"
-                        value={editingItem.slug || ''}
-                        onChange={(e) =>
-                          setEditingItem({
-                            ...editingItem,
-                            slug: e.target.value.toLowerCase().replace(/\s+/g, '-'),
-                          })
-                        }
-                        className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono"
-                        placeholder="e.g. clotes-shop-ecommerce"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-slate-300 mb-1">Project Title *</label>
+                    <input
+                      type="text"
+                      required
+                      value={editingItem.title}
+                      onChange={(e) => {
+                        const newTitle = e.target.value;
+                        const autoSlug = !editingItem._id
+                          ? newTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
+                          : (editingItem.slug || newTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''));
+                        setEditingItem({ ...editingItem, title: newTitle, slug: autoSlug });
+                      }}
+                      className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white"
+                      placeholder="e.g. Clotes Shop"
+                    />
                   </div>
 
                   <div>
@@ -1464,108 +1455,68 @@ export const AdminDashboard = () => {
                     />
                   </div>
 
-                  {/* PROJECT COVER IMAGE: URL & DIRECT FILE UPLOAD */}
+                  {/* PROJECT COVER IMAGE: DIRECT FILE UPLOAD ONLY */}
                   <div className="rounded-xl border border-white/10 bg-slate-900/60 p-3.5 space-y-3">
                     <div className="flex items-center justify-between">
                       <label className="text-slate-200 font-semibold text-xs flex items-center gap-1.5">
                         <ImageIcon className="w-3.5 h-3.5 text-cyan-400" />
                         Project Photo / Cover Image
                       </label>
-                      <div className="flex items-center bg-slate-950 p-0.5 rounded-lg border border-slate-800 text-[11px]">
+                      {editingItem.coverImage && (
                         <button
                           type="button"
-                          onClick={() => setProjectImageMode('url')}
-                          className={`px-2.5 py-1 rounded-md transition flex items-center gap-1 ${
-                            projectImageMode === 'url'
-                              ? 'bg-cyan-500 text-white font-semibold shadow-sm'
-                              : 'text-slate-400 hover:text-white'
-                          }`}
-                        >
-                          <LinkIcon className="w-3 h-3" />
-                          Image URL
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setProjectImageMode('file')}
-                          className={`px-2.5 py-1 rounded-md transition flex items-center gap-1 ${
-                            projectImageMode === 'file'
-                              ? 'bg-cyan-500 text-white font-semibold shadow-sm'
-                              : 'text-slate-400 hover:text-white'
-                          }`}
+                          onClick={() => projectFileInputRef.current?.click()}
+                          className="text-cyan-400 hover:text-cyan-300 text-[11px] font-medium flex items-center gap-1 hover:underline"
                         >
                           <Upload className="w-3 h-3" />
-                          Upload Photo
+                          Change Photo
                         </button>
-                      </div>
+                      )}
                     </div>
 
-                    {/* Mode 1: URL input */}
-                    {projectImageMode === 'url' ? (
-                      <div className="space-y-1">
-                        <div className="relative">
-                          <input
-                            type="text"
-                            value={editingItem.coverImage || ''}
-                            onChange={(e) =>
-                              setEditingItem({ ...editingItem, coverImage: e.target.value })
-                            }
-                            className="w-full px-3 py-2 pl-9 rounded-lg bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-xs focus:border-cyan-500 focus:outline-none"
-                            placeholder="Paste photo URL (e.g. https://images.unsplash.com/...)"
-                          />
-                          <LinkIcon className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-2.5" />
-                        </div>
-                        <p className="text-[10px] text-slate-400">
-                          Paste any web image URL from Unsplash, Imgur, Cloudinary, etc.
-                        </p>
+                    <input
+                      ref={projectFileInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          handleImageFileUpload(file, 'coverImage', setUploadingProjectImg);
+                        }
+                        e.target.value = '';
+                      }}
+                    />
+
+                    {!editingItem.coverImage ? (
+                      <div
+                        onClick={() => projectFileInputRef.current?.click()}
+                        className="border-2 border-dashed border-slate-700 hover:border-cyan-500/70 bg-slate-900/80 hover:bg-slate-900 rounded-xl p-5 text-center cursor-pointer transition group"
+                      >
+                        {uploadingProjectImg ? (
+                          <div className="flex flex-col items-center justify-center py-2 text-cyan-400">
+                            <Loader2 className="w-6 h-6 animate-spin mb-1" />
+                            <span className="text-xs font-medium">Uploading & compressing photo...</span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center justify-center py-2">
+                            <div className="w-10 h-10 rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-2 group-hover:scale-110 transition">
+                              <Upload className="w-5 h-5" />
+                            </div>
+                            <p className="text-xs font-semibold text-slate-200">
+                              Click to upload photo from your device
+                            </p>
+                            <p className="text-[10px] text-slate-500 mt-1">
+                              Supports PNG, JPG, JPEG, WEBP, SVG (Auto-compressed)
+                            </p>
+                          </div>
+                        )}
                       </div>
                     ) : (
-                      /* Mode 2: File Upload input */
-                      <div>
-                        <input
-                          ref={projectFileInputRef}
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if (file) {
-                              handleImageFileUpload(file, 'coverImage', setUploadingProjectImg);
-                            }
-                            e.target.value = '';
-                          }}
-                        />
-                        <div
-                          onClick={() => projectFileInputRef.current?.click()}
-                          className="border-2 border-dashed border-slate-700 hover:border-cyan-500/70 bg-slate-900/80 hover:bg-slate-900 rounded-xl p-4 text-center cursor-pointer transition group"
-                        >
-                          {uploadingProjectImg ? (
-                            <div className="flex flex-col items-center justify-center py-2 text-cyan-400">
-                              <Loader2 className="w-6 h-6 animate-spin mb-1" />
-                              <span className="text-xs font-medium">Uploading photo from device...</span>
-                            </div>
-                          ) : (
-                            <div className="flex flex-col items-center justify-center py-1">
-                              <div className="w-9 h-9 rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-1.5 group-hover:scale-110 transition">
-                                <Upload className="w-4 h-4" />
-                              </div>
-                              <p className="text-xs font-semibold text-slate-200">
-                                Click to select image from your computer / device
-                              </p>
-                              <p className="text-[10px] text-slate-500 mt-0.5">
-                                Supports PNG, JPG, JPEG, WEBP, SVG (Max 5MB)
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Live Image Preview (when image is present) */}
-                    {editingItem.coverImage && (
-                      <div className="rounded-lg border border-slate-800 bg-slate-950 p-2.5 space-y-1.5">
+                      <div className="rounded-lg border border-slate-800 bg-slate-950 p-2.5 space-y-2">
                         <div className="flex items-center justify-between text-[11px]">
                           <span className="flex items-center gap-1 text-emerald-400 font-medium">
-                            <CheckCircle className="w-3.5 h-3.5" /> Photo Selected / Preview
+                            <CheckCircle className="w-3.5 h-3.5" /> Photo Selected / Uploaded
                           </span>
                           <button
                             type="button"
@@ -1575,19 +1526,16 @@ export const AdminDashboard = () => {
                             <X className="w-3 h-3" /> Remove Photo
                           </button>
                         </div>
-                        <div className="relative h-40 w-full rounded-md overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <div className="relative h-44 w-full rounded-md overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
                           <img
                             src={getSafeImageUrl(editingItem.coverImage)}
                             alt="Project Preview"
                             className="w-full h-full object-cover"
-                            onError={(e) => {
-                              e.target.onerror = null;
-                              e.target.src = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80';
-                            }}
                           />
                         </div>
-                        <p className="text-[10px] text-slate-400 truncate font-mono">
-                          {editingItem.coverImage}
+                        <p className="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
+                          <CheckCircle className="w-3 h-3" />
+                          <span>Image is ready! Click "Save Project" below to save changes.</span>
                         </p>
                       </div>
                     )}
@@ -1890,8 +1838,9 @@ export const AdminDashboard = () => {
                             }}
                           />
                         </div>
-                        <p className="text-[10px] text-slate-400 truncate font-mono">
-                          {editingItem.thumbnail}
+                        <p className="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
+                          <CheckCircle className="w-3 h-3" />
+                          <span>Thumbnail is ready! Click "Save Template" below to save changes.</span>
                         </p>
                       </div>
                     )}

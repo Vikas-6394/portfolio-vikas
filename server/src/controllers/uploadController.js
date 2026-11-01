@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { ENV } from '../config/env.js';
 
 export const handleFileUpload = async (req, res, next) => {
@@ -9,19 +10,25 @@ export const handleFileUpload = async (req, res, next) => {
       });
     }
 
-    // Determine public origin so images load correctly from client apps
-    const forwardedProto = req.headers['x-forwarded-proto'];
-    const protocol = forwardedProto || (req.secure ? 'https' : (ENV.NODE_ENV === 'production' ? 'https' : req.protocol));
-    const host = req.get('host');
-    const fullUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
-    const relativeUrl = `/uploads/${req.file.filename}`;
+    // Read file buffer to produce persistent base64 data URI
+    // This prevents images from 404ing / disappearing on cloud containers (e.g. Render free tier restarts)
+    const fileBuffer = fs.readFileSync(req.file.path);
+    const mimeType = req.file.mimetype || 'image/jpeg';
+    const base64Data = fileBuffer.toString('base64');
+    const persistentDataUrl = `data:${mimeType};base64,${base64Data}`;
+
+    // Clean up temporary local file
+    try {
+      if (fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+      }
+    } catch (_) {}
 
     res.status(200).json({
       success: true,
-      message: 'File uploaded successfully',
-      fileUrl: fullUrl,
-      url: fullUrl,
-      relativeUrl,
+      message: 'File uploaded and converted to persistent storage successfully',
+      fileUrl: persistentDataUrl,
+      url: persistentDataUrl,
       filename: req.file.filename,
       size: req.file.size,
       mimetype: req.file.mimetype,

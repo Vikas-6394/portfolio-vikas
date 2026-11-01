@@ -15,8 +15,12 @@ export const Footer = () => {
           {/* Brand Info */}
           <div className="md:col-span-1 space-y-4">
             <Link to="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-cyan-500/20">
-                VM
+              <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]">
+                <img
+                  src="/vm-logo-ring-transparent.png"
+                  alt="Mr. Vikas Maurya"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <span className="font-extrabold text-lg text-slate-900 dark:text-white">Mr. Vikas Maurya</span>
             </Link>

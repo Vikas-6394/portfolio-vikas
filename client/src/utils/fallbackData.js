@@ -37,22 +37,38 @@ export const fallbackProfile = {
 };
 
 export const fallbackSkills = [
-  { _id: '1', name: 'HTML5', category: 'Frontend', proficiencyPercentage: 95, levelLabel: 'Expert', iconName: 'FileCode' },
-  { _id: '2', name: 'CSS3', category: 'Frontend', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Palette' },
-  { _id: '3', name: 'JavaScript (ES6+)', category: 'Frontend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Code' },
-  { _id: '4', name: 'React', category: 'Frontend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Atom' },
-  { _id: '5', name: 'Tailwind CSS', category: 'Frontend', proficiencyPercentage: 95, levelLabel: 'Expert', iconName: 'Wind' },
-  { _id: '6', name: 'Responsive Web Design', category: 'Frontend', proficiencyPercentage: 96, levelLabel: 'Expert', iconName: 'Smartphone' },
-  { _id: '7', name: 'Node.js', category: 'Backend', proficiencyPercentage: 85, levelLabel: 'Advanced', iconName: 'Server' },
-  { _id: '8', name: 'Express.js', category: 'Backend', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'Cpu' },
-  { _id: '9', name: 'REST APIs', category: 'Backend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Network' },
-  { _id: '10', name: 'MongoDB', category: 'Database', proficiencyPercentage: 85, levelLabel: 'Advanced', iconName: 'Database' },
-  { _id: '11', name: 'Python', category: 'Programming Languages', proficiencyPercentage: 80, levelLabel: 'Proficient', iconName: 'Terminal' },
-  { _id: '12', name: 'C Programming', category: 'Programming Languages', proficiencyPercentage: 78, levelLabel: 'Proficient', iconName: 'Binary' },
-  { _id: '13', name: 'Java', category: 'Programming Languages', proficiencyPercentage: 80, levelLabel: 'Proficient', iconName: 'Coffee' },
-  { _id: '14', name: 'DSA', category: 'Programming Languages', proficiencyPercentage: 82, levelLabel: 'Proficient', iconName: 'GitBranch' },
-  { _id: '15', name: 'Git & GitHub', category: 'Tools & DevOps', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'GitPullRequest' },
-  { _id: '16', name: 'Website Security Fundamentals', category: 'Security & Fundamentals', proficiencyPercentage: 84, levelLabel: 'Advanced', iconName: 'ShieldCheck' },
+  // FRONTEND
+  { _id: '1', name: 'React.js', category: 'Frontend', proficiencyPercentage: 95, levelLabel: 'Expert', iconName: 'Atom' },
+  { _id: '2', name: 'Next.js', category: 'Frontend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Layers' },
+  { _id: '3', name: 'TypeScript', category: 'Frontend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'FileCode' },
+  { _id: '4', name: 'JavaScript', category: 'Frontend', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Code' },
+  { _id: '5', name: 'HTML5', category: 'Frontend', proficiencyPercentage: 96, levelLabel: 'Expert', iconName: 'FileCode' },
+  { _id: '6', name: 'CSS3', category: 'Frontend', proficiencyPercentage: 94, levelLabel: 'Expert', iconName: 'Palette' },
+  { _id: '7', name: 'Tailwind CSS', category: 'Frontend', proficiencyPercentage: 95, levelLabel: 'Expert', iconName: 'Wind' },
+  { _id: '8', name: 'Redux Toolkit', category: 'Frontend', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'Layers' },
+
+  // BACKEND
+  { _id: '9', name: 'Node.js', category: 'Backend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Server' },
+  { _id: '10', name: 'Express.js', category: 'Backend', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Cpu' },
+  { _id: '11', name: 'REST APIs', category: 'Backend', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Network' },
+  { _id: '12', name: 'JWT', category: 'Backend', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'ShieldCheck' },
+  { _id: '13', name: 'Socket.IO', category: 'Backend', proficiencyPercentage: 85, levelLabel: 'Advanced', iconName: 'Network' },
+
+  // DATABASE
+  { _id: '14', name: 'MongoDB', category: 'Database', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Database' },
+  { _id: '15', name: 'PostgreSQL', category: 'Database', proficiencyPercentage: 85, levelLabel: 'Advanced', iconName: 'Database' },
+  { _id: '16', name: 'MySQL', category: 'Database', proficiencyPercentage: 86, levelLabel: 'Advanced', iconName: 'Database' },
+  { _id: '17', name: 'Prisma', category: 'Database', proficiencyPercentage: 84, levelLabel: 'Advanced', iconName: 'Layers' },
+  { _id: '18', name: 'Mongoose', category: 'Database', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Database' },
+
+  // AI & TOOLS
+  { _id: '19', name: 'Claude AI', category: 'Tools & DevOps', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Cpu' },
+  { _id: '20', name: 'Git', category: 'Tools & DevOps', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'GitBranch' },
+  { _id: '21', name: 'GitHub', category: 'Tools & DevOps', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'GitPullRequest' },
+  { _id: '22', name: 'Postman', category: 'Tools & DevOps', proficiencyPercentage: 92, levelLabel: 'Expert', iconName: 'Terminal' },
+  { _id: '23', name: 'Chart.js', category: 'Tools & DevOps', proficiencyPercentage: 86, levelLabel: 'Advanced', iconName: 'Layers' },
+  { _id: '24', name: 'Recharts', category: 'Tools & DevOps', proficiencyPercentage: 88, levelLabel: 'Advanced', iconName: 'Layers' },
+  { _id: '25', name: 'Vercel', category: 'Tools & DevOps', proficiencyPercentage: 90, levelLabel: 'Advanced', iconName: 'Server' },
 ];
 
 export const fallbackServices = [
