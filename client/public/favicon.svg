@@ -1,31 +1,62 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <!-- Sleek Dark Rounded Capsule Background -->
-  <rect width="64" height="64" rx="16" fill="#070b14"/>
-  <rect x="2" y="2" width="60" height="60" rx="14" stroke="url(#borderGrad)" stroke-width="1.5" stroke-opacity="0.8"/>
-  
-  <!-- "VM" Bold Monogram -->
-  <text 
-    x="32" 
-    y="43" 
-    text-anchor="middle" 
-    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" 
-    font-size="29" 
-    font-weight="900" 
-    letter-spacing="-1.2px"
-    fill="url(#vmGrad)"
-  >VM</text>
-
-  <!-- Gradients -->
   <defs>
-    <linearGradient id="vmGrad" x1="12" y1="16" x2="52" y2="48" gradientUnits="userSpaceOnUse">
+    <!-- Background Radial Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#0e172a"/>
+      <stop offset="70%" stop-color="#060913"/>
+      <stop offset="100%" stop-color="#020408"/>
+    </radialGradient>
+
+    <!-- Outer Ring Gradient -->
+    <linearGradient id="ringGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="45%" stop-color="#06b6d4"/>
+      <stop offset="80%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+
+    <!-- Orbital Swoop Gradient -->
+    <linearGradient id="orbitGrad" x1="10" y1="15" x2="54" y2="49" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#38bdf8" stop-opacity="0.9"/>
+      <stop offset="80%" stop-color="#06b6d4" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- Left Leg: Premium Metallic White / Silver -->
+    <linearGradient id="leftArmGrad" x1="17" y1="18" x2="32" y2="47" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+
+    <!-- Right Leg: Vibrant Electric Cyan to Royal Blue -->
+    <linearGradient id="rightArmGrad" x1="32" y1="18" x2="47" y2="47" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#38bdf8"/>
       <stop offset="50%" stop-color="#06b6d4"/>
-      <stop offset="100%" stop-color="#60a5fa"/>
-    </linearGradient>
-    <linearGradient id="borderGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
-      <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#818cf8" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
     </linearGradient>
   </defs>
+
+  <!-- Circular Base (Cycly format) -->
+  <circle cx="32" cy="32" r="30" fill="url(#bgGrad)"/>
+  <circle cx="32" cy="32" r="30" stroke="url(#ringGrad)" stroke-width="2.2"/>
+
+  <!-- Orbital Ring (Cosmic Swoop) -->
+  <ellipse cx="32" cy="32" rx="27" ry="12" fill="none" stroke="url(#orbitGrad)" stroke-width="1.8" transform="rotate(-28 32 32)"/>
+
+  <!-- Iconic 'V' Lettermark -->
+  <!-- Left Wing (White / Silver) -->
+  <path d="M 17 18 L 25.5 18 L 32 37.5 L 32 46.5 L 29 46.5 Z" fill="url(#leftArmGrad)"/>
+  
+  <!-- Right Wing (Cyan / Blue) -->
+  <path d="M 47 18 L 38.5 18 L 32 37.5 L 32 46.5 L 35 46.5 Z" fill="url(#rightArmGrad)"/>
+
+  <!-- Center Seam Accent Line -->
+  <line x1="32" y1="37.5" x2="32" y2="46.5" stroke="#0284c7" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- Code Bracket Tag: </> at top center -->
+  <path d="M 28 14.5 L 26.5 16 L 28 17.5" stroke="#38bdf8" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 36 14.5 L 37.5 16 L 36 17.5" stroke="#38bdf8" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="33" y1="14" x2="31" y2="18" stroke="#ffffff" stroke-width="1" stroke-linecap="round"/>
 </svg>
